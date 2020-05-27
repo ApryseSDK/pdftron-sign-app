@@ -1,13 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Router } from '@reach/router';
+
+//import Profile from './components/Profile/Profile';
+import SignIn from './components/SignIn/SignIn';
+//import SignUp from './components/SignUp/SignUp';
+//import PasswordReset from './components/PasswordReset/PasswordReset';
+
 import './App.css';
 
 const App = () => {
+  const user = null;
   return (
-    <div className="App">
-      
-    </div>
+    <Router>
+      <SignIn path="/" />
+    </Router>
   );
-}
+  // return user ? (
+  //   <Profile />
+  // ) : (
+  //   <Router>
+  //     <div className="App">
+  //       <SignUp path="signUp" />
+  //       <SignIn path="/" />
+  //       <PasswordReset path="passwordReset" />
+  //     </div>
+  //   </Router>
+  // );
+};
 
 export default App;
