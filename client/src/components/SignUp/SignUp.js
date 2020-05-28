@@ -44,7 +44,7 @@ const SignUp = () => {
           <TextField
             id="displayName"
             onChange={event => onChangeHandler(event)}
-            placeholder="Enter your email"
+            placeholder="Enter your name"
             label="Name"
             value={displayName}
             type="text"
@@ -54,7 +54,7 @@ const SignUp = () => {
           <TextField
             id="email"
             onChange={event => onChangeHandler(event)}
-            placeholder="Add email"
+            placeholder="Enter your email"
             label="Email"
             value={email}
             type="email"

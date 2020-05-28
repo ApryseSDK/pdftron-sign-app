@@ -42,7 +42,7 @@ const SignIn = () => {
             <TextField
               id="email"
               onChange={event => onChangeHandler(event)}
-              placeholder="Add email"
+              placeholder="Enter your email"
               label="Email"
               value={email}
               type="email"
