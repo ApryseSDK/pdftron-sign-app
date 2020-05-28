@@ -3,7 +3,7 @@ import { Router } from '@reach/router';
 
 //import Profile from './components/Profile/Profile';
 import SignIn from './components/SignIn/SignIn';
-//import SignUp from './components/SignUp/SignUp';
+import SignUp from './components/SignUp/SignUp';
 //import PasswordReset from './components/PasswordReset/PasswordReset';
 
 import './App.css';
@@ -13,6 +13,7 @@ const App = () => {
   return (
     <Router>
       <SignIn path="/" />
+      <SignUp path="signUp" />
     </Router>
   );
   // return user ? (

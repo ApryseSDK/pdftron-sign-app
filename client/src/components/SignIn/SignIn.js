@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from '@reach/router';
-import { Box, Button, Toast, Container, Text, TextField, Heading } from 'gestalt';
+import {
+  Box,
+  Button,
+  Toast,
+  Container,
+  Text,
+  TextField,
+  Heading,
+} from 'gestalt';
 import 'gestalt/dist/gestalt.css';
 
 const SignIn = () => {
@@ -29,6 +37,8 @@ const SignIn = () => {
           <Box padding={3}>
             {error !== null && <Toast text={error} />}
             <Heading size="md">Sign in</Heading>
+          </Box>
+          <Box padding={2}>
             <TextField
               id="email"
               onChange={event => onChangeHandler(event)}
@@ -37,6 +47,8 @@ const SignIn = () => {
               value={email}
               type="email"
             />
+          </Box>
+          <Box padding={2}>
             <TextField
               id="password"
               onChange={event => onChangeHandler(event)}
@@ -45,21 +57,33 @@ const SignIn = () => {
               value={password}
               type="password"
             />
+          </Box>
+          <Box padding={2}>
             <Button
               onClick={event => {
                 signInWithEmailAndPasswordHandler(event, email, password);
               }}
               text="Sign in"
+              color="blue"
               inline
             />
           </Box>
-          <Box marginBottom={2}>
+
+          <Box padding={2}>
             <Text>or</Text>
-            <Button text="Sign in with Google" inline />
+          </Box>
+          <Box padding={2}>
+            <Button text="Sign in with Google" color="red" inline />
+          </Box>
+          <Box padding={2}>
             <Text>Don't have an account?</Text>
+          </Box>
+          <Box padding={2}>
             <Link to="signUp" className="text-blue-500 hover:text-blue-600">
               Sign up here
             </Link>
+          </Box>
+          <Box padding={2}>
             <Link
               to="passwordReset"
               className="text-blue-500 hover:text-blue-600"
