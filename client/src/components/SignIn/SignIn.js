@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from '@reach/router';
+import { auth, signInWithGoogle } from '../../firebase';
 import {
   Box,
   Button,
@@ -73,7 +74,7 @@ const SignIn = () => {
             <Text>or</Text>
           </Box>
           <Box padding={2}>
-            <Button text="Sign in with Google" color="red" inline />
+            <Button onClick={signInWithGoogle} text="Sign in with Google" color="red" inline />
           </Box>
           <Box padding={2}>
             <Text>Don't have an account?</Text>
