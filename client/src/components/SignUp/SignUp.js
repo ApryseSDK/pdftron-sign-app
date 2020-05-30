@@ -38,7 +38,7 @@ const SignUp = () => {
       <Container>
         <Box padding={3}>
           {error !== null && <Toast text={error} />}
-          <Heading size="md">Sign Up</Heading>
+          <Heading size="md">Sign up</Heading>
         </Box>
         <Box padding={2}>
           <TextField
