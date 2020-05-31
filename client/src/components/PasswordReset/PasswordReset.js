@@ -1,28 +1,29 @@
 import React, { useState } from 'react';
 import { Link } from '@reach/router';
-import {
-  Box,
-  Button,
-  Toast,
-  Container,
-  TextField,
-  Heading,
-} from 'gestalt';
+import { Box, Button, Toast, Container, TextField, Heading } from 'gestalt';
 import 'gestalt/dist/gestalt.css';
+
+import { auth } from '../Firebase/firebase';
 
 const PasswordReset = () => {
   const [email, setEmail] = useState('');
   const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
   const [error, setError] = useState(null);
-  const onChangeHandler = event => {
-    const { name, value } = event.currentTarget;
-    if (name === 'userEmail') {
-      setEmail(value);
-    }
-  };
+
   const sendResetEmail = event => {
-    event.preventDefault();
+    auth
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        setEmailHasBeenSent(true);
+        setTimeout(() => {
+          setEmailHasBeenSent(false);
+        }, 3000);
+      })
+      .catch(() => {
+        setError('Error resetting password');
+      });
   };
+
   return (
     <div>
       <Box padding={3}>
@@ -32,12 +33,12 @@ const PasswordReset = () => {
           </Box>
           {error !== null && <Toast text={error} />}
           {emailHasBeenSent !== false && (
-              <Toast text={'An email with reset info is on the way'} />
-            )}
+            <Toast text={'An email with reset info is on the way'} />
+          )}
           <Box padding={2}>
             <TextField
               id="email"
-              onChange={event => onChangeHandler(event)}
+              onChange={event => setEmail(event.value)}
               placeholder="Enter your email"
               label="Email"
               value={email}
@@ -45,7 +46,14 @@ const PasswordReset = () => {
             />
           </Box>
           <Box padding={2}>
-            <Button onClick={event => {}} text="Reset" color="blue" inline />
+            <Button
+              onClick={event => {
+                sendResetEmail(event);
+              }}
+              text="Reset"
+              color="blue"
+              inline
+            />
           </Box>
           <Box padding={2}>
             <Link to="/" className="text-blue-500 hover:text-blue-600">

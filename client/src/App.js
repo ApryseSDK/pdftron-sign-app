@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import { Router } from '@reach/router';
-import { auth } from './components/Firebase/firebase';
+import { useSelector, useDispatch } from 'react-redux';
+
 import Profile from './components/Profile/Profile';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
 import PasswordReset from './components/PasswordReset/PasswordReset';
 
-import { useSelector, useDispatch } from 'react-redux';
+
+import { auth, generateUserDocument } from './components/Firebase/firebase';
 import { setUser, selectUser } from './components/Firebase/firebaseSlice';
 
 import './App.css';
@@ -16,11 +18,10 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    auth.onAuthStateChanged(userAuth => {
-      console.log('Auth changed');
-      console.log(userAuth);
+    auth.onAuthStateChanged(async userAuth => {
       if(userAuth) {
-        const { uid, displayName, email, photoURL } = userAuth;
+        const user = await generateUserDocument(userAuth);
+        const { uid, displayName, email, photoURL } = user;
         dispatch(setUser({ uid, displayName, email, photoURL }));
       }
     });

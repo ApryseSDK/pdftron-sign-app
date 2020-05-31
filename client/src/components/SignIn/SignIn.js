@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from '@reach/router';
-import { signInWithGoogle } from '../Firebase/firebase';
+import { auth, signInWithGoogle } from '../Firebase/firebase';
 import {
   Box,
   Button,
@@ -18,17 +18,10 @@ const SignIn = () => {
   const [error, setError] = useState(null);
 
   const signInWithEmailAndPasswordHandler = (event, email, password) => {
-    event.preventDefault();
-  };
-
-  const onChangeHandler = event => {
-    const { name, value } = event.currentTarget;
-
-    if (name === 'userEmail') {
-      setEmail(value);
-    } else if (name === 'userPassword') {
-      setPassword(value);
-    }
+    auth.signInWithEmailAndPassword(email, password).catch(error => {
+      setError("Error signing in with password and email!");
+      console.error("Error signing in with password and email", error);
+    });
   };
 
   return (
@@ -42,7 +35,7 @@ const SignIn = () => {
           <Box padding={2}>
             <TextField
               id="email"
-              onChange={event => onChangeHandler(event)}
+              onChange={event => setEmail(event.value)}
               placeholder="Enter your email"
               label="Email"
               value={email}
@@ -52,7 +45,7 @@ const SignIn = () => {
           <Box padding={2}>
             <TextField
               id="password"
-              onChange={event => onChangeHandler(event)}
+              onChange={event => setPassword(event.value)}
               placeholder="Enter your password"
               label="Password"
               value={password}

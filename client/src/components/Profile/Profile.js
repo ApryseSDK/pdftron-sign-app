@@ -8,6 +8,7 @@ import { selectUser, setUser } from '../Firebase/firebaseSlice';
 const ProfilePage = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  const { displayName, photoURL, email } = user;
 
   return (
     <Box padding={3}>
@@ -16,15 +17,15 @@ const ProfilePage = () => {
           <Heading size="md">Profile</Heading>
         </Box>
         <Box maxWidth={236} padding={2} column={12}>
-          <Card image={<Avatar name="James Jones" src={user.photoURL} />}>
+          <Card image={<Avatar name="James Jones" src={photoURL} />}>
             <Text align="center" weight="bold">
               <Box paddingX={3} paddingY={2}>
-                {user.displayName}
+                {displayName}
               </Box>
             </Text>
             <Text align="center">
               <Box paddingX={3} paddingY={2}>
-                {user.email}
+                {email}
               </Box>
             </Text>
             <Button

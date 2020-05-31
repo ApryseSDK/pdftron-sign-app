@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from '@reach/router';
-import { signInWithGoogle } from '../Firebase/firebase';
+import { auth, signInWithGoogle, generateUserDocument } from '../Firebase/firebase';
 import {
     Box,
     Button,
@@ -17,22 +17,21 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [error, setError] = useState(null);
-  const createUserWithEmailAndPasswordHandler = (event, email, password) => {
-    event.preventDefault();
-    setEmail('');
-    setPassword('');
-    setDisplayName('');
-  };
-  const onChangeHandler = event => {
-    const { name, value } = event.currentTarget;
-    if (name === 'userEmail') {
-      setEmail(value);
-    } else if (name === 'userPassword') {
-      setPassword(value);
-    } else if (name === 'displayName') {
-      setDisplayName(value);
+
+  const createUserWithEmailAndPasswordHandler = async (event, email, password) => {
+    try{
+      const {user} = await auth.createUserWithEmailAndPassword(email, password);
+      generateUserDocument(user, {displayName});
     }
+    catch(error){
+      setError('Error Signing up with email and password');
+    }
+
+    setEmail("");
+    setPassword("");
+    setDisplayName("");
   };
+
   return (
     <div>
     <Box padding={3}>
@@ -44,7 +43,7 @@ const SignUp = () => {
         <Box padding={2}>
           <TextField
             id="displayName"
-            onChange={event => onChangeHandler(event)}
+            onChange={event => setDisplayName(event.value)}
             placeholder="Enter your name"
             label="Name"
             value={displayName}
@@ -54,7 +53,7 @@ const SignUp = () => {
         <Box padding={2}>
           <TextField
             id="email"
-            onChange={event => onChangeHandler(event)}
+            onChange={event => setEmail(event.value)}
             placeholder="Enter your email"
             label="Email"
             value={email}
@@ -64,7 +63,7 @@ const SignUp = () => {
         <Box padding={2}>
           <TextField
             id="password"
-            onChange={event => onChangeHandler(event)}
+            onChange={event => setPassword(event.value)}
             placeholder="Enter your password"
             label="Password"
             value={password}
