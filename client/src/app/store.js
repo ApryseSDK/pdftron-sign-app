@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-//import counterReducer from '../features/counter/counterSlice';
+import firebaseReducer from '../components/Firebase/firebaseSlice';
 
 export default configureStore({
   reducer: {
-    //counter: counterReducer,
+    firebase: firebaseReducer 
   },
 });
