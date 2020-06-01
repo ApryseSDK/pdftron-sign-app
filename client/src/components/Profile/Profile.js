@@ -1,5 +1,14 @@
 import React from 'react';
-import { Box, Button, Text, Avatar, Card, Container, Heading } from 'gestalt';
+import {
+  Box,
+  Button,
+  Text,
+  Avatar,
+  Row,
+  Stack,
+  Container,
+  Heading,
+} from 'gestalt';
 import 'gestalt/dist/gestalt.css';
 import { auth } from '../Firebase/firebase';
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,20 +23,12 @@ const ProfilePage = () => {
     <Box padding={3}>
       <Container>
         <Box padding={3}>
-          <Heading size="md">Profile</Heading>
-        </Box>
-        <Box maxWidth={236} padding={2} column={12}>
-          <Card image={<Avatar name="James Jones" src={photoURL} />}>
-            <Text align="center" weight="bold">
-              <Box paddingX={3} paddingY={2}>
-                {displayName}
-              </Box>
-            </Text>
-            <Text align="center">
-              <Box paddingX={3} paddingY={2}>
-                {email}
-              </Box>
-            </Text>
+          <Row gap={1}>
+            <Avatar name={displayName} size="md" src={photoURL} />
+            <Stack>
+              <Text weight="bold">{displayName}</Text>
+              <Text>{email}</Text>
+            </Stack>
             <Button
               onClick={() => {
                 auth.signOut();
@@ -37,7 +38,7 @@ const ProfilePage = () => {
               color="red"
               text="Sign out"
             />
-          </Card>
+          </Row>
         </Box>
       </Container>
     </Box>
