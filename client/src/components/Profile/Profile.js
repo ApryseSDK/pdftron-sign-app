@@ -35,7 +35,6 @@ const ProfilePage = () => {
                 dispatch(setUser(null));
               }}
               accessibilityLabel="Sign out of your account"
-              color="red"
               text="Sign out"
             />
           </Row>
