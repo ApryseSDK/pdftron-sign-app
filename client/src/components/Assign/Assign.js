@@ -1,4 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { navigate } from '@reach/router';
 import {
   Box,
   Button,
@@ -9,16 +11,17 @@ import {
   Text,
 } from 'gestalt';
 import 'gestalt/dist/gestalt.css';
+import { addSignee, selectAssignees } from './AssignSlice';
 
 const Assign = () => {
   const [email, setEmail] = useState('');
   const [displayName, setDisplayName] = useState('');
-  const [users, setUsers] = useState([]);
-
-  let tableContent = [];
+  const assignees = useSelector(selectAssignees);
+  const dispatch = useDispatch();
 
   const addUser = (name, email) => {
-    setUsers([...users, { name, email }]);
+    const key = `${new Date().getTime()}${email}`;
+    dispatch(addSignee({key, name, email}));
     setEmail('');
     setDisplayName('');
   };
@@ -73,8 +76,8 @@ const Assign = () => {
                 </Table.Row>
               </Table.Header>
               <Table.Body>
-                {users.map(user => (
-                  <Table.Row key={user.email}>
+                {assignees.map(user => (
+                  <Table.Row key={user.key}>
                     <Table.Cell>
                       <Text>{user.name}</Text>
                     </Table.Cell>
@@ -85,6 +88,16 @@ const Assign = () => {
                 ))}
               </Table.Body>
             </Table>
+          </Box>
+          <Box padding={2}>
+            <Button
+              onClick={event => {
+                navigate(`/signDocument`);
+              }}
+              text="Prepare Document for Signing"
+              color="blue"
+              inline
+            />
           </Box>
         </Container>
       </Box>

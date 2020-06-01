@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import firebaseReducer from '../components/Firebase/firebaseSlice';
+import AssignReducer from '../components/Assign/AssignSlice';
 
 export default configureStore({
   reducer: {
-    firebase: firebaseReducer 
+    firebase: firebaseReducer,
+    assign: AssignReducer
   },
 });
