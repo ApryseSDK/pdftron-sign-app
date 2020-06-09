@@ -42,7 +42,6 @@ const App = () => {
 
   return user ? (
     <div>
-      {heading}
       <Router>
         <AssignUsers path="/" />
         <PrepareDocument path="/signDocument" />

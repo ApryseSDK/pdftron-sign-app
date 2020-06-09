@@ -37,7 +37,7 @@ const Assign = () => {
             <TextField
               id="displayName"
               onChange={event => setDisplayName(event.value)}
-              placeholder="Enter your name"
+              placeholder="Enter recipient's name"
               label="Name"
               value={displayName}
               type="text"
@@ -47,7 +47,7 @@ const Assign = () => {
             <TextField
               id="email"
               onChange={event => setEmail(event.value)}
-              placeholder="Enter your email"
+              placeholder="Enter recipient's email"
               label="Email"
               value={email}
               type="email"

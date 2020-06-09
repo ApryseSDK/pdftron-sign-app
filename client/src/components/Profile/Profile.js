@@ -25,6 +25,9 @@ const ProfilePage = () => {
       <Container>
         <Box padding={3}>
           <Row gap={1}>
+            <Container>
+              <Heading size="lg">PDFTron Sign App</Heading>
+            </Container>
             <Avatar name={displayName} size="md" src={photoURL} />
             <Stack>
               <Text weight="bold">{displayName}</Text>
