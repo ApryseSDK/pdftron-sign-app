@@ -6,7 +6,7 @@ import {
   Avatar,
   Row,
   Stack,
-  Container,
+  Column,
   Heading,
 } from 'gestalt';
 import 'gestalt/dist/gestalt.css';
@@ -21,30 +21,36 @@ const ProfilePage = () => {
   const { displayName, photoURL, email } = user;
 
   return (
-    <Box padding={3}>
-      <Container>
+    <Box display="flex" direction="row" paddingY={2} color={'lightGray'}>
+      <Column span={10}>
         <Box padding={3}>
-          <Row gap={1}>
-            <Container>
-              <Heading size="lg">PDFTron Sign App</Heading>
-            </Container>
-            <Avatar name={displayName} size="md" src={photoURL} />
+          <Heading size="lg">PDFTron Sign App</Heading>
+        </Box>
+      </Column>
+      <Column span={2}>
+        <Box padding={3}>
+          <Row>
+            <Box padding={1}>
+              <Avatar name={displayName} size="md" src={photoURL} />
+            </Box>
             <Stack>
               <Text weight="bold">{displayName}</Text>
               <Text>{email}</Text>
             </Stack>
-            <Button
-              onClick={() => {
-                auth.signOut();
-                dispatch(setUser(null));
-                navigate('/');
-              }}
-              accessibilityLabel="Sign out of your account"
-              text="Sign out"
-            />
+            <Box padding={1}>
+              <Button
+                onClick={() => {
+                  auth.signOut();
+                  dispatch(setUser(null));
+                  navigate('/');
+                }}
+                accessibilityLabel="Sign out of your account"
+                text="Sign out"
+              />
+            </Box>
           </Row>
         </Box>
-      </Container>
+      </Column>
     </Box>
   );
 };

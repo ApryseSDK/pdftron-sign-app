@@ -11,7 +11,7 @@ import PasswordReset from './components/PasswordReset/PasswordReset';
 import { auth, generateUserDocument } from './components/Firebase/firebase';
 import { setUser, selectUser } from './components/Firebase/firebaseSlice';
 
-import { Box, Container, Heading } from 'gestalt';
+import { Box, Column, Heading } from 'gestalt';
 import 'gestalt/dist/gestalt.css';
 
 import './App.css';
@@ -21,12 +21,12 @@ const App = () => {
   const dispatch = useDispatch();
 
   const heading = (
-    <Box padding={3}>
-      <Container>
-        <Box padding={3}>
-          <Heading size="lg">PDFTron Sign App</Heading>
-        </Box>
-      </Container>
+    <Box display="flex" direction="row" paddingY={2} color={'lightGray'}>
+    <Column span={10}>
+      <Box padding={3}>
+        <Heading size="lg">PDFTron Sign App</Heading>
+      </Box>
+    </Column>
     </Box>
   );
 
