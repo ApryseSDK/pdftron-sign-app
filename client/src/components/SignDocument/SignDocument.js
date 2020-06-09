@@ -1,11 +1,22 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Box, Column, Heading, Row, Stack, Text, Button } from 'gestalt';
+import { useSelector, useDispatch } from 'react-redux';
+import { Box, Column, Heading, Row, Stack, Text, Button, SelectList } from 'gestalt';
+import { selectAssignees } from '../Assign/AssignSlice';
 import WebViewer from '@pdftron/webviewer';
 import 'gestalt/dist/gestalt.css';
 import './SignDocument.css';
 
 const SignDocument = () => {
   const [upload, setUpload] = useState(true);
+
+  const assignees = useSelector(selectAssignees);
+  const assigneesValues = assignees.map(user => {
+    console.log(user);
+    return { value: user.email, label: user.name };
+  });
+  let initialAssignee = assigneesValues.length > 0 ? assigneesValues[0].value : '';
+  const [assignee, setAssignee] = useState(initialAssignee);
+
   const viewer = useRef(null);
   const filePicker = useRef(null);
   const addSignature = useRef(null);
@@ -76,6 +87,17 @@ const SignDocument = () => {
               <Stack>
                 <Box padding={2}>
                   <Text>{'Step 2'}</Text>
+                </Box>
+                <Box padding={2}>
+                  <SelectList
+                    id="assigningFor"
+                    name="assign"
+                    onChange={({ value }) => setAssignee(value)}
+                    options={assigneesValues}
+                    placeholder="Select recipient"
+                    label="Adding signature for"
+                    value={assignee}
+                  />
                 </Box>
                 <Box padding={2}>
                   <Button
