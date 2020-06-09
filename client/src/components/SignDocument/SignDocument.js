@@ -49,56 +49,61 @@ const SignDocument = () => {
   return (
     <div>
       <Box display="flex" direction="row" paddingY={2}>
-        <Column span={4}>
+        <Column span={2}>
           <Box padding={3}>
             <Heading size="md">Sign Document</Heading>
           </Box>
           <Box padding={3}>
             <Row gap={1}>
               <Stack>
-              <Box padding={2}>
-                <Text>{'Step 1'}</Text>
+                <Box padding={2}>
+                  <Text>{'Step 1'}</Text>
                 </Box>
-                <Button
-                  onClick={() => {
-                    if (filePicker) {
-                      filePicker.current.click();
-                    }
-                  }}
-                  accessibilityLabel="upload a document"
-                  text="Upload a document"
-                />
+                <Box padding={2}>
+                  <Button
+                    onClick={() => {
+                      if (filePicker) {
+                        filePicker.current.click();
+                      }
+                    }}
+                    accessibilityLabel="upload a document"
+                    text="Upload a document"
+                  />
+                </Box>
               </Stack>
             </Row>
             <Row>
               <Stack>
                 <Box padding={2}>
-                <Text>{'Step 2'}</Text>
+                  <Text>{'Step 2'}</Text>
                 </Box>
-                
-                <Button
-                  onClick={() => {
-                    if (filePicker) {
-                      filePicker.current.click();
-                    }
-                  }}
-                  accessibilityLabel="add signature"
-                  text="Add signature"
-                />
-                <Button
-                  onClick={() => {
-                    if (filePicker) {
-                      filePicker.current.click();
-                    }
-                  }}
-                  accessibilityLabel="add text"
-                  text="Add text"
-                />
+                <Box padding={2}>
+                  <Button
+                    onClick={() => {
+                      if (filePicker) {
+                        filePicker.current.click();
+                      }
+                    }}
+                    accessibilityLabel="add signature"
+                    text="Add signature"
+                  />
+                </Box>
+                <Box padding={2}>
+                  <Button
+                    onClick={() => {
+                      if (filePicker) {
+                        filePicker.current.click();
+                      }
+                    }}
+                    accessibilityLabel="add text"
+                    text="Add text"
+                  />
+                </Box>
               </Stack>
             </Row>
           </Box>
         </Column>
-        <Column span={8}>
+        <Column span={10}>
           <div className="webviewer" ref={viewer}></div>
         </Column>
       </Box>
