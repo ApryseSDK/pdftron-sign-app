@@ -32,19 +32,20 @@ const SignDocument = () => {
           'searchButton',
           'menuButton',
           'contextMenuPopup',
+          'freeHandToolGroupButton',
+          'textToolGroupButton',
+          'shapeToolGroupButton',
+          'signatureToolButton',
+          'freeTextToolButton',
+          'eraserToolButton',
+          'stickyToolButton',
+          'miscToolGroupButton',
         ],
       },
       viewer.current,
     ).then(instance => {
       const { docViewer } = instance;
-      instance.disableElements(['freeHandToolGroupButton']);
-      instance.disableElements(['textToolGroupButton']);
-      instance.disableElements(['shapeToolGroupButton']);
-      instance.disableElements(['signatureToolButton']);
-      instance.disableElements(['freeTextToolButton']);
-      instance.disableElements(['eraserToolButton']);
-      instance.disableElements(['stickyToolButton']);
-      instance.disableElements(['miscToolGroupButton']);
+
       filePicker.current.onchange = e => {
         const file = e.target.files[0];
         if (file) {
@@ -59,7 +60,7 @@ const SignDocument = () => {
 
   return (
     <div>
-      <Box display="flex" direction="row" paddingY={2}>
+      <Box display="flex" direction="row">
         <Column span={2}>
           <Box padding={3}>
             <Heading size="md">Sign Document</Heading>

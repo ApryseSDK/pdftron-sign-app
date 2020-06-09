@@ -28,7 +28,7 @@ const ProfilePage = () => {
         </Box>
       </Column>
       <Column span={2}>
-        <Box padding={3}>
+        <Box padding={1}>
           <Row>
             <Box padding={1}>
               <Avatar name={displayName} size="md" src={photoURL} />
