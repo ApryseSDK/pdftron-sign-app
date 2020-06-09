@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Box, Container, Heading, Row, Stack, Text, Button } from 'gestalt';
+import { Box, Column, Heading, Row, Stack, Text, Button } from 'gestalt';
 import WebViewer from '@pdftron/webviewer';
 import 'gestalt/dist/gestalt.css';
 import './SignDocument.css';
@@ -16,17 +16,24 @@ const SignDocument = () => {
     WebViewer(
       {
         path: 'webviewer',
+        disabledElements: [
+          'toolsButton',
+          'searchButton',
+          'menuButton',
+          'contextMenuPopup',
+        ],
       },
       viewer.current,
     ).then(instance => {
       const { docViewer } = instance;
-      instance.disableElements([
-        'toolsButton',
-        'searchButton',
-        'menuButton',
-        'contextMenuPopup',
-      ]);
-
+      instance.disableElements(['freeHandToolGroupButton']);
+      instance.disableElements(['textToolGroupButton']);
+      instance.disableElements(['shapeToolGroupButton']);
+      instance.disableElements(['signatureToolButton']);
+      instance.disableElements(['freeTextToolButton']);
+      instance.disableElements(['eraserToolButton']);
+      instance.disableElements(['stickyToolButton']);
+      instance.disableElements(['miscToolGroupButton']);
       filePicker.current.onchange = e => {
         const file = e.target.files[0];
         if (file) {
@@ -41,27 +48,34 @@ const SignDocument = () => {
 
   return (
     <div>
-      <Box padding={3}>
-        <Container>
+      <Box display="flex" direction="row" paddingY={2}>
+        <Column span={4}>
           <Box padding={3}>
             <Heading size="md">Sign Document</Heading>
           </Box>
           <Box padding={3}>
             <Row gap={1}>
               <Stack>
-                {upload ? (
-                  <Button
-                    onClick={() => {
-                      if (filePicker) {
-                        filePicker.current.click();
-                      }
-                    }}
-                    accessibilityLabel="upload a document"
-                    text="Upload a document"
-                  />
-                ) : null}
+              <Box padding={2}>
+                <Text>{'Step 1'}</Text>
+                </Box>
+                <Button
+                  onClick={() => {
+                    if (filePicker) {
+                      filePicker.current.click();
+                    }
+                  }}
+                  accessibilityLabel="upload a document"
+                  text="Upload a document"
+                />
               </Stack>
-              {!upload ? (
+            </Row>
+            <Row>
+              <Stack>
+                <Box padding={2}>
+                <Text>{'Step 2'}</Text>
+                </Box>
+                
                 <Button
                   onClick={() => {
                     if (filePicker) {
@@ -71,8 +85,6 @@ const SignDocument = () => {
                   accessibilityLabel="add signature"
                   text="Add signature"
                 />
-              ) : null}
-              {!upload ? (
                 <Button
                   onClick={() => {
                     if (filePicker) {
@@ -82,11 +94,13 @@ const SignDocument = () => {
                   accessibilityLabel="add text"
                   text="Add text"
                 />
-              ) : null}
+              </Stack>
             </Row>
           </Box>
+        </Column>
+        <Column span={8}>
           <div className="webviewer" ref={viewer}></div>
-        </Container>
+        </Column>
       </Box>
       <input type="file" ref={filePicker} style={{ display: 'none' }} />
     </div>
