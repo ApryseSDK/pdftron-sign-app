@@ -271,8 +271,8 @@ const SignDocument = () => {
   };
 
   return (
-    <div>
-      <Box display="flex" direction="row">
+    <div className={'prepareDocument'}>
+      <Box display="flex" direction="row" flex="grow">
         <Column span={2}>
           <Box padding={3}>
             <Heading size="md">Prepare Document</Heading>
