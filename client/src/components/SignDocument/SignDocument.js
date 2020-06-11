@@ -70,6 +70,114 @@ const SignDocument = () => {
     });
   }, []);
 
+  const applyFields = async () => {
+    const { Annotations, docViewer } = instance;
+    const annotManager = docViewer.getAnnotationManager();
+    const fieldManager = annotManager.getFieldManager();
+    const annotationsList = annotManager.getAnnotationsList();
+    const annotsToDelete = [];
+    const annotsToDraw = [];
+
+    await Promise.all(annotationsList.map(async(annot, index) => {
+      let inputAnnot;
+      let field;
+
+      if (typeof annot.custom !== 'undefined') {
+
+        // set flags
+        const flags = new Annotations.WidgetFlags();
+        if (annot.custom.flag.readOnly) {
+          flags.set('ReadOnly', true);
+        }
+        if (annot.custom.flag.multiline) {
+          flags.set('Multiline', true);
+        }
+
+        // create a form field based on the type of annotation
+        if (annot.custom.type === 'TEXT') {
+          field = new Annotations.Forms.Field(annot.getContents() + Date.now() + index, {
+            type: 'Tx',
+            value: annot.custom.value,
+            flags,
+          });
+          inputAnnot = new Annotations.TextWidgetAnnotation(field);
+        } else if (annot.custom.type === 'SIGNATURE') {
+          field = new Annotations.Forms.Field(annot.getContents() + Date.now() + index, {
+            type: 'Sig',
+            flags,
+          });
+          inputAnnot = new Annotations.SignatureWidgetAnnotation(field, {
+            appearance: '_DEFAULT',
+            appearances: {
+              _DEFAULT: {
+                Normal: {
+                  data:
+                    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjEuMWMqnEsAAAANSURBVBhXY/j//z8DAAj8Av6IXwbgAAAAAElFTkSuQmCC',
+                  offset: {
+                    x: 100,
+                    y: 100,
+                  },
+                },
+              },
+            },
+          });
+        } else {
+          // exit early for other annotations
+          annotManager.deleteAnnotation(annot, false, true); // prevent duplicates when importing xfdf
+          return;
+        }
+      } else {
+        // exit early for other annotations
+        return;
+      }
+
+      // set flag and position
+      inputAnnot.PageNumber = annot.getPageNumber();
+      inputAnnot.X = annot.getX();
+      inputAnnot.Y = annot.getY();
+      inputAnnot.rotation = annot.Rotation;
+      if (annot.Rotation === 0 || annot.Rotation === 180) {
+        inputAnnot.Width = annot.getWidth();
+        inputAnnot.Height = annot.getHeight();
+      } else {
+        inputAnnot.Width = annot.getHeight();
+        inputAnnot.Height = annot.getWidth();
+      }
+
+      // delete original annotation
+      annotsToDelete.push(annot);
+
+      // customize styles of the form field
+      Annotations.WidgetAnnotation.getCustomStyles = function(widget) {
+        if (widget instanceof Annotations.TextWidgetAnnotation) {
+          return {
+            'background-color': '#a5c7ff',
+            color: 'white',
+            'font-size': '20px'
+          };
+        } else if (widget instanceof Annotations.SignatureWidgetAnnotation) {
+          return {
+            border: '1px solid #a5c7ff'
+          };
+        }
+      };
+      Annotations.WidgetAnnotation.getCustomStyles(inputAnnot);
+
+      // draw the annotation the viewer
+      annotManager.addAnnotation(inputAnnot);
+      fieldManager.addField(field);
+      annotsToDraw.push(inputAnnot);
+    }));
+
+    // delete old annotations
+    annotManager.deleteAnnotations(annotsToDelete, null, true);
+
+    // refresh viewer
+    annotManager.drawAnnotationsFromList(annotsToDraw);
+
+    download();
+  }
+
   const addField = (type, point = {}, name = '', value = '', flag = {}) => {
     const { docViewer, Annotations } = instance;
     const annotManager = docViewer.getAnnotationManager();
@@ -167,7 +275,7 @@ const SignDocument = () => {
       <Box display="flex" direction="row">
         <Column span={2}>
           <Box padding={3}>
-            <Heading size="md">Sign Document</Heading>
+            <Heading size="md">Prepare Document</Heading>
           </Box>
           <Box padding={3}>
             <Row gap={1}>
@@ -232,6 +340,21 @@ const SignDocument = () => {
                       iconEnd="text-sentence-case"
                     />
                   </div>
+                </Box>
+              </Stack>
+            </Row>
+            <Row gap={1}>
+              <Stack>
+                <Box padding={2}>
+                  <Text>{'Step 3'}</Text>
+                </Box>
+                <Box padding={2}>
+                  <Button
+                    onClick={applyFields}
+                    accessibilityLabel="Download a document"
+                    text="Download"
+                    iconEnd="download"
+                  />
                 </Box>
               </Stack>
             </Row>
