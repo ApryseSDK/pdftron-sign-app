@@ -92,7 +92,7 @@ const Assign = () => {
           <Box padding={2}>
             <Button
               onClick={event => {
-                navigate(`/signDocument`);
+                navigate(`/prepareDocument`);
               }}
               text="Prepare Document for Signing"
               color="blue"

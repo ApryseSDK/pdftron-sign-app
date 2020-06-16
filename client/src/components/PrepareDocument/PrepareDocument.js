@@ -13,9 +13,9 @@ import {
 import { selectAssignees } from '../Assign/AssignSlice';
 import WebViewer from '@pdftron/webviewer';
 import 'gestalt/dist/gestalt.css';
-import './SignDocument.css';
+import './PrepareDocument.css';
 
-const SignDocument = () => {
+const PrepareDocument = () => {
   const [instance, setInstance] = useState(null);
   const [dropPoint, setDropPoint] = useState(null);
 
@@ -369,4 +369,4 @@ const SignDocument = () => {
   );
 };
 
-export default SignDocument;
+export default PrepareDocument;

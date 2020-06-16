@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import AssignUsers from './components/AssignUsers';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
-import PrepareDocument from './components/PrepareDocument';
+import Preparation from './components/Preparation';
 import PasswordReset from './components/PasswordReset/PasswordReset';
 
 import { auth, generateUserDocument } from './components/Firebase/firebase';
@@ -44,7 +44,7 @@ const App = () => {
     <div>
       <Router>
         <AssignUsers path="/" />
-        <PrepareDocument path="/signDocument" />
+        <Preparation path="/prepareDocument" />
       </Router>
     </div>
   ) : (
