@@ -11,6 +11,8 @@ import {
   SelectList,
 } from 'gestalt';
 import { selectAssignees } from '../Assign/AssignSlice';
+import { storage } from '../Firebase/firebase';
+import { selectUser, setUser } from '../Firebase/firebaseSlice';
 import WebViewer from '@pdftron/webviewer';
 import 'gestalt/dist/gestalt.css';
 import './PrepareDocument.css';
@@ -26,6 +28,9 @@ const PrepareDocument = () => {
   let initialAssignee =
     assigneesValues.length > 0 ? assigneesValues[0].value : '';
   const [assignee, setAssignee] = useState(initialAssignee);
+
+  const user = useSelector(selectUser);
+  const { uid } = user;
 
   const viewer = useRef(null);
   const filePicker = useRef(null);
@@ -59,7 +64,9 @@ const PrepareDocument = () => {
 
       const iframeDoc = iframeWindow.document.body;
       iframeDoc.addEventListener('dragover', dragOver);
-      iframeDoc.addEventListener('drop', (e) => {drop(e, instance)});
+      iframeDoc.addEventListener('drop', e => {
+        drop(e, instance);
+      });
 
       filePicker.current.onchange = e => {
         const file = e.target.files[0];
@@ -78,96 +85,103 @@ const PrepareDocument = () => {
     const annotsToDelete = [];
     const annotsToDraw = [];
 
-    await Promise.all(annotationsList.map(async(annot, index) => {
-      let inputAnnot;
-      let field;
+    await Promise.all(
+      annotationsList.map(async (annot, index) => {
+        let inputAnnot;
+        let field;
 
-      if (typeof annot.custom !== 'undefined') {
+        if (typeof annot.custom !== 'undefined') {
+          // set flags
+          const flags = new Annotations.WidgetFlags();
+          if (annot.custom.flag.readOnly) {
+            flags.set('ReadOnly', true);
+          }
+          if (annot.custom.flag.multiline) {
+            flags.set('Multiline', true);
+          }
 
-        // set flags
-        const flags = new Annotations.WidgetFlags();
-        if (annot.custom.flag.readOnly) {
-          flags.set('ReadOnly', true);
-        }
-        if (annot.custom.flag.multiline) {
-          flags.set('Multiline', true);
-        }
-
-        // create a form field based on the type of annotation
-        if (annot.custom.type === 'TEXT') {
-          field = new Annotations.Forms.Field(annot.getContents() + Date.now() + index, {
-            type: 'Tx',
-            value: annot.custom.value,
-            flags,
-          });
-          inputAnnot = new Annotations.TextWidgetAnnotation(field);
-        } else if (annot.custom.type === 'SIGNATURE') {
-          field = new Annotations.Forms.Field(annot.getContents() + Date.now() + index, {
-            type: 'Sig',
-            flags,
-          });
-          inputAnnot = new Annotations.SignatureWidgetAnnotation(field, {
-            appearance: '_DEFAULT',
-            appearances: {
-              _DEFAULT: {
-                Normal: {
-                  data:
-                    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjEuMWMqnEsAAAANSURBVBhXY/j//z8DAAj8Av6IXwbgAAAAAElFTkSuQmCC',
-                  offset: {
-                    x: 100,
-                    y: 100,
+          // create a form field based on the type of annotation
+          if (annot.custom.type === 'TEXT') {
+            field = new Annotations.Forms.Field(
+              annot.getContents() + Date.now() + index,
+              {
+                type: 'Tx',
+                value: annot.custom.value,
+                flags,
+              },
+            );
+            inputAnnot = new Annotations.TextWidgetAnnotation(field);
+          } else if (annot.custom.type === 'SIGNATURE') {
+            field = new Annotations.Forms.Field(
+              annot.getContents() + Date.now() + index,
+              {
+                type: 'Sig',
+                flags,
+              },
+            );
+            inputAnnot = new Annotations.SignatureWidgetAnnotation(field, {
+              appearance: '_DEFAULT',
+              appearances: {
+                _DEFAULT: {
+                  Normal: {
+                    data:
+                      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjEuMWMqnEsAAAANSURBVBhXY/j//z8DAAj8Av6IXwbgAAAAAElFTkSuQmCC',
+                    offset: {
+                      x: 100,
+                      y: 100,
+                    },
                   },
                 },
               },
-            },
-          });
+            });
+          } else {
+            // exit early for other annotations
+            annotManager.deleteAnnotation(annot, false, true); // prevent duplicates when importing xfdf
+            return;
+          }
         } else {
           // exit early for other annotations
-          annotManager.deleteAnnotation(annot, false, true); // prevent duplicates when importing xfdf
           return;
         }
-      } else {
-        // exit early for other annotations
-        return;
-      }
 
-      // set flag and position
-      inputAnnot.PageNumber = annot.getPageNumber();
-      inputAnnot.X = annot.getX();
-      inputAnnot.Y = annot.getY();
-      inputAnnot.rotation = annot.Rotation;
-      if (annot.Rotation === 0 || annot.Rotation === 180) {
-        inputAnnot.Width = annot.getWidth();
-        inputAnnot.Height = annot.getHeight();
-      } else {
-        inputAnnot.Width = annot.getHeight();
-        inputAnnot.Height = annot.getWidth();
-      }
-
-      // delete original annotation
-      annotsToDelete.push(annot);
-
-      // customize styles of the form field
-      Annotations.WidgetAnnotation.getCustomStyles = function(widget) {
-        if (widget instanceof Annotations.TextWidgetAnnotation) {
-          return {
-            'background-color': '#a5c7ff',
-            color: 'white',
-            'font-size': '20px'
-          };
-        } else if (widget instanceof Annotations.SignatureWidgetAnnotation) {
-          return {
-            border: '1px solid #a5c7ff'
-          };
+        // set flag and position
+        inputAnnot.PageNumber = annot.getPageNumber();
+        inputAnnot.X = annot.getX();
+        inputAnnot.Y = annot.getY();
+        inputAnnot.rotation = annot.Rotation;
+        if (annot.Rotation === 0 || annot.Rotation === 180) {
+          inputAnnot.Width = annot.getWidth();
+          inputAnnot.Height = annot.getHeight();
+        } else {
+          inputAnnot.Width = annot.getHeight();
+          inputAnnot.Height = annot.getWidth();
         }
-      };
-      Annotations.WidgetAnnotation.getCustomStyles(inputAnnot);
 
-      // draw the annotation the viewer
-      annotManager.addAnnotation(inputAnnot);
-      fieldManager.addField(field);
-      annotsToDraw.push(inputAnnot);
-    }));
+        // delete original annotation
+        annotsToDelete.push(annot);
+
+        // customize styles of the form field
+        Annotations.WidgetAnnotation.getCustomStyles = function (widget) {
+          if (widget instanceof Annotations.TextWidgetAnnotation) {
+            return {
+              'background-color': '#a5c7ff',
+              color: 'white',
+              'font-size': '20px',
+            };
+          } else if (widget instanceof Annotations.SignatureWidgetAnnotation) {
+            return {
+              border: '1px solid #a5c7ff',
+            };
+          }
+        };
+        Annotations.WidgetAnnotation.getCustomStyles(inputAnnot);
+
+        // draw the annotation the viewer
+        annotManager.addAnnotation(inputAnnot);
+        fieldManager.addField(field);
+        annotsToDraw.push(inputAnnot);
+      }),
+    );
 
     // delete old annotations
     annotManager.deleteAnnotations(annotsToDelete, null, true);
@@ -176,7 +190,8 @@ const PrepareDocument = () => {
     annotManager.drawAnnotationsFromList(annotsToDraw);
 
     download();
-  }
+    await uploadForSigning();
+  };
 
   const addField = (type, point = {}, name = '', value = '', flag = {}) => {
     const { docViewer, Annotations } = instance;
@@ -234,6 +249,21 @@ const PrepareDocument = () => {
 
   const download = () => {
     instance.downloadPdf(true);
+  };
+
+  const uploadForSigning = async () => {
+    console.log(storage);
+    const storageRef = storage.ref();
+    const docRef = storageRef.child(`docToSign/${uid}.pdf`);
+    const { docViewer, annotManager } = instance;
+    const doc = docViewer.getDocument();
+    const xfdfString = await annotManager.exportAnnotations();
+    const data = await doc.getFileData();
+    const arr = new Uint8Array(data);
+    const blob = new Blob([arr], { type: 'application/pdf' });
+    docRef.put(blob).then(function(snapshot) {
+      console.log('Uploaded a blob or file!');
+    });
   };
 
   const dragOver = e => {
