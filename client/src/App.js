@@ -6,6 +6,7 @@ import AssignUsers from './components/AssignUsers';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
 import Preparation from './components/Preparation';
+import Header from './components/Header';
 import PasswordReset from './components/PasswordReset/PasswordReset';
 
 import { auth, generateUserDocument, searchForDocumentToSign } from './components/Firebase/firebase';
@@ -19,16 +20,6 @@ import './App.css';
 const App = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
-
-  const heading = (
-    <Box display="flex" direction="row" paddingY={2} color={'lightGray'}>
-    <Column span={10}>
-      <Box padding={3}>
-        <Heading size="lg">PDFTron Sign App</Heading>
-      </Box>
-    </Column>
-    </Box>
-  );
 
   useEffect(() => {
     auth.onAuthStateChanged(async userAuth => {
@@ -50,7 +41,7 @@ const App = () => {
     </div>
   ) : (
     <div>
-      {heading}
+      <Header />
       <Router>
         <SignIn path="/" />
         <SignUp path="signUp" />
