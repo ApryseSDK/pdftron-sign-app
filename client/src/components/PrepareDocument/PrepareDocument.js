@@ -11,7 +11,7 @@ import {
   SelectList,
 } from 'gestalt';
 import { selectAssignees } from '../Assign/AssignSlice';
-import { storage } from '../Firebase/firebase';
+import { storage, addDocumentToSign } from '../Firebase/firebase';
 import { selectUser, setUser } from '../Firebase/firebaseSlice';
 import WebViewer from '@pdftron/webviewer';
 import 'gestalt/dist/gestalt.css';
@@ -252,18 +252,22 @@ const PrepareDocument = () => {
   };
 
   const uploadForSigning = async () => {
-    console.log(storage);
+    // upload the PDF with fields as AcroForm
     const storageRef = storage.ref();
-    const docRef = storageRef.child(`docToSign/${uid}.pdf`);
+    const referenceString = `docToSign/${uid}${Date.now()}.pdf`;
+    const docRef = storageRef.child(referenceString);
     const { docViewer, annotManager } = instance;
     const doc = docViewer.getDocument();
     const xfdfString = await annotManager.exportAnnotations();
-    const data = await doc.getFileData();
+    const data = await doc.getFileData({ xfdfString });
     const arr = new Uint8Array(data);
     const blob = new Blob([arr], { type: 'application/pdf' });
     docRef.put(blob).then(function(snapshot) {
-      console.log('Uploaded a blob or file!');
+      console.log('Uploaded the blob');
     });
+
+    // create an entry in the database
+    addDocumentToSign(uid, referenceString, assignees)
   };
 
   const dragOver = e => {

@@ -36,10 +36,10 @@ export const generateUserDocument = async (user, additionalData) => {
         displayName,
         email,
         photoURL,
-        ...additionalData
+        ...additionalData,
       });
     } catch (error) {
-      console.error("Error creating user document", error);
+      console.error('Error creating user document', error);
     }
   }
   return getUserDocument(user.uid);
@@ -51,9 +51,26 @@ const getUserDocument = async uid => {
     const userDocument = await firestore.doc(`users/${uid}`).get();
     return {
       uid,
-      ...userDocument.data()
+      ...userDocument.data(),
     };
   } catch (error) {
-    console.error("Error fetching user", error);
+    console.error('Error fetching user', error);
   }
+};
+
+export const addDocumentToSign = async (uid, docRef, emails) => {
+  if (!uid) return;
+  firestore
+    .collection('documents')
+    .add({
+      uid,
+      docRef,
+      emails,
+    })
+    .then(function (docRef) {
+      console.log('Document written with ID: ', docRef.id);
+    })
+    .catch(function (error) {
+      console.error('Error adding document: ', error);
+    });
 };
