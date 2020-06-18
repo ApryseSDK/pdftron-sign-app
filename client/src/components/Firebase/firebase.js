@@ -58,12 +58,13 @@ const getUserDocument = async uid => {
   }
 };
 
-export const addDocumentToSign = async (uid, docRef, emails) => {
+export const addDocumentToSign = async (uid, email, docRef, emails) => {
   if (!uid) return;
   firestore
     .collection('documents')
     .add({
       uid,
+      email,
       docRef,
       emails,
     })
@@ -73,4 +74,21 @@ export const addDocumentToSign = async (uid, docRef, emails) => {
     .catch(function (error) {
       console.error('Error adding document: ', error);
     });
+};
+
+export const searchForDocumentToSign = async (email) => {
+  const documentsRef = firestore.collection('documents');
+  const query = documentsRef.where("emails", "array-contains", email);
+  const docIds = [];
+  query.get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            docIds.push(doc.id);
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+  return docIds;
 };

@@ -8,7 +8,7 @@ import SignUp from './components/SignUp/SignUp';
 import Preparation from './components/Preparation';
 import PasswordReset from './components/PasswordReset/PasswordReset';
 
-import { auth, generateUserDocument } from './components/Firebase/firebase';
+import { auth, generateUserDocument, searchForDocumentToSign } from './components/Firebase/firebase';
 import { setUser, selectUser } from './components/Firebase/firebaseSlice';
 
 import { Box, Column, Heading } from 'gestalt';
@@ -36,6 +36,7 @@ const App = () => {
         const user = await generateUserDocument(userAuth);
         const { uid, displayName, email, photoURL } = user;
         dispatch(setUser({ uid, displayName, email, photoURL }));
+        searchForDocumentToSign(email);
       }
     });
   }, [auth]);

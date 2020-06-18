@@ -30,7 +30,7 @@ const PrepareDocument = () => {
   const [assignee, setAssignee] = useState(initialAssignee);
 
   const user = useSelector(selectUser);
-  const { uid } = user;
+  const { uid, email } = user;
 
   const viewer = useRef(null);
   const filePicker = useRef(null);
@@ -188,8 +188,6 @@ const PrepareDocument = () => {
 
     // refresh viewer
     annotManager.drawAnnotationsFromList(annotsToDraw);
-
-    download();
     await uploadForSigning();
   };
 
@@ -267,7 +265,10 @@ const PrepareDocument = () => {
     });
 
     // create an entry in the database
-    addDocumentToSign(uid, referenceString, assignees)
+    const emails = assignees.map((assignee)=>{
+      return assignee.email;
+    });
+    addDocumentToSign(uid, email, referenceString, emails);
   };
 
   const dragOver = e => {
@@ -385,8 +386,8 @@ const PrepareDocument = () => {
                 <Box padding={2}>
                   <Button
                     onClick={applyFields}
-                    accessibilityLabel="Download a document"
-                    text="Download"
+                    accessibilityLabel="Upload for signing"
+                    text="Upload for signing"
                     iconEnd="download"
                   />
                 </Box>
