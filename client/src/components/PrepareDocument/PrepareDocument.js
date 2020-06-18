@@ -386,9 +386,9 @@ const PrepareDocument = () => {
                 <Box padding={2}>
                   <Button
                     onClick={applyFields}
-                    accessibilityLabel="Upload for signing"
-                    text="Upload for signing"
-                    iconEnd="download"
+                    accessibilityLabel="Send for signing"
+                    text="Send"
+                    iconEnd="send"
                   />
                 </Box>
               </Stack>

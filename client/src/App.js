@@ -8,12 +8,10 @@ import SignUp from './components/SignUp/SignUp';
 import Preparation from './components/Preparation';
 import Header from './components/Header';
 import PasswordReset from './components/PasswordReset/PasswordReset';
+import Welcome from './components/Welcome';
 
 import { auth, generateUserDocument, searchForDocumentToSign } from './components/Firebase/firebase';
 import { setUser, selectUser } from './components/Firebase/firebaseSlice';
-
-import { Box, Column, Heading } from 'gestalt';
-import 'gestalt/dist/gestalt.css';
 
 import './App.css';
 
@@ -35,7 +33,8 @@ const App = () => {
   return user ? (
     <div>
       <Router>
-        <AssignUsers path="/" />
+        <Welcome path="/" />
+        <AssignUsers path="/assignUsers" />
         <Preparation path="/prepareDocument" />
       </Router>
     </div>

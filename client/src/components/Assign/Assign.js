@@ -94,7 +94,7 @@ const Assign = () => {
               onClick={event => {
                 navigate(`/prepareDocument`);
               }}
-              text="Prepare Document for Signing"
+              text="Continue"
               color="blue"
               inline
             />
