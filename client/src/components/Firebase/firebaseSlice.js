@@ -16,11 +16,14 @@ export const firebaseSlice = createSlice({
     },
     setDocs: (state, action) => {
       state.docs = [...state.docs, { docRef: action.payload.docRef, email: action.payload.email } ];
-    }
+    },
+    resetDocs: (state, action) => {
+      state.docs = [];
+    },
   },
 });
 
-export const { setUser, setDocs } = firebaseSlice.actions;
+export const { setUser, setDocs, resetDocs } = firebaseSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

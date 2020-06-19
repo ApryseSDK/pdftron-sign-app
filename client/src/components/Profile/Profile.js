@@ -12,7 +12,8 @@ import {
 import 'gestalt/dist/gestalt.css';
 import { auth } from '../Firebase/firebase';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectUser, setUser } from '../Firebase/firebaseSlice';
+import { selectUser, setUser, resetDocs } from '../Firebase/firebaseSlice';
+import { resetSignee } from '../Assign/AssignSlice';
 import { navigate } from '@reach/router';
 
 const ProfilePage = () => {
@@ -42,6 +43,8 @@ const ProfilePage = () => {
                 onClick={() => {
                   auth.signOut();
                   dispatch(setUser(null));
+                  dispatch(resetDocs())
+                  dispatch(resetSignee())
                   navigate('/');
                 }}
                 accessibilityLabel="Sign out of your account"

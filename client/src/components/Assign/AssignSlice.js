@@ -9,10 +9,13 @@ export const AssignSlice = createSlice({
     addSignee: (state, action) => {
       state.signees = [...state.signees, { key: action.payload.key, name: action.payload.name, email: action.payload.email } ];
     },
+    resetSignee: (state, action) => {
+      state.signees = [];
+    }
   },
 });
 
-export const { addSignee } = AssignSlice.actions;
+export const { addSignee, resetSignee } = AssignSlice.actions;
 
 export const selectAssignees = state => state.assign.signees;
 
