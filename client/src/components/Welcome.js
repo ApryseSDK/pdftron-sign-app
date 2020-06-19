@@ -9,13 +9,18 @@ import {
 import 'gestalt/dist/gestalt.css';
 import { auth } from './Firebase/firebase';
 import { useSelector } from 'react-redux';
-import { selectUser, setUser } from './Firebase/firebaseSlice';
+import { selectUser, selectDocs, setDocs } from './Firebase/firebaseSlice';
 import Profile from './Profile/Profile';
 import { navigate } from '@reach/router';
 
 const ProfilePage = () => {
+
   const user = useSelector(selectUser);
+  const docs = useSelector(selectDocs);
+
   const { displayName, photoURL, email } = user;
+
+
 
   return (
     <div>

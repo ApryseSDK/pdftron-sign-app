@@ -11,7 +11,7 @@ import PasswordReset from './components/PasswordReset/PasswordReset';
 import Welcome from './components/Welcome';
 
 import { auth, generateUserDocument, searchForDocumentToSign } from './components/Firebase/firebase';
-import { setUser, selectUser } from './components/Firebase/firebaseSlice';
+import { setUser, selectUser, setDocs } from './components/Firebase/firebaseSlice';
 
 import './App.css';
 
@@ -25,7 +25,11 @@ const App = () => {
         const user = await generateUserDocument(userAuth);
         const { uid, displayName, email, photoURL } = user;
         dispatch(setUser({ uid, displayName, email, photoURL }));
-        searchForDocumentToSign(email);
+        const docsToSign = await searchForDocumentToSign(email);
+        docsToSign.forEach((doc) => {
+          const { docRef, email } = doc;
+          dispatch(setDocs({ docRef, email }))
+        });
       }
     });
   }, [auth]);

@@ -80,11 +80,11 @@ export const searchForDocumentToSign = async (email) => {
   const documentsRef = firestore.collection('documents');
   const query = documentsRef.where("emails", "array-contains", email);
   const docIds = [];
-  query.get()
+  await query.get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            docIds.push(doc.id);
+            const { docRef, email } = doc.data();
+            docIds.push({ docRef, email });
         });
     })
     .catch(function(error) {
