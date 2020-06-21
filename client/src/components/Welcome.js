@@ -2,14 +2,17 @@ import React from 'react';
 import { Box, Button, Container, Column, Table, Text, Heading } from 'gestalt';
 import 'gestalt/dist/gestalt.css';
 import { auth } from './Firebase/firebase';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectUser, selectDocs, setDocs } from './Firebase/firebaseSlice';
+import { setDocToSign } from './SignDocument/SignDocumentSlice';
 import Profile from './Profile/Profile';
 import { navigate } from '@reach/router';
 
 const ProfilePage = () => {
   const user = useSelector(selectUser);
   const docs = useSelector(selectDocs);
+
+  const dispatch = useDispatch();
 
   const { displayName, photoURL, email } = user;
 
@@ -38,7 +41,8 @@ const ProfilePage = () => {
                   <Table.Cell>
                     <Button
                       onClick={event => {
-                        navigate(`/assignUsers`);
+                        dispatch(setDocToSign(doc.docRef));
+                        navigate(`/signDocument`);
                       }}
                       text="Sign"
                       color="blue"

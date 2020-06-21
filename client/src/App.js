@@ -6,6 +6,7 @@ import AssignUsers from './components/AssignUsers';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
 import Preparation from './components/Preparation';
+import Sign from './components/Sign';
 import Header from './components/Header';
 import PasswordReset from './components/PasswordReset/PasswordReset';
 import Welcome from './components/Welcome';
@@ -40,6 +41,7 @@ const App = () => {
         <Welcome path="/" />
         <AssignUsers path="/assignUsers" />
         <Preparation path="/prepareDocument" />
+        <Sign path="/signDocument" />
       </Router>
     </div>
   ) : (

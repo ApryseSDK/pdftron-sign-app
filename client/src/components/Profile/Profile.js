@@ -14,7 +14,9 @@ import { auth } from '../Firebase/firebase';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUser, setUser, resetDocs } from '../Firebase/firebaseSlice';
 import { resetSignee } from '../Assign/AssignSlice';
-import { navigate } from '@reach/router';
+import { navigate, Link } from '@reach/router';
+import './Profile.css';
+
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
@@ -25,7 +27,7 @@ const ProfilePage = () => {
     <Box display="flex" direction="row" paddingY={2} color={'lightGray'}>
       <Column span={9}>
         <Box padding={3}>
-          <Heading size="lg">PDFTron Sign App</Heading>
+          <Link to="/" className='profileLink'><Heading size="lg">PDFTron Sign App</Heading></Link>
         </Box>
       </Column>
       <Column span={3}>
