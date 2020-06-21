@@ -10,6 +10,8 @@ import './SignDocument.css';
 
 const SignDocument = () => {
   const [instance, setInstance] = useState(null);
+  const [annotManager, setAnnotatManager] = useState(null);
+  const [annotPosition, setAnnotPosition] = useState(0);
 
   const docRef = useSelector(selectDocToSign);
   const user = useSelector(selectUser);
@@ -40,6 +42,7 @@ const SignDocument = () => {
     ).then(async instance => {
       const { docViewer, annotManager, Annotations } = instance;
       setInstance(instance);
+      setAnnotatManager(annotManager);
 
       // load document
       const storageRef = storage.ref();
@@ -61,7 +64,6 @@ const SignDocument = () => {
       };
 
       annotManager.on('annotationChanged', (annotations, action, { imported }) => {
-        // set fields to readonly if they are not related to the user
         if (imported && action === 'add') {
           annotations.forEach(function(annot) {
             if (annot instanceof Annotations.WidgetAnnotation) {
@@ -74,13 +76,28 @@ const SignDocument = () => {
           });
         }
       });
-
-      docViewer.on('annotationsLoaded', () => {
-        // customize styles of the form field
-        
-      });
     });
   }, []);
+
+  const nextField = () => {
+    let annots = annotManager.getAnnotationsList();
+    if (annots[annotPosition] && !annots[annotPosition].ReadOnly) {
+      annotManager.jumpToAnnotation(annots[annotPosition]);
+      if (annots[annotPosition+1]) {
+        setAnnotPosition(annotPosition+1);
+      }
+    }
+  }
+
+  const prevField = () => {
+    let annots = annotManager.getAnnotationsList();
+    if (annots[annotPosition] && !annots[annotPosition].ReadOnly) {
+      annotManager.jumpToAnnotation(annots[annotPosition]);
+      if (annots[annotPosition-1]) {
+        setAnnotPosition(annotPosition-1);
+      }
+    }
+  }
 
   return (
     <div className={'prepareDocument'}>
@@ -94,7 +111,7 @@ const SignDocument = () => {
               <Stack>
                 <Box padding={2}>
                   <Button
-                    onClick={() => {}}
+                    onClick={nextField}
                     accessibilityLabel="next field"
                     text="Next field"
                     iconEnd="arrow-forward"
@@ -102,7 +119,7 @@ const SignDocument = () => {
                 </Box>
                 <Box padding={2}>
                   <Button
-                    onClick={() => {}}
+                    onClick={prevField}
                     accessibilityLabel="Previous field"
                     text="Previous field"
                     iconEnd="arrow-back"
