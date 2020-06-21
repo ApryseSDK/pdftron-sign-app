@@ -9,8 +9,8 @@ import {
   Text,
   Button,
 } from 'gestalt';
-import { selectAssignees } from '../Assign/AssignSlice';
-import { storage, addDocumentToSign } from '../Firebase/firebase';
+import { selectDocToSign } from './SignDocumentSlice';
+import { storage } from '../Firebase/firebase';
 import { selectUser } from '../Firebase/firebaseSlice';
 import WebViewer from '@pdftron/webviewer';
 import 'gestalt/dist/gestalt.css';
@@ -19,12 +19,12 @@ import './SignDocument.css';
 const SignDocument = () => {
   const [instance, setInstance] = useState(null);
   
+  const docRef = useSelector(selectDocToSign);
   const user = useSelector(selectUser);
   const { uid, email } = user;
 
   const viewer = useRef(null);
 
-  // if using a class, equivalent of componentDidMount
   useEffect(() => {
     WebViewer(
       {
@@ -44,33 +44,15 @@ const SignDocument = () => {
         ],
       },
       viewer.current,
-    ).then(instance => {
-      const { iframeWindow } = instance;
+    ).then( async instance => {
+      const { docViewer } = instance;
       setInstance(instance);
+      const storageRef = storage.ref();
+      console.log(docRef);
+      const URL = await storageRef.child(docRef).getDownloadURL();
+      instance.docViewer.loadDocument(URL);
     });
   }, []);
-
-//   const uploadForSigning = async () => {
-//     // upload the PDF with fields as AcroForm
-//     const storageRef = storage.ref();
-//     const referenceString = `docToSign/${uid}${Date.now()}.pdf`;
-//     const docRef = storageRef.child(referenceString);
-//     const { docViewer, annotManager } = instance;
-//     const doc = docViewer.getDocument();
-//     const xfdfString = await annotManager.exportAnnotations();
-//     const data = await doc.getFileData({ xfdfString });
-//     const arr = new Uint8Array(data);
-//     const blob = new Blob([arr], { type: 'application/pdf' });
-//     docRef.put(blob).then(function(snapshot) {
-//       console.log('Uploaded the blob');
-//     });
-
-//     // create an entry in the database
-//     const emails = assignees.map((assignee)=>{
-//       return assignee.email;
-//     });
-//     addDocumentToSign(uid, email, referenceString, emails);
-//   };
 
   return (
     <div className={'prepareDocument'}>
