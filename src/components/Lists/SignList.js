@@ -2,8 +2,8 @@ import React from 'react';
 import { Button, Table, Text } from 'gestalt';
 import 'gestalt/dist/gestalt.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectDocs } from './Firebase/firebaseSlice';
-import { setDocToSign } from './SignDocument/SignDocumentSlice';
+import { selectDocs } from '../Firebase/firebaseSlice';
+import { setDocToSign } from '../SignDocument/SignDocumentSlice';
 import { navigate } from '@reach/router';
 
 const SignList = () => {

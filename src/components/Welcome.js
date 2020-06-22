@@ -1,7 +1,7 @@
 import React from 'react';
 import Profile from './Profile/Profile';
 import { navigate } from '@reach/router';
-import SignList from './SignList';
+import SignList from './Lists/SignList';
 import { Box, Button, Container, Heading } from 'gestalt';
 import 'gestalt/dist/gestalt.css';
 

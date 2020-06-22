@@ -10,6 +10,7 @@ export const AssignSlice = createSlice({
       state.signees = [...state.signees, { key: action.payload.key, name: action.payload.name, email: action.payload.email } ];
     },
     resetSignee: (state, action) => {
+      console.log('resetSignee');
       state.signees = [];
     }
   },

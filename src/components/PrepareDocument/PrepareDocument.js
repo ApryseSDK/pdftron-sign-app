@@ -270,8 +270,8 @@ const PrepareDocument = () => {
       return assignee.email;
     });
     await addDocumentToSign(uid, email, referenceString, emails);
-    dispatch(resetSignee);
-    dispatch(resetDocs);
+    dispatch(resetSignee());
+    dispatch(resetDocs());
     const docsToSign = await searchForDocumentToSign(email);
     docsToSign.forEach(doc => {
       const { docRef, email, docId } = doc;

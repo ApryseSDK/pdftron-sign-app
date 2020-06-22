@@ -14,11 +14,11 @@ export const firebaseSlice = createSlice({
       // immutable state based off those changes
       state.user = action.payload;
     },
-    setDocs: (state, action) => {
-      state.docs = [...state.docs, { docRef: action.payload.docRef, email: action.payload.email, docId: action.payload.docId } ];
-    },
     resetDocs: (state, action) => {
       state.docs = [];
+    },
+    setDocs: (state, action) => {
+      state.docs = [...state.docs, { docRef: action.payload.docRef, email: action.payload.email, docId: action.payload.docId } ];
     },
   },
 });
