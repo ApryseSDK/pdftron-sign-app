@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Box, Column, Heading, Row, Stack, Text, Button } from 'gestalt';
 import { selectDocToSign } from './SignDocumentSlice';
-import { storage } from '../Firebase/firebase';
+import { storage, updateDocumentToSign } from '../Firebase/firebase';
 import { selectUser } from '../Firebase/firebaseSlice';
 import WebViewer from '@pdftron/webviewer';
 import 'gestalt/dist/gestalt.css';
@@ -13,9 +13,10 @@ const SignDocument = () => {
   const [annotManager, setAnnotatManager] = useState(null);
   const [annotPosition, setAnnotPosition] = useState(0);
 
-  const docRef = useSelector(selectDocToSign);
+  const doc = useSelector(selectDocToSign);
   const user = useSelector(selectUser);
-  const { uid, email } = user;
+  const { docRef, docId } = doc;
+  const { email } = user;
 
   const viewer = useRef(null);
 
@@ -67,10 +68,10 @@ const SignDocument = () => {
         if (imported && action === 'add') {
           annotations.forEach(function(annot) {
             if (annot instanceof Annotations.WidgetAnnotation) {
-              console.log(annot);
+              Annotations.WidgetAnnotation.getCustomStyles = normalStyles;
               if (!annot.fieldName.startsWith(email)) {
-                annot.fieldFlags.set('ReadOnly', true);
-                Annotations.WidgetAnnotation.getCustomStyles = normalStyles;
+                annot.Hidden = true;
+                annot.Listable = false;
               }
             }
           });
@@ -81,7 +82,7 @@ const SignDocument = () => {
 
   const nextField = () => {
     let annots = annotManager.getAnnotationsList();
-    if (annots[annotPosition] && !annots[annotPosition].ReadOnly) {
+    if (annots[annotPosition]) {
       annotManager.jumpToAnnotation(annots[annotPosition]);
       if (annots[annotPosition+1]) {
         setAnnotPosition(annotPosition+1);
@@ -91,12 +92,17 @@ const SignDocument = () => {
 
   const prevField = () => {
     let annots = annotManager.getAnnotationsList();
-    if (annots[annotPosition] && !annots[annotPosition].ReadOnly) {
+    if (annots[annotPosition]) {
       annotManager.jumpToAnnotation(annots[annotPosition]);
       if (annots[annotPosition-1]) {
         setAnnotPosition(annotPosition-1);
       }
     }
+  }
+
+  const completeSigning = async () => {
+    const xfdf = await annotManager.exportAnnotations({ widgets: false, links: false });
+    await updateDocumentToSign(docId, email, xfdf);
   }
 
   return (
@@ -127,7 +133,7 @@ const SignDocument = () => {
                 </Box>
                 <Box padding={2}>
                   <Button
-                    onClick={() => {}}
+                    onClick={completeSigning}
                     accessibilityLabel="complete signing"
                     text="Complete signing"
                     iconEnd="compose"

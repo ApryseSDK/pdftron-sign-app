@@ -28,8 +28,8 @@ const App = () => {
         dispatch(setUser({ uid, displayName, email, photoURL }));
         const docsToSign = await searchForDocumentToSign(email);
         docsToSign.forEach((doc) => {
-          const { docRef, email } = doc;
-          dispatch(setDocs({ docRef, email }))
+          const { docRef, email, docId } = doc;
+          dispatch(setDocs({ docRef, email, docId }))
         });
       }
     });

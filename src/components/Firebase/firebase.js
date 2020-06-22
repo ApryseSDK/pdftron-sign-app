@@ -60,13 +60,19 @@ const getUserDocument = async uid => {
 
 export const addDocumentToSign = async (uid, email, docRef, emails) => {
   if (!uid) return;
+  const signed = false;
+  const xfdf = [];
+  const signedBy = [];
   firestore
-    .collection('documents')
+    .collection('documentsToSign')
     .add({
       uid,
       email,
       docRef,
       emails,
+      xfdf,
+      signedBy,
+      signed,
     })
     .then(function (docRef) {
       console.log('Document written with ID: ', docRef.id);
@@ -76,19 +82,50 @@ export const addDocumentToSign = async (uid, email, docRef, emails) => {
     });
 };
 
-export const searchForDocumentToSign = async (email) => {
-  const documentsRef = firestore.collection('documents');
-  const query = documentsRef.where("emails", "array-contains", email);
-  const docIds = [];
-  await query.get()
-    .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            const { docRef, email } = doc.data();
-            docIds.push({ docRef, email });
-        });
+export const updateDocumentToSign = async (docId, email, xfdfSigned) => {
+  const docRef = firestore.collection('documentsToSign').doc(docId);
+  docRef
+    .get()
+    .then(async (doc) => {
+      if (doc.exists) {
+        const { signedBy, emails, xfdf } = doc.data();
+        if (!signedBy.includes(email)) {
+          const signedByArray = [...signedBy, email];
+          await docRef.update({
+            xfdf: [...xfdf, xfdfSigned],
+            signedBy: signedByArray,
+          });
+          
+          if (signedByArray.length === emails.length) {
+            await docRef.update({
+              signed: true,
+            });
+          }
+        }
+      } else {
+        console.log('No such document!');
+      }
     })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
+    .catch(function (error) {
+      console.log('Error getting document:', error);
+    });
+};
+
+export const searchForDocumentToSign = async email => {
+  const documentsRef = firestore.collection('documentsToSign');
+  const query = documentsRef.where('emails', 'array-contains', email);
+  const docIds = [];
+  await query
+    .get()
+    .then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        const { docRef, email } = doc.data();
+        const docId = doc.id;
+        docIds.push({ docRef, email, docId });
+      });
+    })
+    .catch(function (error) {
+      console.log('Error getting documents: ', error);
     });
   return docIds;
 };

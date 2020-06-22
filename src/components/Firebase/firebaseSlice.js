@@ -15,7 +15,7 @@ export const firebaseSlice = createSlice({
       state.user = action.payload;
     },
     setDocs: (state, action) => {
-      state.docs = [...state.docs, { docRef: action.payload.docRef, email: action.payload.email } ];
+      state.docs = [...state.docs, { docRef: action.payload.docRef, email: action.payload.email, docId: action.payload.docId } ];
     },
     resetDocs: (state, action) => {
       state.docs = [];

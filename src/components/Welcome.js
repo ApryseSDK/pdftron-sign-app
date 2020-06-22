@@ -41,7 +41,8 @@ const ProfilePage = () => {
                   <Table.Cell>
                     <Button
                       onClick={event => {
-                        dispatch(setDocToSign(doc.docRef));
+                        const { docRef, docId } = doc;
+                        dispatch(setDocToSign({ docRef, docId }));
                         navigate(`/signDocument`);
                       }}
                       text="Sign"
