@@ -37,8 +37,6 @@ const PrepareDocument = () => {
 
   const viewer = useRef(null);
   const filePicker = useRef(null);
-  const addSignature = useRef(null);
-  const addText = useRef(null);
 
   // if using a class, equivalent of componentDidMount
   useEffect(() => {
