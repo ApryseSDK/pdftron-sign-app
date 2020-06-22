@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { navigate } from '@reach/router';
-import { Box, Column, Heading, Row, Stack, Text, Button } from 'gestalt';
+import { Box, Column, Heading, Row, Stack, Button } from 'gestalt';
 import { selectDocToSign, resetDocToSign } from './SignDocumentSlice';
 import { storage, updateDocumentToSign } from '../Firebase/firebase';
 import { selectUser } from '../Firebase/firebaseSlice';
@@ -51,6 +51,7 @@ const SignDocument = () => {
       // load document
       const storageRef = storage.ref();
       const URL = await storageRef.child(docRef).getDownloadURL();
+      console.log(URL);
       instance.docViewer.loadDocument(URL);
 
       const normalStyles = (widget) => {

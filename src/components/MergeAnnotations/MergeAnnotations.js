@@ -1,5 +1,44 @@
-import WebViewer from '@pdftron/webviewer';
+import { storage } from '../Firebase/firebase';
 
-export const mergeAnnotations = (docRef, xfdf) => {
-    
-}
+export const mergeAnnotations = async (docRef, xfdf) => {
+  console.log(docRef);
+  console.log(xfdf);
+  const PDFNet = window.PDFNet;
+  const CoreControls = window.CoreControls;
+  CoreControls.setWorkerPath('webviewer/core');
+
+  const storageRef = storage.ref();
+  const URL = await storageRef.child(docRef).getDownloadURL();
+  
+  const main = async () => {
+    const doc = await PDFNet.PDFDoc.createFromURL(URL);
+    doc.initSecurityHandler();
+
+    let i;
+    for (i=0; i < xfdf.length; i++) {
+        let fdfDoc = await PDFNet.FDFDoc.createFromXFDF(xfdf[i]);
+        await doc.fdfMerge(fdfDoc);
+        await doc.flattenAnnotations();
+    }
+  
+    xfdf.forEach(async xfdfString => {
+      console.log(xfdfString);
+      
+    });
+  
+    const docbuf = await doc.saveMemoryBuffer(
+      PDFNet.SDFDoc.SaveOptions.e_linearized,
+    );
+    const blob = new Blob([docbuf], {
+      type: 'application/pdf',
+    });
+  
+    const documentRef = storageRef.child(docRef);
+  
+    documentRef.put(blob).then(function (snapshot) {
+      console.log('Uploaded the blob');
+    });
+  }
+
+  await PDFNet.runWithCleanup(main);
+};
