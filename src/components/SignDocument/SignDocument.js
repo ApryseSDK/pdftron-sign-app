@@ -1,7 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { navigate } from '@reach/router';
 import { Box, Column, Heading, Row, Stack, Text, Button } from 'gestalt';
-import { selectDocToSign } from './SignDocumentSlice';
+import { selectDocToSign, resetDocToSign } from './SignDocumentSlice';
 import { storage, updateDocumentToSign } from '../Firebase/firebase';
 import { selectUser } from '../Firebase/firebaseSlice';
 import WebViewer from '@pdftron/webviewer';
@@ -12,6 +13,8 @@ const SignDocument = () => {
   const [instance, setInstance] = useState(null);
   const [annotManager, setAnnotatManager] = useState(null);
   const [annotPosition, setAnnotPosition] = useState(0);
+
+  const dispatch = useDispatch();
 
   const doc = useSelector(selectDocToSign);
   const user = useSelector(selectUser);
@@ -103,6 +106,8 @@ const SignDocument = () => {
   const completeSigning = async () => {
     const xfdf = await annotManager.exportAnnotations({ widgets: false, links: false });
     await updateDocumentToSign(docId, email, xfdf);
+    dispatch(resetDocToSign);
+    navigate('/');
   }
 
   return (

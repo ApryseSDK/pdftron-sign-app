@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { navigate } from '@reach/router';
 import {
   Box,
   Column,
@@ -10,9 +11,9 @@ import {
   Button,
   SelectList,
 } from 'gestalt';
-import { selectAssignees } from '../Assign/AssignSlice';
-import { storage, addDocumentToSign } from '../Firebase/firebase';
-import { selectUser, setUser } from '../Firebase/firebaseSlice';
+import { selectAssignees, resetSignee } from '../Assign/AssignSlice';
+import { storage, addDocumentToSign, searchForDocumentToSign } from '../Firebase/firebase';
+import { selectUser, resetDocs, setDocs } from '../Firebase/firebaseSlice';
 import WebViewer from '@pdftron/webviewer';
 import 'gestalt/dist/gestalt.css';
 import './PrepareDocument.css';
@@ -20,6 +21,8 @@ import './PrepareDocument.css';
 const PrepareDocument = () => {
   const [instance, setInstance] = useState(null);
   const [dropPoint, setDropPoint] = useState(null);
+
+  const dispatch = useDispatch();
 
   const assignees = useSelector(selectAssignees);
   const assigneesValues = assignees.map(user => {
@@ -260,15 +263,23 @@ const PrepareDocument = () => {
     const data = await doc.getFileData({ xfdfString });
     const arr = new Uint8Array(data);
     const blob = new Blob([arr], { type: 'application/pdf' });
-    docRef.put(blob).then(function(snapshot) {
+    docRef.put(blob).then(function (snapshot) {
       console.log('Uploaded the blob');
     });
 
     // create an entry in the database
-    const emails = assignees.map((assignee)=>{
+    const emails = assignees.map(assignee => {
       return assignee.email;
     });
-    addDocumentToSign(uid, email, referenceString, emails);
+    await addDocumentToSign(uid, email, referenceString, emails);
+    dispatch(resetSignee);
+    dispatch(resetDocs);
+    const docsToSign = await searchForDocumentToSign(email);
+    docsToSign.forEach(doc => {
+      const { docRef, email, docId } = doc;
+      dispatch(setDocs({ docRef, email, docId }));
+    });
+    navigate('/');
   };
 
   const dragOver = e => {
