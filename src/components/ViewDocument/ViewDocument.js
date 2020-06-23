@@ -1,17 +1,15 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Box, Column, Heading, Row, Stack, Button } from 'gestalt';
-import { selectDocToView, resetDocToView } from './ViewDocumentSlice';
+import { selectDocToView } from './ViewDocumentSlice';
 import { storage } from '../Firebase/firebase';
 import WebViewer from '@pdftron/webviewer';
 import 'gestalt/dist/gestalt.css';
 import './ViewDocument.css';
 
-const SignDocument = () => {
+const ViewDocument = () => {
   const [instance, setInstance] = useState(null);
-
-  const dispatch = useDispatch();
 
   const doc = useSelector(selectDocToView);
   const { docRef } = doc;
@@ -54,7 +52,6 @@ const SignDocument = () => {
   };
 
   const doneViewing = async () => {
-    dispatch(resetDocToView());
     navigate('/');
   }
 
@@ -96,4 +93,4 @@ const SignDocument = () => {
   );
 };
 
-export default SignDocument;
+export default ViewDocument;

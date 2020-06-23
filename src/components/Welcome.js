@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Profile from './Profile/Profile';
 import { navigate } from '@reach/router';
+import { useDispatch } from 'react-redux';
 import SignList from './Lists/SignList';
 import SignedList from './Lists/SignedList';
+import { resetDocToView } from './ViewDocument/ViewDocumentSlice';
+import { resetDocToSign } from './SignDocument/SignDocumentSlice';
 import { Box, Button, Container, Heading } from 'gestalt';
 import 'gestalt/dist/gestalt.css';
 
+
 const ProfilePage = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(resetDocToView());
+    dispatch(resetDocToSign());
+  }, []);
 
   return (
     <div>

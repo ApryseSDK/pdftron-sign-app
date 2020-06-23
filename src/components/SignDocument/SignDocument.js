@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Box, Column, Heading, Row, Stack, Button } from 'gestalt';
-import { selectDocToSign, resetDocToSign } from './SignDocumentSlice';
+import { selectDocToSign } from './SignDocumentSlice';
 import { storage, updateDocumentToSign } from '../Firebase/firebase';
 import { selectUser } from '../Firebase/firebaseSlice';
 import WebViewer from '@pdftron/webviewer';
@@ -107,7 +107,6 @@ const SignDocument = () => {
   const completeSigning = async () => {
     const xfdf = await annotManager.exportAnnotations({ widgets: false, links: false });
     await updateDocumentToSign(docId, email, xfdf);
-    dispatch(resetDocToSign());
     navigate('/');
   }
 
