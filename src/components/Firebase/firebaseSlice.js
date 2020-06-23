@@ -25,7 +25,7 @@ export const firebaseSlice = createSlice({
       state.docs = [];
     },
     setDocsSigned: (state, action) => {
-      state.docs = [...state.docsSigned, { docRef: action.payload.docRef, email: action.payload.email, docId: action.payload.docId } ];
+      state.docs = [...state.docsSigned, { docRef: action.payload.docRef, emails: action.payload.emails, docId: action.payload.docId } ];
     },
   },
 });

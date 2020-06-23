@@ -2,12 +2,12 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Box, Column, Heading, Row, Stack, Button } from 'gestalt';
-import { selectDocToSign, resetDocToSign } from './SignDocumentSlice';
+import { selectDocToView, resetDocToView } from './ViewDocumentSlice';
 import { storage, updateDocumentToSign } from '../Firebase/firebase';
 import { selectUser } from '../Firebase/firebaseSlice';
 import WebViewer from '@pdftron/webviewer';
 import 'gestalt/dist/gestalt.css';
-import './SignDocument.css';
+import './ViewDocument.css';
 
 const SignDocument = () => {
   const [instance, setInstance] = useState(null);
@@ -16,7 +16,7 @@ const SignDocument = () => {
 
   const dispatch = useDispatch();
 
-  const doc = useSelector(selectDocToSign);
+  const doc = useSelector(selectDocToView);
   const user = useSelector(selectUser);
   const { docRef, docId } = doc;
   const { email } = user;
@@ -53,61 +53,17 @@ const SignDocument = () => {
       const URL = await storageRef.child(docRef).getDownloadURL();
       console.log(URL);
       instance.docViewer.loadDocument(URL);
-
-      const normalStyles = (widget) => {
-        if (widget instanceof Annotations.TextWidgetAnnotation) {
-          return {
-            'background-color': '#a5c7ff',
-            color: 'white',
-            'font-size': '20px',
-          };
-        } else if (widget instanceof Annotations.SignatureWidgetAnnotation) {
-          return {
-            border: '1px solid #a5c7ff',
-          };
-        }
-      };
-
-      annotManager.on('annotationChanged', (annotations, action, { imported }) => {
-        if (imported && action === 'add') {
-          annotations.forEach(function(annot) {
-            if (annot instanceof Annotations.WidgetAnnotation) {
-              Annotations.WidgetAnnotation.getCustomStyles = normalStyles;
-              if (!annot.fieldName.startsWith(email)) {
-                annot.Hidden = true;
-                annot.Listable = false;
-              }
-            }
-          });
-        }
-      });
     });
   }, []);
 
-  const nextField = () => {
-    let annots = annotManager.getAnnotationsList();
-    if (annots[annotPosition]) {
-      annotManager.jumpToAnnotation(annots[annotPosition]);
-      if (annots[annotPosition+1]) {
-        setAnnotPosition(annotPosition+1);
-      }
-    }
-  }
+  const download = () => {
+    instance.downloadPdf(true);
+  };
 
-  const prevField = () => {
-    let annots = annotManager.getAnnotationsList();
-    if (annots[annotPosition]) {
-      annotManager.jumpToAnnotation(annots[annotPosition]);
-      if (annots[annotPosition-1]) {
-        setAnnotPosition(annotPosition-1);
-      }
-    }
-  }
-
-  const completeSigning = async () => {
+  const doneViewing = async () => {
     const xfdf = await annotManager.exportAnnotations({ widgets: false, links: false });
     await updateDocumentToSign(docId, email, xfdf);
-    dispatch(resetDocToSign());
+    dispatch(resetDocToView());
     navigate('/');
   }
 
@@ -123,23 +79,15 @@ const SignDocument = () => {
               <Stack>
                 <Box padding={2}>
                   <Button
-                    onClick={nextField}
-                    accessibilityLabel="next field"
-                    text="Next field"
+                    onClick={download}
+                    accessibilityLabel="download signed document"
+                    text="Download"
                     iconEnd="arrow-forward"
                   />
                 </Box>
                 <Box padding={2}>
                   <Button
-                    onClick={prevField}
-                    accessibilityLabel="Previous field"
-                    text="Previous field"
-                    iconEnd="arrow-back"
-                  />
-                </Box>
-                <Box padding={2}>
-                  <Button
-                    onClick={completeSigning}
+                    onClick={doneViewing}
                     accessibilityLabel="complete signing"
                     text="Complete signing"
                     iconEnd="compose"

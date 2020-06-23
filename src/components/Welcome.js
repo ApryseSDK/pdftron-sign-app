@@ -2,6 +2,7 @@ import React from 'react';
 import Profile from './Profile/Profile';
 import { navigate } from '@reach/router';
 import SignList from './Lists/SignList';
+import SignedList from './Lists/SignedList';
 import { Box, Button, Container, Heading } from 'gestalt';
 import 'gestalt/dist/gestalt.css';
 
@@ -32,6 +33,9 @@ const ProfilePage = () => {
         </Box>
         <Box padding={3}>
           <Heading size="md">{`Review Signed Documents`}</Heading>
+        </Box>
+        <Box padding={3}>
+          <SignedList />
         </Box>
       </Container>
     </div>

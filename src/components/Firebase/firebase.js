@@ -152,9 +152,9 @@ export const searchForDocumentsSigned = async email => {
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
-        const { docRef, email } = doc.data();
+        const { docRef, emails } = doc.data();
         const docId = doc.id;
-        docIds.push({ docRef, email, docId });
+        docIds.push({ docRef, emails, docId });
       });
     })
     .catch(function (error) {
