@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Table, Text } from 'gestalt';
 import 'gestalt/dist/gestalt.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectDocs } from '../Firebase/firebaseSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { searchForDocumentToSign } from '../Firebase/firebase';
+import { selectUser } from '../Firebase/firebaseSlice';
 import { setDocToSign } from '../SignDocument/SignDocumentSlice';
 import { navigate } from '@reach/router';
 
 const SignList = () => {
-  const docs = useSelector(selectDocs);
-  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+  const { email } = user;
+
+  const [docs, setDocs] = useState([]);
+  
+  const dispatch = useDispatch(); 
+
+  useEffect(() => {
+      async function getDocs() {
+        const docsToSign = await searchForDocumentToSign(email);
+        console.log(docsToSign);
+        setDocs(docsToSign);
+      }
+    
+      getDocs();
+  }, []);
 
   return (
     <div>

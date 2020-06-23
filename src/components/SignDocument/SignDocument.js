@@ -14,8 +14,6 @@ const SignDocument = () => {
   const [annotManager, setAnnotatManager] = useState(null);
   const [annotPosition, setAnnotPosition] = useState(0);
 
-  const dispatch = useDispatch();
-
   const doc = useSelector(selectDocToSign);
   const user = useSelector(selectUser);
   const { docRef, docId } = doc;
@@ -52,7 +50,7 @@ const SignDocument = () => {
       const storageRef = storage.ref();
       const URL = await storageRef.child(docRef).getDownloadURL();
       console.log(URL);
-      instance.docViewer.loadDocument(URL);
+      docViewer.loadDocument(URL);
 
       const normalStyles = (widget) => {
         if (widget instanceof Annotations.TextWidgetAnnotation) {

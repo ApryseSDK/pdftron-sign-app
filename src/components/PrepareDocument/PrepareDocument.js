@@ -13,7 +13,7 @@ import {
 } from 'gestalt';
 import { selectAssignees, resetSignee } from '../Assign/AssignSlice';
 import { storage, addDocumentToSign, searchForDocumentToSign } from '../Firebase/firebase';
-import { selectUser, resetDocs, setDocs } from '../Firebase/firebaseSlice';
+import { selectUser } from '../Firebase/firebaseSlice';
 import WebViewer from '@pdftron/webviewer';
 import 'gestalt/dist/gestalt.css';
 import './PrepareDocument.css';
@@ -54,6 +54,7 @@ const PrepareDocument = () => {
           'signatureToolButton',
           'eraserToolButton',
           'stickyToolButton',
+          'freeTextToolButton',
           'miscToolGroupButton',
         ],
       },
@@ -246,10 +247,6 @@ const PrepareDocument = () => {
     annotManager.selectAnnotation(textAnnot);
   };
 
-  const download = () => {
-    instance.downloadPdf(true);
-  };
-
   const uploadForSigning = async () => {
     // upload the PDF with fields as AcroForm
     const storageRef = storage.ref();
@@ -271,12 +268,6 @@ const PrepareDocument = () => {
     });
     await addDocumentToSign(uid, email, referenceString, emails);
     dispatch(resetSignee());
-    dispatch(resetDocs());
-    const docsToSign = await searchForDocumentToSign(email);
-    docsToSign.forEach(doc => {
-      const { docRef, email, docId } = doc;
-      dispatch(setDocs({ docRef, email, docId }));
-    });
     navigate('/');
   };
 
