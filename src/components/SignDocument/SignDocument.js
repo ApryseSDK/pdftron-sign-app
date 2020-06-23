@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Box, Column, Heading, Row, Stack, Button } from 'gestalt';
 import { selectDocToSign } from './SignDocumentSlice';
@@ -10,7 +10,6 @@ import 'gestalt/dist/gestalt.css';
 import './SignDocument.css';
 
 const SignDocument = () => {
-  const [instance, setInstance] = useState(null);
   const [annotManager, setAnnotatManager] = useState(null);
   const [annotPosition, setAnnotPosition] = useState(0);
 
@@ -43,7 +42,6 @@ const SignDocument = () => {
       viewer.current,
     ).then(async instance => {
       const { docViewer, annotManager, Annotations } = instance;
-      setInstance(instance);
       setAnnotatManager(annotManager);
 
       // load document

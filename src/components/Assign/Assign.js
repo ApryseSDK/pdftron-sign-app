@@ -9,6 +9,7 @@ import {
   TextField,
   Table,
   Text,
+  Toast,
 } from 'gestalt';
 import 'gestalt/dist/gestalt.css';
 import { addSignee, selectAssignees } from './AssignSlice';
@@ -16,14 +17,26 @@ import { addSignee, selectAssignees } from './AssignSlice';
 const Assign = () => {
   const [email, setEmail] = useState('');
   const [displayName, setDisplayName] = useState('');
+  const [showToast, setShowToast] = useState(false);
   const assignees = useSelector(selectAssignees);
   const dispatch = useDispatch();
 
+  const prepare = () => {
+    if (assignees.length > 0) {
+      navigate(`/prepareDocument`);
+    } else {
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 1000);
+    }
+  };
+
   const addUser = (name, email) => {
     const key = `${new Date().getTime()}${email}`;
-    dispatch(addSignee({key, name, email}));
-    setEmail('');
-    setDisplayName('');
+    if (name !== '' && email !== '') {
+      dispatch(addSignee({ key, name, email }));
+      setEmail('');
+      setDisplayName('');
+    }
   };
 
   return (
@@ -90,14 +103,23 @@ const Assign = () => {
             </Table>
           </Box>
           <Box padding={2}>
-            <Button
-              onClick={event => {
-                navigate(`/prepareDocument`);
-              }}
-              text="Continue"
-              color="blue"
-              inline
-            />
+            <Button onClick={prepare} text="Continue" color="blue" inline />
+          </Box>
+          <Box
+            fit
+            dangerouslySetInlineStyle={{
+              __style: {
+                bottom: 50,
+                left: '50%',
+                transform: 'translateX(-50%)',
+              },
+            }}
+            paddingX={1}
+            position="fixed"
+          >
+            {showToast && (
+              <Toast color="red" text={<>Please add at least one user</>} />
+            )}
           </Box>
         </Container>
       </Box>

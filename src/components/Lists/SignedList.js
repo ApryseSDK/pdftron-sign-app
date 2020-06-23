@@ -21,7 +21,7 @@ const SignedList = () => {
       setDocs(docsToView);
       setShow(false);
     }
-    setTimeout(getDocs, 3000);
+    setTimeout(getDocs, 1000);
   }, []);
 
   return (
