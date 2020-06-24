@@ -10,10 +10,10 @@ This repo is designed to help getting started in creating your own signing workf
 npm install
 ```
 
-This application uses Firebase to store PDFs, and data for signatures. You can use any other backend of your choice. 
+This application uses Firebase to store PDFs and data for signatures. You can use any other backend of your choice. 
 However, to get started with this sample, please register a new app with [Firebase](https://firebase.google.com/).
 
-After you have registered an app, create `.env` file in root of the directory and place the following:
+After you have registered an app, create `.env` file in the root of the directory and place the following:
 
 ```
 REACT_APP_API_KEY=your_key_goes_here
