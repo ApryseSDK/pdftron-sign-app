@@ -39,14 +39,28 @@ npm run build
 
 ```
 src/
-  apis/            - APIs exposed in myWebViewer.getInstance()
+  app/             - Redux Store Configuration
   components/      - React components
-  constants/       - JavaScript or CSS constants
-  core/            - APIs from the Core
-  event-listeners/ - Listeners for the Core events
-  helpers/         - Reused functions
-  redux/           - Redux files for state managing
-  lib/             - Lib folder created upon npm install, used for dev testing only
+    Assign/              - Add users to a document that needs to be signed 
+    Firebase/            - Firebase configuration for authentication, updating documents, storing PDFs
+    Lists/               - List components to list files for signing and review
+    MergeAnnotations/    - Merge all signatures and flatten them onto a PDF 
+    PasswordReset/       - Reset password
+    PrepareDocument/     - Drag and drop signatures, text fields onto a PDF to prepare it for signing
+    Profile/             - Profile information and a sign out button
+    SignDocument/        - Sign PDF
+    SignIn/              - Sign in
+    SignUp/              - Sign up
+    ViewDocument/        - Review document after signing
+    AssignUsers          - Component combines Profile and Assign
+    Header               - Header when the user is not logged in
+    Preparation          - Component combines Profile and PrepareDocument
+    Sign                 - Component combines Profile and SignDocument
+    View                 - Component combines Profile and ViewDocument
+    Welcome              - Component combines Profile, SignList, Preparation, SignedList
+  App              - Configuration for navigation, authentication
+  index            - Entry point and configuration for React-Redux
+  tools/           - Helper function to copy over PDFTron dependencies into /public on post-install
 ```
 
 ## API documentation
