@@ -15,7 +15,8 @@ However, to get started with this sample, please register a new app with [Fireba
 
 After you have registered an app, create `.env` file in root of the directory and place the following:
 
-```REACT_APP_API_KEY=your_key_goes_here
+```
+REACT_APP_API_KEY=your_key_goes_here
 REACT_APP_MESSAGING_SENDER_ID=your_key_goes_here
 REACT_APP_APP_ID=your_key_goes_here
 ```
