@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from '@reach/router';
+import { Link, navigate } from '@reach/router';
 import { Box, Button, Toast, Container, TextField, Heading } from 'gestalt';
 import 'gestalt/dist/gestalt.css';
 
-import { auth } from '../Firebase/firebase';
+import { auth } from '../../firebase/firebase';
 
 const PasswordReset = () => {
   const [email, setEmail] = useState('');
@@ -49,6 +49,7 @@ const PasswordReset = () => {
             <Button
               onClick={event => {
                 sendResetEmail(event);
+                navigate('/');
               }}
               text="Reset"
               color="blue"

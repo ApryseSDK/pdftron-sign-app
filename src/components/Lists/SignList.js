@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Button, Table, Text, Spinner } from 'gestalt';
 import 'gestalt/dist/gestalt.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchForDocumentToSign } from '../Firebase/firebase';
-import { selectUser } from '../Firebase/firebaseSlice';
+import { searchForDocumentToSign } from '../../firebase/firebase';
+import { selectUser } from '../../firebase/firebaseSlice';
 import { setDocToSign } from '../SignDocument/SignDocumentSlice';
 import { navigate } from '@reach/router';
 

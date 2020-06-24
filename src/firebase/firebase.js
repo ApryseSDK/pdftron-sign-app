@@ -3,14 +3,14 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
 
-import { mergeAnnotations } from '../MergeAnnotations/MergeAnnotations';
+import { mergeAnnotations } from '../components/MergeAnnotations/MergeAnnotations';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: 'pdftron-sign-app.firebaseapp.com',
-  databaseURL: 'https://pdftron-sign-app.firebaseio.com',
-  projectId: 'pdftron-sign-app',
-  storageBucket: 'pdftron-sign-app.appspot.com',
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_APP_ID,
 };

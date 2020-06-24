@@ -1,4 +1,4 @@
-import { storage } from '../Firebase/firebase';
+import { storage } from '../../firebase/firebase';
 
 export const mergeAnnotations = async (docRef, xfdf) => {
   console.log(docRef);

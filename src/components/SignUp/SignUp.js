@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from '@reach/router';
-import { auth, signInWithGoogle, generateUserDocument } from '../Firebase/firebase';
+import { Link, navigate } from '@reach/router';
+import { auth, signInWithGoogle, generateUserDocument } from '../../firebase/firebase';
 import {
     Box,
     Button,
@@ -74,6 +74,7 @@ const SignUp = () => {
           <Button
             onClick={event => {
                 createUserWithEmailAndPasswordHandler(event, email, password);
+                navigate('/');
               }}
             text="Sign up"
             color="blue"

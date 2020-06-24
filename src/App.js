@@ -12,8 +12,8 @@ import Header from './components/Header';
 import PasswordReset from './components/PasswordReset/PasswordReset';
 import Welcome from './components/Welcome';
 
-import { auth, generateUserDocument } from './components/Firebase/firebase';
-import { setUser, selectUser } from './components/Firebase/firebaseSlice';
+import { auth, generateUserDocument } from './firebase/firebase';
+import { setUser, selectUser } from './firebase/firebaseSlice';
 
 import './App.css';
 

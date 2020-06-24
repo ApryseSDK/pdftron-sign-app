@@ -10,9 +10,9 @@ import {
   Heading,
 } from 'gestalt';
 import 'gestalt/dist/gestalt.css';
-import { auth } from '../Firebase/firebase';
+import { auth } from '../../firebase/firebase';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectUser, setUser } from '../Firebase/firebaseSlice';
+import { selectUser, setUser } from '../../firebase/firebaseSlice';
 import { resetSignee } from '../Assign/AssignSlice';
 import { navigate, Link } from '@reach/router';
 import './Profile.css';

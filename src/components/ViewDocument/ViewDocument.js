@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Box, Column, Heading, Row, Stack, Button } from 'gestalt';
 import { selectDocToView } from './ViewDocumentSlice';
-import { storage } from '../Firebase/firebase';
+import { storage } from '../../firebase/firebase';
 import WebViewer from '@pdftron/webviewer';
 import 'gestalt/dist/gestalt.css';
 import './ViewDocument.css';
