@@ -24,6 +24,8 @@ REACT_APP_DATABASE_URL=your_database_go_here
 REACT_APP_PROJECT_ID=your_project_id
 REACT_APP_STORAGE_BUCKET=your_storage_bucket
 ```
+The above information can be found under settings of your Firebase app.
+![Screenshot](https://github.com/PDFTron/pdftron-sign-app/blob/master/firebase.png)
 
 Now you can run the application and start requesting signatures.
 
@@ -46,7 +48,6 @@ src/
   app/             - Redux Store Configuration
   components/      - React components
     Assign/              - Add users to a document that needs to be signed 
-    Firebase/            - Firebase configuration for authentication, updating documents, storing PDFs
     Lists/               - List components to list files for signing and review
     MergeAnnotations/    - Merge all signatures and flatten them onto a PDF 
     PasswordReset/       - Reset password
@@ -64,6 +65,7 @@ src/
     Welcome              - Component combines Profile, SignList, Preparation, SignedList
   App              - Configuration for navigation, authentication
   index            - Entry point and configuration for React-Redux
+  firebase/        - Firebase configuration for authentication, updating documents, storing PDFs
   tools/           - Helper function to copy over PDFTron dependencies into /public on post-install
 ```
 
