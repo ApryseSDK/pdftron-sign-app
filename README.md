@@ -5,7 +5,7 @@ PDFTron Sign App demonstrates building a signing application where users can req
 Watch the video here:
 [![image](https://img.youtube.com/vi/tSpYY8IenJw/maxresdefault.jpg)](https://youtu.be/tSpYY8IenJw)
 
-This repo is designed to help getting started in creating your own signing workflow.
+This repo is designed to help to get started in creating your own signing workflow.
 
 ## Install
 
