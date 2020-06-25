@@ -37,12 +37,6 @@ Now you can run the application and start requesting signatures.
 npm start
 ```
 
-## Build
-
-```
-npm run build
-```
-
 ## Project structure
 
 ```
