@@ -66,9 +66,7 @@ src/
   tools/           - Helper function to copy over PDFTron dependencies into /public on post-install
 ```
 
-## Document Structure
-
-Here is Firebase document structure:
+## Firebase Document Structure
 
 ```
 docRef: docToSign/c4Y72M0d0pZx3476jxJFxrFA3Qo21593036106369.pdf"
