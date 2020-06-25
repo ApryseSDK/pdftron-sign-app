@@ -66,6 +66,27 @@ src/
   tools/           - Helper function to copy over PDFTron dependencies into /public on post-install
 ```
 
+## Document Structure
+
+Here is Firebase document structure:
+
+```
+docRef: docToSign/c4Y72M0d0pZx3476jxJFxrFA3Qo21593036106369.pdf"
+email: "andrey@email.com"
+emails: ["julia@email.com"]
+signed: true
+signedBy: ["julia@email.com"]
+uid: "c4Y72M0d0pZx3476jxJFxrFA3Qo2"
+xfdf: ["<?xml version="1.0" encoding="UTF-8" ?><xfdf xmlns="http://ns.adobe.com/xfdf/" xml:space="preserve">...</xfdf>"]
+ ```
+ 
+docRef - string - storage reference to the actual PDF
+email - string - email of the requestor of the signature
+emails - an array of strings - users to sign the document
+signed - boolean - value for whether or not all users have signed the document (gets determined by checking lengths of emails array and xfdf array)
+uid - string - unique identifier for the requestor of the signature
+xfdf - an array of strings - signature appearance/form field values for each user
+
 ## API documentation
 
 See [API documentation](https://www.pdftron.com/documentation/web/guides/ui/apis).
