@@ -2,7 +2,7 @@
 
 PDFTron Sign App demonstrates building a signing application where users can request signatures on the documents by placing fields, sign documents, review signed documents using [PDFTron PDF SDK](https://www.pdftron.com).
 
-[![Video](https://img.youtube.com/vi/tSpYY8IenJw/maxresdefault.jpg)](https://youtu.be/tSpYY8IenJw)
+<a href="https://youtu.be/tSpYY8IenJw" target="_blank">![image](https://img.youtube.com/vi/tSpYY8IenJw/maxresdefault.jpg)</a>
 
 This repo is designed to help getting started in creating your own signing workflow.
 
