@@ -32,6 +32,23 @@ The above information can be found under settings of your Firebase app.
 
 Now you can run the application and start requesting signatures.
 
+## CORS
+
+You will need to set up CORS on your Firestore to allow WebViewer to access files stored in your bucket. I created a CORS file called `cors.json`: 
+
+```
+[
+  {
+    "origin": ["*"],
+    "method": ["GET"],
+    "maxAgeSeconds": 3600
+  }
+]
+```
+
+And then used gsutil to update it:
+https://cloud.google.com/storage/docs/configuring-cors
+
 ## Run
 
 ```
