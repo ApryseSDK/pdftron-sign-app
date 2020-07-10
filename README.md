@@ -13,6 +13,8 @@ This repo is designed to help to get started in creating your own signing workfl
 npm install
 ```
 
+## Firebase Configuration
+
 This application uses Firebase to store PDFs and data for signatures. You can use any other backend of your choice. 
 However, to get started with this sample, please register a new app with [Firebase](https://firebase.google.com/).
 
@@ -29,6 +31,9 @@ REACT_APP_STORAGE_BUCKET=your_storage_bucket
 ```
 The above information can be found under settings of your Firebase app.
 ![Screenshot](https://github.com/PDFTron/pdftron-sign-app/blob/master/firebase.png)
+
+Make sure you create a storage bucket, and enable authentication for email and Google.
+![Screenshot](https://github.com/PDFTron/pdftron-sign-app/blob/master/firebase_authentication.png)
 
 Now you can run the application and start requesting signatures.
 
