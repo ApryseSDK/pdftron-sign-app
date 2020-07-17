@@ -65,6 +65,8 @@ export const addDocumentToSign = async (uid, email, docRef, emails) => {
   const signed = false;
   const xfdf = [];
   const signedBy = [];
+  const requestedTime = new Date();
+  const signedTime = '';
   firestore
     .collection('documentsToSign')
     .add({
@@ -75,6 +77,8 @@ export const addDocumentToSign = async (uid, email, docRef, emails) => {
       xfdf,
       signedBy,
       signed,
+      requestedTime,
+      signedTime,
     })
     .then(function (docRef) {
       console.log('Document written with ID: ', docRef.id);
@@ -100,8 +104,10 @@ export const updateDocumentToSign = async (docId, email, xfdfSigned) => {
           });
 
           if (signedByArray.length === emails.length) {
+            const time = new Date();
             await documentRef.update({
               signed: true,
+              signedTime: time,
             });
 
             mergeAnnotations(docRef, xfdfArray);
@@ -144,10 +150,10 @@ export const searchForDocumentToSign = async email => {
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
-        const { docRef, email } = doc.data();
+        const { docRef, email, requestedTime } = doc.data();
         const docId = doc.id;
         if (!docIdSigned.includes(docId)) {
-          docIds.push({ docRef, email, docId });
+          docIds.push({ docRef, email, requestedTime, docId });
         }
       });
     })
@@ -170,9 +176,9 @@ export const searchForDocumentsSigned = async email => {
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
-        const { docRef, emails } = doc.data();
+        const { docRef, emails, signedTime } = doc.data();
         const docId = doc.id;
-        docIds.push({ docRef, emails, docId });
+        docIds.push({ docRef, emails, signedTime, docId });
       });
     })
     .catch(function (error) {

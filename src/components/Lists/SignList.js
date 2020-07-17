@@ -39,6 +39,9 @@ const SignList = () => {
                   <Table.HeaderCell>
                     <Text weight="bold">From</Text>
                   </Table.HeaderCell>
+                  <Table.HeaderCell>
+                    <Text weight="bold">When</Text>
+                  </Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
               <Table.Body>
@@ -46,6 +49,9 @@ const SignList = () => {
                   <Table.Row key={doc.docRef}>
                     <Table.Cell>
                       <Text>{doc.email}</Text>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text>{doc.requestedTime ? new Date(doc.requestedTime.seconds*1000).toDateString() : ''}</Text>
                     </Table.Cell>
                     <Table.Cell>
                       <Button

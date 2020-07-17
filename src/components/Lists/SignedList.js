@@ -37,6 +37,9 @@ const SignedList = () => {
                   <Table.HeaderCell>
                     <Text weight="bold">From</Text>
                   </Table.HeaderCell>
+                  <Table.HeaderCell>
+                    <Text weight="bold">When</Text>
+                  </Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
               <Table.Body>
@@ -46,6 +49,9 @@ const SignedList = () => {
                       {doc.emails.map(email => (
                         <Text key={email}>{email}</Text>
                       ))}
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text>{doc.signedTime ? new Date(doc.signedTime.seconds*1000).toDateString() : ''}</Text>
                     </Table.Cell>
                     <Table.Cell>
                       <Button
