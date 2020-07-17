@@ -106,8 +106,6 @@ export const updateDocumentToSign = async (docId, email, xfdfSigned) => {
 
             mergeAnnotations(docRef, xfdfArray);
           }
-
-
         }
       } else {
         console.log('No such document!');
@@ -123,14 +121,34 @@ export const searchForDocumentToSign = async email => {
   const query = documentsRef
     .where('emails', 'array-contains', email)
     .where('signed', '==', false);
+
+  const querySigned = documentsRef
+    .where('signedBy', 'array-contains', email);
+
   const docIds = [];
+  const docIdSigned = [];
+
+  await querySigned
+    .get()
+    .then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        const docId = doc.id;
+        docIdSigned.push(docId);
+      });
+    })
+    .catch(function (error) {
+      console.log('Error getting documents: ', error);
+    });
+
   await query
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
         const { docRef, email } = doc.data();
         const docId = doc.id;
-        docIds.push({ docRef, email, docId });
+        if (!docIdSigned.includes(docId)) {
+          docIds.push({ docRef, email, docId });
+        }
       });
     })
     .catch(function (error) {
@@ -145,8 +163,8 @@ export const searchForDocumentsSigned = async email => {
   const docIds = [];
 
   let query = documentsRef
-  .where('email', '==', email)
-  .where('signed', '==', true);
+    .where('email', '==', email)
+    .where('signed', '==', true);
 
   await query
     .get()
