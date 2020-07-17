@@ -96,6 +96,8 @@ email: "andrey@email.com"
 emails: ["julia@email.com"]
 signed: true
 signedBy: ["julia@email.com"]
+requestedTime: July 17, 2020 at 12:01:24 PM UTC-7
+signedTime: July 17, 2020 at 12:01:24 PM UTC-7
 uid: "c4Y72M0d0pZx3476jxJFxrFA3Qo2"
 xfdf: ["<?xml version="1.0" encoding="UTF-8" ?><xfdf xmlns="http://ns.adobe.com/xfdf/" xml:space="preserve">...</xfdf>"]
  ```
@@ -104,6 +106,8 @@ xfdf: ["<?xml version="1.0" encoding="UTF-8" ?><xfdf xmlns="http://ns.adobe.com/
 - email - string - email of the requestor of the signature
 - emails - an array of strings - users to sign the document
 - signed - boolean - value for whether or not all users have signed the document (gets determined by checking lengths of emails array and xfdf array)
+- requestedTime - TimeStamp - value for when the signature was requested
+- signedTime - TimeStamp - value for when the document was signed
 - uid - string - unique identifier for the requestor of the signature
 - xfdf - an array of strings - signature appearance/form field values for each user
 
