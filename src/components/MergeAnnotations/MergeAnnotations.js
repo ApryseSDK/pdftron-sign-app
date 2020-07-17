@@ -1,8 +1,6 @@
 import { storage } from '../../firebase/firebase';
 
 export const mergeAnnotations = async (docRef, xfdf) => {
-  console.log(docRef);
-  console.log(xfdf);
   const PDFNet = window.PDFNet;
   const CoreControls = window.CoreControls;
   CoreControls.setWorkerPath('webviewer/core');
@@ -16,15 +14,11 @@ export const mergeAnnotations = async (docRef, xfdf) => {
 
     let i;
     for (i=0; i < xfdf.length; i++) {
+        console.log(xfdf[i]);
         let fdfDoc = await PDFNet.FDFDoc.createFromXFDF(xfdf[i]);
         await doc.fdfMerge(fdfDoc);
         await doc.flattenAnnotations();
     }
-  
-    xfdf.forEach(async xfdfString => {
-      console.log(xfdfString);
-      
-    });
   
     const docbuf = await doc.saveMemoryBuffer(
       PDFNet.SDFDoc.SaveOptions.e_linearized,

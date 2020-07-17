@@ -43,7 +43,9 @@ const SignedList = () => {
                 {docs.map(doc => (
                   <Table.Row key={doc.docRef}>
                     <Table.Cell>
-                      <Text>{doc.emails}</Text>
+                      {doc.emails.map(email => (
+                        <Text key={email}>{email}</Text>
+                      ))}
                     </Table.Cell>
                     <Table.Cell>
                       <Button
