@@ -115,10 +115,6 @@ xfdf: ["<?xml version="1.0" encoding="UTF-8" ?><xfdf xmlns="http://ns.adobe.com/
 
 See [API documentation](https://www.pdftron.com/documentation/web/guides/ui/apis).
 
-## Contributing
-
-See [contributing](./CONTRIBUTING.md).
-
 ## License
 
 See [license](./LICENSE).
