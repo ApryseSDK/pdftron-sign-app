@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@pdftron/webviewer": "^6.3.1",
+    "@pdftron/webviewer": "^7.2.0",
     "@reach/router": "^1.3.3",
     "@reduxjs/toolkit": "^1.3.6",
     "@testing-library/jest-dom": "^4.2.4",

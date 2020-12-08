@@ -21,22 +21,16 @@ const ViewDocument = () => {
       {
         path: 'webviewer',
         disabledElements: [
-          'toolsButton',
-          'searchButton',
-          'menuButton',
+          'ribbons',
+          'toggleNotesButton',
           'contextMenuPopup',
-          'freeHandToolGroupButton',
-          'textToolGroupButton',
-          'shapeToolGroupButton',
-          'signatureToolButton',
-          'eraserToolButton',
-          'stickyToolButton',
-          'freeTextToolButton',
-          'miscToolGroupButton',
         ],
       },
       viewer.current,
     ).then(async instance => {
+      // select only the view group
+      instance.setToolbarGroup('toolbarGroup-View');
+
       setInstance(instance);
 
       // load document
