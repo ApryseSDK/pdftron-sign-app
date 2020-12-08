@@ -57,7 +57,6 @@ const SignDocument = () => {
           return {
             'background-color': '#a5c7ff',
             color: 'white',
-            'font-size': '20px',
           };
         } else if (widget instanceof Annotations.SignatureWidgetAnnotation) {
           return {
