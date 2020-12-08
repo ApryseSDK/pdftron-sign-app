@@ -133,7 +133,15 @@ const PrepareDocument = () => {
                       name: 'JavaScript',
                       // You can customize the date format here between the two double-quotation marks
                       // or leave this blank to use the default format
-                      javascript: '"m-d-yyyy"',
+                      javascript: 'AFDate_FormatEx("mmm d, yyyy");',
+                    },
+                  ],
+                  K: [
+                    {
+                      name: 'JavaScript',
+                      // You can customize the date format here between the two double-quotation marks
+                      // or leave this blank to use the default format
+                      javascript: 'AFDate_FormatEx("mmm d, yyyy");',
                     },
                   ],
                 },
