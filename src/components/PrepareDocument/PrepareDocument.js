@@ -151,7 +151,7 @@ const PrepareDocument = () => {
           return;
         }
 
-        // set flag and position
+        // set position
         inputAnnot.PageNumber = annot.getPageNumber();
         inputAnnot.X = annot.getX();
         inputAnnot.Y = annot.getY();
@@ -188,7 +188,7 @@ const PrepareDocument = () => {
     annotManager.deleteAnnotations(annotsToDelete, null, true);
 
     // refresh viewer
-    annotManager.drawAnnotationsFromList(annotsToDraw);
+    await annotManager.drawAnnotationsFromList(annotsToDraw);
     await uploadForSigning();
   };
 
@@ -253,7 +253,7 @@ const PrepareDocument = () => {
     const docRef = storageRef.child(referenceString);
     const { docViewer, annotManager } = instance;
     const doc = docViewer.getDocument();
-    const xfdfString = await annotManager.exportAnnotations();
+    const xfdfString = await annotManager.exportAnnotations({ widgets: true, fields: true });
     const data = await doc.getFileData({ xfdfString });
     const arr = new Uint8Array(data);
     const blob = new Blob([arr], { type: 'application/pdf' });

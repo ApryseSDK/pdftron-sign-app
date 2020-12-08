@@ -49,7 +49,6 @@ const SignDocument = () => {
       // load document
       const storageRef = storage.ref();
       const URL = await storageRef.child(docRef).getDownloadURL();
-      console.log(URL);
       docViewer.loadDocument(URL);
 
       const normalStyles = (widget) => {
