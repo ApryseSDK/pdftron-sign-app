@@ -25,24 +25,26 @@ const SignDocument = () => {
       {
         path: 'webviewer',
         disabledElements: [
-          'toolsButton',
+          'ribbons',
+          'toggleNotesButton',
           'searchButton',
           'menuButton',
-          'contextMenuPopup',
-          'freeHandToolGroupButton',
-          'textToolGroupButton',
-          'shapeToolGroupButton',
-          'signatureToolButton',
-          'eraserToolButton',
-          'stickyToolButton',
-          'freeTextToolButton',
-          'miscToolGroupButton',
+          'rubberStampToolGroupButton',
+          'stampToolGroupButton',
+          'fileAttachmentToolGroupButton',
+          'calloutToolGroupButton',
+          'undo',
+          'redo',
+          'eraserToolButton'
         ],
       },
       viewer.current,
     ).then(async instance => {
       const { docViewer, annotManager, Annotations } = instance;
       setAnnotatManager(annotManager);
+
+      // select only the insert group
+      instance.setToolbarGroup('toolbarGroup-Insert');
 
       // load document
       const storageRef = storage.ref();

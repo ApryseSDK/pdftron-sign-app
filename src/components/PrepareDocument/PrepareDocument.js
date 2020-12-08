@@ -44,23 +44,18 @@ const PrepareDocument = () => {
       {
         path: 'webviewer',
         disabledElements: [
-          'toolsButton',
+          'ribbons',
+          'toggleNotesButton',
           'searchButton',
           'menuButton',
-          'contextMenuPopup',
-          'freeHandToolGroupButton',
-          'textToolGroupButton',
-          'shapeToolGroupButton',
-          'signatureToolButton',
-          'eraserToolButton',
-          'stickyToolButton',
-          'freeTextToolButton',
-          'miscToolGroupButton',
         ],
       },
       viewer.current,
     ).then(instance => {
       const { iframeWindow } = instance;
+
+      // select only the view group
+      instance.setToolbarGroup('toolbarGroup-View');
 
       setInstance(instance);
 
@@ -164,13 +159,7 @@ const PrepareDocument = () => {
 
         // customize styles of the form field
         Annotations.WidgetAnnotation.getCustomStyles = function (widget) {
-          if (widget instanceof Annotations.TextWidgetAnnotation) {
-            return {
-              'background-color': '#a5c7ff',
-              color: 'white',
-              'font-size': '20px',
-            };
-          } else if (widget instanceof Annotations.SignatureWidgetAnnotation) {
+          if (widget instanceof Annotations.SignatureWidgetAnnotation) {
             return {
               border: '1px solid #a5c7ff',
             };
@@ -203,14 +192,14 @@ const PrepareDocument = () => {
       return; //don't add field to an invalid page location
     }
     const page_idx =
-      page.first !== null ? page.first : docViewer.getCurrentPage() - 1;
+      page.first !== null ? page.first : docViewer.getCurrentPage();
     const page_info = doc.getPageInfo(page_idx);
     const page_point = displayMode.windowToPage(point, page_idx);
     const zoom = docViewer.getZoom();
 
     var textAnnot = new Annotations.FreeTextAnnotation();
-    textAnnot.PageNumber = page_idx + 1;
-    const rotation = docViewer.getCompleteRotation(page_idx + 1) * 90;
+    textAnnot.PageNumber = page_idx;
+    const rotation = docViewer.getCompleteRotation(page_idx) * 90;
     textAnnot.Rotation = rotation;
     if (rotation === 270 || rotation === 90) {
       textAnnot.Width = 50.0 / zoom;
