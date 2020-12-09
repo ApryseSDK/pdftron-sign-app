@@ -88,15 +88,6 @@ const PrepareDocument = () => {
         let field;
 
         if (typeof annot.custom !== 'undefined') {
-          // set flags
-          const flags = new Annotations.WidgetFlags();
-          if (annot.custom.flag.readOnly) {
-            flags.set('ReadOnly', true);
-          }
-          if (annot.custom.flag.multiline) {
-            flags.set('Multiline', true);
-          }
-
           // create a form field based on the type of annotation
           if (annot.custom.type === 'TEXT') {
             field = new Annotations.Forms.Field(
@@ -104,7 +95,6 @@ const PrepareDocument = () => {
               {
                 type: 'Tx',
                 value: annot.custom.value,
-                flags,
               },
             );
             inputAnnot = new Annotations.TextWidgetAnnotation(field);
@@ -113,7 +103,6 @@ const PrepareDocument = () => {
               annot.getContents() + Date.now() + index,
               {
                 type: 'Sig',
-                flags,
               },
             );
             inputAnnot = new Annotations.SignatureWidgetAnnotation(field, {
@@ -131,6 +120,35 @@ const PrepareDocument = () => {
                 },
               },
             });
+          } else if (annot.custom.type === 'DATE') {
+            field = new Annotations.Forms.Field(
+              annot.getContents() + Date.now() + index,
+              {
+                type: 'Tx',
+                value: 'm-d-yyyy',
+                // Actions need to be added for DatePickerWidgetAnnotation to recognize this field.
+                actions: {
+                  F: [
+                    {
+                      name: 'JavaScript',
+                      // You can customize the date format here between the two double-quotation marks
+                      // or leave this blank to use the default format
+                      javascript: 'AFDate_FormatEx("mmm d, yyyy");',
+                    },
+                  ],
+                  K: [
+                    {
+                      name: 'JavaScript',
+                      // You can customize the date format here between the two double-quotation marks
+                      // or leave this blank to use the default format
+                      javascript: 'AFDate_FormatEx("mmm d, yyyy");',
+                    },
+                  ],
+                },
+              },
+            );
+  
+            inputAnnot = new Annotations.DatePickerWidgetAnnotation(field);
           } else {
             // exit early for other annotations
             annotManager.deleteAnnotation(annot, false, true); // prevent duplicates when importing xfdf
@@ -141,7 +159,7 @@ const PrepareDocument = () => {
           return;
         }
 
-        // set flag and position
+        // set position
         inputAnnot.PageNumber = annot.getPageNumber();
         inputAnnot.X = annot.getX();
         inputAnnot.Y = annot.getY();
@@ -178,7 +196,7 @@ const PrepareDocument = () => {
     annotManager.deleteAnnotations(annotsToDelete, null, true);
 
     // refresh viewer
-    annotManager.drawAnnotationsFromList(annotsToDraw);
+    await annotManager.drawAnnotationsFromList(annotsToDraw);
     await uploadForSigning();
   };
 
@@ -243,7 +261,7 @@ const PrepareDocument = () => {
     const docRef = storageRef.child(referenceString);
     const { docViewer, annotManager } = instance;
     const doc = docViewer.getDocument();
-    const xfdfString = await annotManager.exportAnnotations();
+    const xfdfString = await annotManager.exportAnnotations({ widgets: true, fields: true });
     const data = await doc.getFileData({ xfdfString });
     const arr = new Uint8Array(data);
     const blob = new Blob([arr], { type: 'application/pdf' });
@@ -362,6 +380,20 @@ const PrepareDocument = () => {
                       accessibilityLabel="add text"
                       text="Add text"
                       iconEnd="text-sentence-case"
+                    />
+                  </div>
+                </Box>
+                <Box padding={2}>
+                  <div
+                    draggable
+                    onDragStart={e => dragStart(e)}
+                    onDragEnd={e => dragEnd(e, 'DATE')}
+                  >
+                    <Button
+                      onClick={() => addField('DATE')}
+                      accessibilityLabel="add date field"
+                      text="Add date"
+                      iconEnd="calendar"
                     />
                   </div>
                 </Box>

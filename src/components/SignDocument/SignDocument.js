@@ -49,7 +49,6 @@ const SignDocument = () => {
       // load document
       const storageRef = storage.ref();
       const URL = await storageRef.child(docRef).getDownloadURL();
-      console.log(URL);
       docViewer.loadDocument(URL);
 
       const normalStyles = (widget) => {
@@ -57,7 +56,6 @@ const SignDocument = () => {
           return {
             'background-color': '#a5c7ff',
             color: 'white',
-            'font-size': '20px',
           };
         } else if (widget instanceof Annotations.SignatureWidgetAnnotation) {
           return {
