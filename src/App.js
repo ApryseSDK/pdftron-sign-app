@@ -29,7 +29,7 @@ const App = () => {
         dispatch(setUser({ uid, displayName, email, photoURL }));
       }
     });
-  }, [auth]);
+  }, [dispatch]);
 
   return user ? (
     <div>

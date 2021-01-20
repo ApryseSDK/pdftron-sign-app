@@ -22,7 +22,7 @@ const SignedList = () => {
       setShow(false);
     }
     setTimeout(getDocs, 1000);
-  }, []);
+  }, [email]);
 
   return (
     <div>
