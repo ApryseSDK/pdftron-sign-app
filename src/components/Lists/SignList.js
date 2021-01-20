@@ -24,7 +24,7 @@ const SignList = () => {
     }
 
     setTimeout(getDocs, 1000);
-  }, []);
+  }, [email]);
 
   return (
     <div>

@@ -78,7 +78,7 @@ const SignDocument = () => {
         }
       });
     });
-  }, []);
+  }, [docRef, email]);
 
   const nextField = () => {
     let annots = annotManager.getAnnotationsList();

@@ -39,7 +39,7 @@ const ViewDocument = () => {
       console.log(URL);
       instance.docViewer.loadDocument(URL);
     });
-  }, []);
+  }, [docRef]);
 
   const download = () => {
     instance.downloadPdf(true);
