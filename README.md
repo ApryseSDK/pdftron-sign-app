@@ -43,7 +43,7 @@ The above information can be found under settings of your Firebase app.
 Make sure you create a storage bucket, and enable authentication for email and Google.
 ![Screenshot](https://github.com/PDFTron/pdftron-sign-app/blob/master/firebase_authentication.png)
 
-After you have your storage bucket and Firestore setup be sure that both have their rules configured to allow for authenticated users have read and write permissions.
+After you have your storage bucket and Firestore setup give authenticated users read and write permissions.
 
 Rules for storage which will host your PDF documents.
 ![Screenshot](https://github.com/PDFTron/pdftron-sign-app/blob/master/firebase-storage-rules.png)
