@@ -43,7 +43,7 @@ The above information can be found under settings of your Firebase app.
 Make sure you create a storage bucket, and enable authentication for email and Google.
 ![Screenshot](https://github.com/PDFTron/pdftron-sign-app/blob/master/firebase_authentication.png)
 
-After you have your storage bucket and Firebase app setup be sure that both have their rules configured to allow for authenticated users to read and write from them.
+After you have your storage bucket and Firestore setup be sure that both have their rules configured to allow for authenticated users have read and write permissions.
 
 Rules for storage which will host your PDF documents.
 ![Screenshot](https://github.com/PDFTron/pdftron-sign-app/blob/master/firebase-storage-rules.png)
@@ -71,7 +71,7 @@ You will need to set up CORS on your Firestore to allow WebViewer to access file
 And then used gsutil to update it:
 https://cloud.google.com/storage/docs/configuring-cors
 
-You may see in the walkthrough that it recommends siging up for billing but that is not necessary to use this demo.
+The walkthrough recommends siging up for billing but that is not necessary to use this demo.
 
 ## Run
 
