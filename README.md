@@ -17,6 +17,8 @@ This repo is designed to help to get started in creating your own signing workfl
 
 ## Install
 
+[Watch this quick video to setup this project](https://youtu.be/R5zBs28_TVQ).
+
 ```
 npm install
 ```
