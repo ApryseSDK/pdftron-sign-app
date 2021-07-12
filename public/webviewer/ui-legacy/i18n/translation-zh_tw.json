@@ -1,0 +1,365 @@
+{
+  "action": {
+    "apply": "套用",
+    "applyAll": "全部套用",
+    "calibrate": "校準",
+    "cancel": "取消",
+    "clear": "清除",
+    "close": "關閉",
+    "comment": "評論",
+    "copy": "複製",
+    "delete": "刪除",
+    "group": "組",
+    "ungroup": "取消組合",
+    "download": "下載",
+    "edit": "編輯",
+    "extract": "提取",
+    "enterFullscreen": "全螢幕",
+    "exitFullscreen": "退出全螢幕",
+    "fit": "符合",
+    "fitToPage": "符合頁面大小",
+    "fitToWidth": "符合寬度",
+    "openFile": "開啟檔案",
+    "print": "列印",
+    "ok": "OK",
+    "reply": "回覆",
+    "rotate": "旋轉",
+    "rotateClockwise": "順時針",
+    "rotateCounterClockwise": "逆時針",
+    "save": "儲存",
+    "create": "建立",
+    "showMoreResults": "顯示更多結果",
+    "sign": "簽署",
+    "style": "樣式",
+    "submit": "提交",
+    "zoom": "縮放",
+    "zoomIn": "放大",
+    "zoomOut": "縮小",
+    "draw": "畫",
+    "type": "類型",
+    "upload": "上載",
+    "link": "鏈接",
+    "fileAttachmentDownload": "下載附件"
+  },
+  "annotation": {
+    "areaMeasurement": "測量面積",
+    "arrow": "箭頭",
+    "callout": "圖說文字",
+    "crop": "裁剪頁面",
+    "caret": "插入號",
+    "distanceMeasurement": "測量距離",
+    "ellipse": "橢圓",
+    "eraser": "橡皮",
+    "fileattachment": "文件附件",
+    "freehand": "手繪",
+    "freehand2": "手繪",
+    "freetext": "任意文字",
+    "highlight": "強調顯示",
+    "highlight2": "強調顯示",
+    "line": "線條",
+    "perimeterMeasurement": "測量周長",
+    "polygon": "多邊形",
+    "polygonCloud": "雲",
+    "polyline": "聚合線條",
+    "rectangle": "矩形",
+    "redact": "修訂",
+    "signature": "簽名",
+    "squiggly": "曲線",
+    "stamp": "圖章",
+    "stickyNote": "評論",
+    "strikeout": "刪除線",
+    "underline": "底線",
+    "custom": "自訂",
+    "rubberStamp": "橡皮圖章"
+  },
+  "rubberStamp": {
+    "Approved": "已批准",
+    "AsIs": "照原樣",
+    "Completed": "已完成",
+    "Confidential": "機密",
+    "Departmental": "部門的",
+    "Draft": "草案",
+    "Experimental": "實驗性",
+    "Expired": "已過期",
+    "Final": "最後",
+    "ForComment": "徵求意見",
+    "ForPublicRelease": "公開發行",
+    "InformationOnly": "僅供參考",
+    "NotApproved": "不批准",
+    "NotForPublicRelease": "不公開發布",
+    "PreliminaryResults": "初步結果",
+    "Sold": "已售出",
+    "TopSecret": "最高機密",
+    "Void": "空洞",
+    "SHSignHere": "在這裡簽名",
+    "SHWitness": "見證人",
+    "SHInitialHere": "最初在這裡",
+    "SHAccepted": "公認",
+    "SBRejected": "拒絕"
+  },
+  "component": {
+    "freehandToolsButton": "手繪工具",
+    "leftPanel": "面板",
+    "searchOverlay": "搜尋",
+    "menuOverlay": "功能表",
+    "miscToolsButton": "其他工具",
+    "notesPanel": "備忘稿",
+    "outlinesPanel": "大綱",
+    "bookmarksPanel": "書籤",
+    "newBookmark": "新書籤",
+    "bookmarkPage": "頁",
+    "layersPanel": "圖層",
+    "shapeToolsButton": "圖形工具",
+    "textToolsButton": "文字工具",
+    "thumbnailsPanel": "縮圖",
+    "toolsButton": "工具",
+    "redaction": "修訂",
+    "viewControlsOverlay": "查看權限",
+    "measurementToolsButton": "測量工具",
+    "calibration": "校準",
+    "createStampButton": "創建新圖章"
+  },
+  "message": {
+    "badDocument": "無法載入文件。此文件已損壞或無效。",
+    "customPrintPlaceholder": "例如：3, 4-10",
+    "encryptedAttemptsExceeded": "無法載入加密文件。嘗試次數過多。",
+    "encryptedUserCancelled": "無法載入加密文件。已取消密碼輸入。",
+    "enterPassword": "文件有密碼保護。請輸入密碼",
+    "incorrectPassword": "密碼不正確，剩下 {{ remainingAttempts }} 次嘗試機會",
+    "noAnnotations": "此文件沒有註釋。",
+    "noOutlines": "此文件沒有大綱。",
+    "noResults": "沒有找到結果。",
+    "notSupported": "不支援該檔案類型。",
+    "passwordRequired": "需要密碼",
+    "preparingToPrint": "正在準備列印...",
+    "annotationReplyCount": "{{count}} 回复",
+    "annotationReplyCount_plural": "{{count}} 回复",
+    "printTotalPageCount": "{{count}} 頁",
+    "printTotalPageCount_plural": "{{count}} 頁",
+    "processing": "正在處理...",
+    "searching": "正在搜尋...",
+    "searchPlaceholder": "搜尋評論...",
+    "signHere": "在這裡簽名",
+    "insertTextHere": "在這裡插入文字",
+    "imageSignatureAcceptedFileTypes": "僅接受{{acceptedFileTypes}}",
+    "enterMeasurement": "在兩點之間輸入測量值",
+    "linkURLorPage": "鏈接網址或頁面"
+  },
+  "option": {
+    "annotationColor": {
+      "StrokeColor": "邊框顏色",
+      "FillColor": "填充顏色",
+      "TextColor": "文字顏色"
+    },
+    "displayMode": {
+      "layout": "版面",
+      "pageTransition": "頁面切換"
+    },
+    "documentControls": {
+      "placeholder": "輸入頁面以選擇2、5-9"
+    },
+    "layout": {
+      "cover": "封面",
+      "double": "2 頁",
+      "single": "單面"
+    },
+    "notesPanel": {
+      "orderPosition": "位置",
+      "orderTime": "時間",
+      "separator": {
+        "today": "今天",
+        "yesterday": "昨天"
+      }
+    },
+    "pageTransition": {
+      "continuous": "連續",
+      "default": "逐頁"
+    },
+    "print": {
+      "all": "全部",
+      "current": "目前",
+      "pages": "頁面",
+      "includeAnnotations": "包括註釋",
+      "includeComments": "包括評論",
+      "addWatermarkSettings": "添加水印設置"
+    },
+    "redaction": {
+      "markForRedaction": "標示為修訂"
+    },
+    "searchPanel": {
+      "caseSensitive": "區分大小寫",
+      "wholeWordOnly": "全字相符",
+      "wildcard": "通配符"
+    },
+    "signatureOverlay": {
+      "addSignature": "新增簽名"
+    },
+    "signatureModal": {
+      "saveSignature": "保存簽名",
+      "dragAndDrop": "將圖片拖放到此處",
+      "or": "要么",
+      "pickImage": "選擇簽名圖像"
+    },
+    "customStampModal": {
+      "stampText": "印章文字：",
+      "timestampText": " 時間戳記文字：",
+      "stampColor": "印章顏色：",
+      "Username": "用戶名",
+      "Date": "日期",
+      "Time": "時間"
+    },
+    "status": {
+      "status": "狀態"
+    },
+    "state": {
+      "accepted": "公認",
+      "rejected": "被拒絕",
+      "completed": "已完成",
+      "cancelled": "取消",
+      "set": "設定狀態：",
+      "setBy": "通過設置",
+      "none": "沒有"
+    },
+    "measurementOverlay": {
+      "scale": "比例",
+      "angle": "角度",
+      "distance": "距離",
+      "perimeter": "周長",
+      "area": "面積",
+      "distanceMeasurement": "測量距離",
+      "perimeterMeasurement": "測量周長",
+      "areaMeasurement": "測量面積",
+      "radius": "半徑"
+    },
+    "measurementOption": {
+      "scale": "比例"
+    },
+    "styleOption": {
+      "style": "樣式",
+      "solid": "固體",
+      "cloudy": "多雲的"
+    },
+    "slider": {
+      "opacity": "不透明度",
+      "thickness": "厚度",
+      "text": "文字大小"
+    },
+    "shared": {
+      "page": "頁面",
+      "precision": "精確度"
+    },
+    "watermark": {
+      "size": "尺寸",
+      "location": "選擇一個位置來編輯水印",
+      "text": "文本",
+      "style": "樣式",
+      "resetAllSettings": "重置所有設置",
+      "font": "字形"
+    },
+    "thumbnailPanel": {
+      "delete": "刪除",
+      "rotateClockwise": "順時針",
+      "rotateCounterClockwise": "逆時針方向",
+      "extractZeroPageError": "沒有選擇要提取的頁面"
+    },
+    "richText": {
+      "bold": "粗體",
+      "italic": "斜體",
+      "underline": "下劃綫",
+      "strikeout": "刪除綫"
+    }
+  },
+  "warning": {
+    "deletePage": {
+      "deleteTitle": "刪除頁面",
+      "deleteMessage": "您確定要刪除所選頁面嗎？這是無法撤消的",
+      "deleteLastPageMessage": "這將導致沒有剩餘頁面。請至少留一頁"
+    },
+    "redaction": {
+      "applyTile": "應用編輯",
+      "applyMessage": "此操作將永久刪除所有要編輯的項目。無法撤消。"
+    }
+  },
+  "shortcut": {
+    "arrow": "(A)",
+    "callout": "(C)",
+    "copy": "(Ctrl C)",
+    "delete": "(Del)",
+    "ellipse": "(O)",
+    "eraser": "(E)",
+    "freehand": "(F)",
+    "freetext": "(T)",
+    "highlight": "(H)",
+    "line": "(L)",
+    "pan": "(P)",
+    "rectangle": "(R)",
+    "rotateClockwise": "(Ctrl Shift +)",
+    "rotateCounterClockwise": "(Ctrl Shift -)",
+    "select": "(Esc)",
+    "signature": "(S)",
+    "squiggly": "(G)",
+    "stamp": "(I)",
+    "stickyNote": "(N)",
+    "strikeout": "(K)",
+    "underline": "(U)",
+    "zoomIn": "(Ctrl +)",
+    "zoomOut": "(Ctrl -)",
+    "rubberStamp": "（問）",
+    "richText": {
+      "bold": "（Ctrl B）",
+      "italic": "（Ctrl I）",
+      "underline": "（Ctrl U）",
+      "strikeout": "（Ctrl K）"
+    }
+  },
+  "tool": {
+    "pan": "移動瀏覽",
+    "select": "選取",
+    "Marquee": "跑馬燈縮放",
+    "Link": "鏈接網址或頁面",
+    "Standard": "標準",
+    "Custom": "自訂"
+  },
+  "link": {
+    "url": "網址",
+    "page": "頁",
+    "enterurl": "輸入您想要鏈接的URL",
+    "enterpage": "選擇您要鏈接的頁碼"
+  },
+  "datePicker": {
+    "previousMonth": "前一個月",
+    "nextMonth": "下個月",
+    "months": {
+      "0": "一月",
+      "1": "二月",
+      "2": "三月",
+      "3": "四月",
+      "4": "五月",
+      "5": "六月",
+      "6": "七月",
+      "7": "八月",
+      "8": "九月",
+      "9": "十月",
+      "10": "十一月",
+      "11": "十二月"
+    },
+    "weekdays": {
+      "0": "星期日",
+      "1": "星期一",
+      "2": "星期二",
+      "3": "星期三",
+      "4": "星期四",
+      "5": "星期五",
+      "6": "星期六"
+    },
+    "weekdaysShort": {
+      "0": "週日",
+      "1": "週一",
+      "2": "週二",
+      "3": "週三",
+      "4": "週四",
+      "5": "週五",
+      "6": "週六"
+    }
+  }
+}
