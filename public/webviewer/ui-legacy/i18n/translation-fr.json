@@ -1,0 +1,365 @@
+{
+  "action": {
+    "apply": "Appliquer",
+    "applyAll": "Appliquer toute",
+    "calibrate": "Étalonner",
+    "cancel": "Annuler",
+    "clear": "Effacer",
+    "close": "Fermer",
+    "comment": "Commenter",
+    "copy": "Copier",
+    "delete": "Supprimer",
+    "group": "Groupe",
+    "ungroup": "Dissocier",
+    "download": "Télécharger",
+    "edit": "Éditer",
+    "extract": "Extrait",
+    "enterFullscreen": "Plein écran",
+    "exitFullscreen": "Quitter le plein écran",
+    "fit": "Fit",
+    "fitToPage": "Fit à la page",
+    "fitToWidth": "Fit à la largeur",
+    "openFile": "Ouvrir un fichier",
+    "print": "Imprimer",
+    "ok": "OK",
+    "reply": "Répondre",
+    "rotate": "Tourner",
+    "rotateClockwise": "Tourner horaire",
+    "rotateCounterClockwise": "Tourner antihoraire",
+    "save": "Enregistrer",
+    "create": "Créer",
+    "showMoreResults": "Montrer plus de résultats",
+    "sign": "Signer",
+    "style": "Style",
+    "submit": "Soumettre",
+    "zoom": "Zoom",
+    "zoomIn": "Zoomer",
+    "zoomOut": "Dézoomer",
+    "draw": "Dessiner",
+    "type": "Type",
+    "upload": "Télécharger",
+    "link": "Lien",
+    "fileAttachmentDownload": "Télécharger le fichier joint"
+  },
+  "annotation": {
+    "areaMeasurement": "Surface mesurée",
+    "arrow": "Flèche",
+    "callout": "Faire appel à",
+    "crop": "Page de recadrage",
+    "caret": "Caret",
+    "distanceMeasurement": "Mesure de distance",
+    "ellipse": "Ellipse",
+    "eraser": "La gomme",
+    "fileattachment": "Pièce jointe",
+    "freehand": "Stylo",
+    "freehand2": "Stylo",
+    "freetext": "Texte libre",
+    "highlight": "Surligne",
+    "highlight2": "Surligne",
+    "line": "Ligne",
+    "perimeterMeasurement": "Périmètre mesure",
+    "polygon": "Polygone",
+    "polygonCloud": "Nuage",
+    "polyline": "Ligne polygonale",
+    "rectangle": "Rectangle",
+    "redact": "Biffure",
+    "signature": "Signature",
+    "squiggly": "Ligne ondulée",
+    "stamp": "Timbre",
+    "stickyNote": "Note collante",
+    "strikeout": "Barré",
+    "underline": "Soulignage",
+    "custom": "personnalisation",
+    "rubberStamp": "Rubber Stamp"
+  },
+  "rubberStamp": {
+    "Approved": "Approuvée",
+    "AsIs": "Comme Si",
+    "Completed": "Terminé",
+    "Confidential": "Confidentielle",
+    "Departmental": "Départementale",
+    "Draft": "Brouillon",
+    "Experimental": "Expérimentale",
+    "Expired": "Expiré",
+    "Final": "Finale",
+    "ForComment": "Pour commentaire",
+    "ForPublicRelease": "Pour diffusion publique",
+    "InformationOnly": "Information seulement",
+    "NotApproved": "Non approuvé",
+    "NotForPublicRelease": "Pas pour diffusion publique",
+    "PreliminaryResults": "Résultats préliminaires",
+    "Sold": "Vendue",
+    "TopSecret": "Top Secret",
+    "Void": "Néant",
+    "SHSignHere": "Signez ici",
+    "SHWitness": "Témoin",
+    "SHInitialHere": "Initiale",
+    "SHAccepted": "Accepté",
+    "SBRejected": "Rejeté"
+  },
+  "component": {
+    "freehandToolsButton": "Outils de stylo",
+    "leftPanel": "Panneau de gauche",
+    "searchOverlay": "Recherche",
+    "menuOverlay": "Menu",
+    "miscToolsButton": "Outils divers",
+    "notesPanel": "Remarques",
+    "outlinesPanel": "Contour",
+    "bookmarksPanel": "Signets",
+    "newBookmark": "Nouveau signet",
+    "bookmarkPage": "Page",
+    "layersPanel": "Couches",
+    "shapeToolsButton": "Outils de forme",
+    "textToolsButton": "Outils de texte",
+    "thumbnailsPanel": "Vignettes",
+    "toolsButton": "Outils",
+    "redaction": "Biffure",
+    "viewControlsOverlay": "Contrôles de l'affichage",
+    "measurementToolsButton": "Outils de mesure",
+    "calibration": "Étalonnage",
+    "createStampButton": "Créer un nouveau tampon"
+  },
+  "message": {
+    "badDocument": "Échec du chargement du document. Le document est corrompu ou non valide.",
+    "customPrintPlaceholder": "par ex. : 3 4-10",
+    "encryptedAttemptsExceeded": "Échec du chargement du document chiffré. Trop de tentatives.",
+    "encryptedUserCancelled": "Échec du chargement du document chiffré. Saisie du mot de passe annulée.",
+    "enterPassword": "Ce document est protégé par un mot de passe. Veuillez saisir ce mot de passe.",
+    "incorrectPassword": "Mot de passe incorrect. Tentatives restantes: {{remainingAttempts}}",
+    "noAnnotations": "Ce document n'a pas d'annotations.",
+    "noOutlines": "Ce document n'a pas de plan.",
+    "noResults": "Aucun résultat trouvé.",
+    "notSupported": "Ce type de fichier n'est pas pris en charge.",
+    "passwordRequired": "Mot de passe requis",
+    "preparingToPrint": "Préparation à l'impression...",
+    "annotationReplyCount": "{{count}} Répondre",
+    "annotationReplyCount_plural": "{{count}} réponses",
+    "printTotalPageCount": "{{count}} page",
+    "printTotalPageCount_plural": "{{count}} pages",
+    "processing": "Traitement...",
+    "searching": "Recherche...",
+    "searchPlaceholder": "Rechercher des commentaires ici...",
+    "signHere": "Signer ici",
+    "insertTextHere": "Insérer du texte ici",
+    "imageSignatureAcceptedFileTypes": "Seuls {{acceptedFileTypes}} sont acceptés",
+    "enterMeasurement": "Entrez la mesure entre les deux points",
+    "linkURLorPage": "Lien URL ou une page"
+  },
+  "option": {
+    "annotationColor": {
+      "StrokeColor": "Couleur de bordure",
+      "FillColor": "Couleur de remplissage",
+      "TextColor": "Couleur de texte"
+    },
+    "displayMode": {
+      "layout": "Disposition",
+      "pageTransition": "Transition de page"
+    },
+    "documentControls": {
+      "placeholder": "Entrez les pages à sélectionner, c'est-à-dire 2, 5-9"
+    },
+    "layout": {
+      "cover": "Couverture",
+      "double": "Deux",
+      "single": "Une"
+    },
+    "notesPanel": {
+      "orderPosition": "Position",
+      "orderTime": "Heure",
+      "separator": {
+        "today": "Aujourd'hui",
+        "yesterday": "Hier"
+      }
+    },
+    "pageTransition": {
+      "continuous": "Continu",
+      "default": "Page par page"
+    },
+    "print": {
+      "all": "Toutes",
+      "current": "Actuelle",
+      "pages": "Pages",
+      "includeAnnotations": "Inclure des annotations",
+      "includeComments": "Inclure les commentaires",
+      "addWatermarkSettings": "Ajouter des paramètres de filigrane"
+    },
+    "redaction": {
+      "markForRedaction": "Repérer les biffures"
+    },
+    "searchPanel": {
+      "caseSensitive": "Sensible à la casse",
+      "wholeWordOnly": "Mot complet",
+      "wildcard": "Caractère générique"
+    },
+    "signatureOverlay": {
+      "addSignature": "Ajouter une signature"
+    },
+    "signatureModal": {
+      "saveSignature": "Enregistrer la signature",
+      "dragAndDrop": "Faites glisser et déposez votre image ici",
+      "or": "Ou",
+      "pickImage": "Choisir l'image de signature"
+    },
+    "customStampModal": {
+      "stampText": "Texte du tampon:",
+      "timestampText": " Texte d'horodatage:",
+      "stampColor": "Couleur du tampon:",
+      "Username": "Nom d'utilisateur",
+      "Date": "Date",
+      "Time": "Temps"
+    },
+    "status": {
+      "status": "Statut"
+    },
+    "state": {
+      "accepted": "Accepté",
+      "rejected": "Rejeté",
+      "completed": "Terminé",
+      "cancelled": "Annulé",
+      "set": "Définir le statut:",
+      "setBy": "fixé par",
+      "none": "Aucun"
+    },
+    "measurementOverlay": {
+      "scale": "Ratio d'échelle",
+      "angle": "Angle",
+      "distance": "Distance",
+      "perimeter": "Périmètre",
+      "area": "Surface",
+      "distanceMeasurement": "Mesure de distance",
+      "perimeterMeasurement": "Mesure du périmètre",
+      "areaMeasurement": "Mesure du surface",
+      "radius": "Rayon"
+    },
+    "measurementOption": {
+      "scale": "Échelle"
+    },
+    "styleOption": {
+      "style": "Style",
+      "solid": "Solide",
+      "cloudy": "Nuageux"
+    },
+    "slider": {
+      "opacity": "Opacité",
+      "thickness": "Épaisseur",
+      "text": "Taille du texte"
+    },
+    "shared": {
+      "page": "Page",
+      "precision": "Précision"
+    },
+    "watermark": {
+      "size": "Taille",
+      "location": "Choisissez un emplacement pour modifier les filigranes",
+      "text": "Texte",
+      "style": "Style",
+      "resetAllSettings": "Réinitialiser tous les réglages",
+      "font": "Font"
+    },
+    "thumbnailPanel": {
+      "delete": "Supprimer",
+      "rotateClockwise": "Dans le sens horaire",
+      "rotateCounterClockwise": "Dans le sens antihoraire",
+      "extractZeroPageError": "Aucune page n'a été sélectionnée pour l'extraction"
+    },
+    "richText": {
+      "bold": "Audacieux",
+      "italic": "Italique",
+      "underline": "Souligner",
+      "strikeout": "Barré"
+    }
+  },
+  "warning": {
+    "deletePage": {
+      "deleteTitle": "Supprimer la page",
+      "deleteMessage": "Voulez-vous vraiment supprimer les pages sélectionnées? Cela ne peut pas être annulé",
+      "deleteLastPageMessage": "Il en résulterait aucune page restante. Veuillez laisser au moins une page"
+    },
+    "redaction": {
+      "applyTile": "Appliquer la rédaction",
+      "applyMessage": "Cette action supprimera définitivement tous les éléments sélectionnés pour la rédaction. Ça ne peut pas être défait."
+    }
+  },
+  "shortcut": {
+    "arrow": "(A)",
+    "callout": "(C)",
+    "copy": "(Ctrl C)",
+    "delete": "(Del)",
+    "ellipse": "(O)",
+    "eraser": "(E)",
+    "freehand": "(F)",
+    "freetext": "(T)",
+    "highlight": "(H)",
+    "line": "(L)",
+    "pan": "(P)",
+    "rectangle": "(R)",
+    "rotateClockwise": "(Ctrl Shift +)",
+    "rotateCounterClockwise": "(Ctrl Shift -)",
+    "select": "(Esc)",
+    "signature": "(S)",
+    "squiggly": "(G)",
+    "stamp": "(I)",
+    "stickyNote": "(N)",
+    "strikeout": "(K)",
+    "underline": "(U)",
+    "zoomIn": "(Ctrl +)",
+    "zoomOut": "(Ctrl -)",
+    "rubberStamp": "(Q)",
+    "richText": {
+      "bold": "(Ctrl B)",
+      "italic": "(Ctrl I)",
+      "underline": "(Ctrl U)",
+      "strikeout": "(Ctrl K)"
+    }
+  },
+  "tool": {
+    "pan": "Panoramique",
+    "select": "Sélection",
+    "Marquee": "Zoom sur la sélection",
+    "Link": "URL de lien ou page",
+    "Standard": "la norme",
+    "Custom": "Douane"
+  },
+  "link": {
+    "url": "URL",
+    "page": "Page",
+    "enterurl": "Entrez l'URL à laquelle vous souhaitez créer un lien",
+    "enterpage": "Sélectionnez le numéro de page auquel vous souhaitez lier"
+  },
+  "datePicker": {
+    "previousMonth": "Le mois précédent",
+    "nextMonth": "Le mois prochain",
+    "months": {
+      "0": "janvier",
+      "1": "février",
+      "2": "mars",
+      "3": "avril",
+      "4": "mai",
+      "5": "juin",
+      "6": "juillet",
+      "7": "août",
+      "8": "septembre",
+      "9": "octobre",
+      "10": "novembre",
+      "11": "décembre"
+    },
+    "weekdays": {
+      "0": "dimanche",
+      "1": "lundi",
+      "2": "mardi",
+      "3": "mercredi",
+      "4": "jeudi",
+      "5": "vendredi",
+      "6": "samedi"
+    },
+    "weekdaysShort": {
+      "0": "dim.",
+      "1": "lun.",
+      "2": "mar.",
+      "3": "mer.",
+      "4": "jeu.",
+      "5": "ven.",
+      "6": "sam."
+    }
+  }
+}

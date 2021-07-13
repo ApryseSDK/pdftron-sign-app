@@ -1,0 +1,365 @@
+{
+  "action": {
+    "apply": "应用",
+    "applyAll": "全部申请",
+    "calibrate": "校准",
+    "cancel": "取消",
+    "clear": "清除",
+    "close": "关闭",
+    "comment": "注释",
+    "copy": "复制",
+    "delete": "删除",
+    "group": "组",
+    "ungroup": "取消组合",
+    "download": "下载",
+    "edit": "编辑",
+    "extract": "提取",
+    "enterFullscreen": "全屏",
+    "exitFullscreen": "退出全屏",
+    "fit": "文档尺寸",
+    "fitToPage": "页面尺寸",
+    "fitToWidth": "自身尺寸",
+    "openFile": "打开文件",
+    "print": "打印",
+    "ok": "好的",
+    "reply": "回复",
+    "rotate": "旋转",
+    "rotateClockwise": "顺时针",
+    "rotateCounterClockwise": "逆时针",
+    "save": "保存",
+    "create": "创建",
+    "showMoreResults": "显示更多结果",
+    "sign": "签名",
+    "style": "样式",
+    "submit": "提交",
+    "zoom": "缩放",
+    "zoomIn": "放大",
+    "zoomOut": "缩小",
+    "draw": "画",
+    "type": "类型",
+    "upload": "上载",
+    "link": "链接",
+    "fileAttachmentDownload": "下载附件"
+  },
+  "annotation": {
+    "areaMeasurement": "面积测量",
+    "arrow": "箭头",
+    "callout": "标注",
+    "crop": "裁剪页面",
+    "caret": "插入符号",
+    "distanceMeasurement": "距离测量",
+    "ellipse": "椭圆",
+    "eraser": "橡皮",
+    "fileattachment": "文件附件",
+    "freehand": "手绘",
+    "freehand2": "手绘",
+    "freetext": "自由文本",
+    "highlight": "高亮",
+    "highlight2": "高亮",
+    "line": "直线",
+    "perimeterMeasurement": "周长测量",
+    "polygon": "多边形",
+    "polygonCloud": "云",
+    "polyline": "折线",
+    "rectangle": "矩形",
+    "redact": "新版本",
+    "signature": "签名",
+    "squiggly": "曲线",
+    "stamp": "盖章",
+    "stickyNote": "注释",
+    "strikeout": "删除线",
+    "underline": "下划线",
+    "custom": "自定义",
+    "rubberStamp": "橡皮图章"
+  },
+  "rubberStamp": {
+    "Approved": "已批准",
+    "AsIs": "照原样",
+    "Completed": "已完成",
+    "Confidential": "机密",
+    "Departmental": "部门的",
+    "Draft": "草案",
+    "Experimental": "实验性",
+    "Expired": "已过期",
+    "Final": "最后",
+    "ForComment": "征求意见",
+    "ForPublicRelease": "公开发行",
+    "InformationOnly": "仅供参考",
+    "NotApproved": "不批准",
+    "NotForPublicRelease": "不公开发布",
+    "PreliminaryResults": "初步结果",
+    "Sold": "已售出",
+    "TopSecret": "最高机密",
+    "Void": "空洞",
+    "SHSignHere": "在这里签名",
+    "SHWitness": "见证人",
+    "SHInitialHere": "最初在这里",
+    "SHAccepted": "公认",
+    "SBRejected": "拒绝"
+  },
+  "component": {
+    "freehandToolsButton": "手绘工具",
+    "leftPanel": "面板",
+    "searchOverlay": "搜索",
+    "menuOverlay": "菜单",
+    "miscToolsButton": "其他工具",
+    "notesPanel": "备注",
+    "outlinesPanel": "大纲",
+    "bookmarksPanel": "书签",
+    "newBookmark": "新书签",
+    "bookmarkPage": "页",
+    "layersPanel": "图层",
+    "shapeToolsButton": "形状工具",
+    "textToolsButton": "文本工具",
+    "thumbnailsPanel": "缩略图",
+    "toolsButton": "工具",
+    "redaction": "新版本",
+    "viewControlsOverlay": "调整浏览方式",
+    "measurementToolsButton": "测量工具",
+    "calibration": "校准",
+    "createStampButton": "创建新图章"
+  },
+  "message": {
+    "badDocument": "无法加载文档，此文档已损坏或无效。",
+    "customPrintPlaceholder": "例如，3 4-10",
+    "encryptedAttemptsExceeded": "无法加载加密文档，尝试次数过多。",
+    "encryptedUserCancelled": "无法加载加密文档，密码输入已取消。",
+    "enterPassword": "此文档已被加密。请输入密码。",
+    "incorrectPassword": "密码错误，剩余输入机会：{{remainingAttempts}}",
+    "noAnnotations": "此文档没有注释。",
+    "noOutlines": "此文档没有大纲。",
+    "noResults": "未找到结果。",
+    "notSupported": "不支持该文件类型。",
+    "passwordRequired": "需要输入密码",
+    "preparingToPrint": "正在准备打印…",
+    "annotationReplyCount": "{{count}} 回复",
+    "annotationReplyCount_plural": "{{count}} 回复",
+    "printTotalPageCount": "{{count}} 页",
+    "printTotalPageCount_plural": "{{count}} 页",
+    "processing": "正在处理…",
+    "searching": "正在搜索…",
+    "searchPlaceholder": "在此处搜索注释…",
+    "signHere": "在此处签名",
+    "insertTextHere": "在这里插入文字",
+    "imageSignatureAcceptedFileTypes": "仅接受{{acceptedFileTypes}}",
+    "enterMeasurement": "在两点之间输入测量值",
+    "linkURLorPage": "链接网址或页面"
+  },
+  "option": {
+    "annotationColor": {
+      "StrokeColor": "边框颜色",
+      "FillColor": "填充颜色",
+      "TextColor": "文本颜色"
+    },
+    "displayMode": {
+      "layout": "布局",
+      "pageTransition": "页面转换"
+    },
+    "documentControls": {
+      "placeholder": "输入页面以选择2、5-9"
+    },
+    "layout": {
+      "cover": "封面",
+      "double": "双页",
+      "single": "单页"
+    },
+    "notesPanel": {
+      "orderPosition": "位置排序",
+      "orderTime": "时间排序",
+      "separator": {
+        "today": "今天",
+        "yesterday": "昨天"
+      }
+    },
+    "pageTransition": {
+      "continuous": "连续",
+      "default": "逐页"
+    },
+    "print": {
+      "all": "全部",
+      "current": "当前",
+      "pages": "页数",
+      "includeAnnotations": "包括注释",
+      "includeComments": "包括评论",
+      "addWatermarkSettings": "添加水印设置"
+    },
+    "redaction": {
+      "markForRedaction": "标记为编辑"
+    },
+    "searchPanel": {
+      "caseSensitive": "区分大小写",
+      "wholeWordOnly": "整个词语",
+      "wildcard": "通配符"
+    },
+    "signatureOverlay": {
+      "addSignature": "添加签名"
+    },
+    "signatureModal": {
+      "saveSignature": "保存签名",
+      "dragAndDrop": "将图片拖放到此处",
+      "or": "要么",
+      "pickImage": "选择签名图像"
+    },
+    "customStampModal": {
+      "stampText": "印章文字：",
+      "timestampText": " 时间戳记文字：",
+      "stampColor": "印章颜色：",
+      "Username": "用户名",
+      "Date": "日期",
+      "Time": "时间"
+    },
+    "status": {
+      "status": "状态"
+    },
+    "state": {
+      "accepted": "公认",
+      "rejected": "被拒绝",
+      "completed": "已完成",
+      "cancelled": "取消",
+      "set": "设定状态：",
+      "setBy": "通过设置",
+      "none": "没有"
+    },
+    "measurementOverlay": {
+      "scale": "比例",
+      "angle": "角度",
+      "distance": "距离",
+      "perimeter": "周长",
+      "area": "面积",
+      "distanceMeasurement": "距离测量",
+      "perimeterMeasurement": "周长测量",
+      "areaMeasurement": "面积测量",
+      "radius": "半径"
+    },
+    "measurementOption": {
+      "scale": "比例"
+    },
+    "styleOption": {
+      "style": "样式",
+      "solid": "固体",
+      "cloudy": "多云的"
+    },
+    "slider": {
+      "opacity": "不透明度",
+      "thickness": "厚度",
+      "text": "文字大小"
+    },
+    "shared": {
+      "page": "页",
+      "precision": "精准度"
+    },
+    "watermark": {
+      "size": "尺寸",
+      "location": "选择一个位置来编辑水印",
+      "text": "文本",
+      "style": "样式",
+      "resetAllSettings": "重置所有设置",
+      "font": "字形"
+    },
+    "thumbnailPanel": {
+      "delete": "删除",
+      "rotateClockwise": "顺时针",
+      "rotateCounterClockwise": "逆时针方向",
+      "extractZeroPageError": "没有选择要提取的页面"
+    },
+    "richText": {
+      "bold": "粗体",
+      "italic": "斜体",
+      "underline": "下划线",
+      "strikeout": "删除线"
+    }
+  },
+  "warning": {
+    "deletePage": {
+      "deleteTitle": "删除页面",
+      "deleteMessage": "您确定要删除所选页面吗？这是无法撤消的",
+      "deleteLastPageMessage": "这将导致没有剩余页面。请至少留一页"
+    },
+    "redaction": {
+      "applyTile": "应用编辑",
+      "applyMessage": "此操作将永久删除所有要编辑的项目。无法撤消。"
+    }
+  },
+  "shortcut": {
+    "arrow": "(A)",
+    "callout": "(C)",
+    "copy": "(Ctrl C)",
+    "delete": "(Del)",
+    "ellipse": "(O)",
+    "eraser": "(E)",
+    "freehand": "(F)",
+    "freetext": "(T)",
+    "highlight": "(H)",
+    "line": "(L)",
+    "pan": "(P)",
+    "rectangle": "(R)",
+    "rotateClockwise": "(Ctrl Shift +)",
+    "rotateCounterClockwise": "(Ctrl Shift -)",
+    "select": "(Esc)",
+    "signature": "(S)",
+    "squiggly": "(G)",
+    "stamp": "(I)",
+    "stickyNote": "(N)",
+    "strikeout": "(K)",
+    "underline": "(U)",
+    "zoomIn": "(Ctrl +)",
+    "zoomOut": "(Ctrl -)",
+    "rubberStamp": "（问）",
+    "richText": {
+      "bold": "（Ctrl B）",
+      "italic": "（Ctrl I）",
+      "underline": "（Ctrl U）",
+      "strikeout": "（Ctrl K）"
+    }
+  },
+  "tool": {
+    "pan": "移动",
+    "select": "选择",
+    "Marquee": "选框缩放",
+    "Link": "链接网址或页面",
+    "Standard": "标准",
+    "Custom": "自订"
+  },
+  "link": {
+    "url": "网址",
+    "page": "页",
+    "enterurl": "输入您想要链接的URL",
+    "enterpage": "选择您要链接的页码"
+  },
+  "datePicker": {
+    "previousMonth": "前一个月",
+    "nextMonth": "下个月",
+    "months": {
+      "0": "一月",
+      "1": "二月",
+      "2": "三月",
+      "3": "四月",
+      "4": "五月",
+      "5": "六月",
+      "6": "七月",
+      "7": "八月",
+      "8": "九月",
+      "9": "十月",
+      "10": "十一月",
+      "11": "十二月"
+    },
+    "weekdays": {
+      "0": "星期日",
+      "1": "星期一",
+      "2": "星期二",
+      "3": "星期三",
+      "4": "星期四",
+      "5": "星期五",
+      "6": "星期六"
+    },
+    "weekdaysShort": {
+      "0": "周日",
+      "1": "周一",
+      "2": "周二",
+      "3": "周三",
+      "4": "周四",
+      "5": "周五",
+      "6": "周六"
+    }
+  }
+}

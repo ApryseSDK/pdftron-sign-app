@@ -1,0 +1,365 @@
+{
+  "action": {
+    "apply": "Anwenden",
+    "applyAll": "Alles anwenden",
+    "calibrate": "Kalibrieren",
+    "cancel": "Abbrechen",
+    "clear": "Löschen",
+    "close": "Schliessen",
+    "comment": "Kommentar",
+    "copy": "Kopieren",
+    "delete": "Löschen",
+    "group": "Gruppe",
+    "ungroup": "Gruppierung aufheben",
+    "download": "Download",
+    "edit": "Bearbeiten",
+    "extract": "Extrahieren",
+    "enterFullscreen": "Vollbildansicht",
+    "exitFullscreen": "Vollbildansicht beenden",
+    "fit": "Anpassen",
+    "fitToPage": "An Seite anpassen",
+    "fitToWidth": "An Breite anpassen",
+    "openFile": "Datei öffnen",
+    "print": "Drucken",
+    "ok": "OK",
+    "reply": "Antwort",
+    "rotate": "Drehen",
+    "rotateClockwise": "Im Uhrzeigersinn",
+    "rotateCounterClockwise": "Gegen den Uhrzeigersinn",
+    "save": "Speichern",
+    "create": "Erzeugen",
+    "showMoreResults": "Mehr Ergebnisse anzeigen",
+    "sign": "Unterschrift",
+    "style": "Stil",
+    "submit": "OK",
+    "zoom": "Zoom",
+    "zoomIn": "Heranzoomen",
+    "zoomOut": "Rauszoomen",
+    "draw": "Zeichnen",
+    "type": "Art",
+    "upload": "Hochladen",
+    "link": "Verknüpfung",
+    "fileAttachmentDownload": "Laden Sie die angehängte Datei herunter"
+  },
+  "annotation": {
+    "areaMeasurement": "Flächenmessung",
+    "arrow": "Pfeil",
+    "callout": "Callout",
+    "crop": "Seite zuschneiden",
+    "caret": "Caret",
+    "distanceMeasurement": "Abstandsmessung",
+    "ellipse": "Ellipse",
+    "eraser": "Radiergummi",
+    "fileattachment": "Dateianhang",
+    "freehand": "Freihandzeichnen",
+    "freehand2": "Freihandzeichnen",
+    "freetext": "Freitext",
+    "highlight": "Hervorheben",
+    "highlight2": "Hervorheben",
+    "line": "Linie",
+    "perimeterMeasurement": "Umfangsmessung",
+    "polygon": "Polygon",
+    "polygonCloud": "Wolke",
+    "polyline": "Linienzug",
+    "rectangle": "Rechteck",
+    "redact": "Schwärzen",
+    "signature": "Unterschrift",
+    "squiggly": "Gewellte Linie",
+    "stamp": "Stempel",
+    "stickyNote": "Kommentar",
+    "strikeout": "Durchstreichen",
+    "underline": "Unterstrichen",
+    "custom": "Angepasst",
+    "rubberStamp": "Stempel"
+  },
+  "rubberStamp": {
+    "Approved": "Genehmigt",
+    "AsIs": "Wie es ist",
+    "Completed": "Abgeschlossen",
+    "Confidential": "Geheim",
+    "Departmental": "Abteilung",
+    "Draft": "Entwurf",
+    "Experimental": "Experimentell",
+    "Expired": "Abgelaufen",
+    "Final": "Finale",
+    "ForComment": "Für Kommentar",
+    "ForPublicRelease": "Zur Veröffentlichung",
+    "InformationOnly": "Nur Informationen",
+    "NotApproved": "Nicht bestätigt",
+    "NotForPublicRelease": "Nicht zur Veröffentlichung",
+    "PreliminaryResults": "Vorläufige Ergebnisse",
+    "Sold": "Verkauft",
+    "TopSecret": "Streng geheim",
+    "Void": "Leere",
+    "SHSignHere": "Hier unterschreiben",
+    "SHWitness": "Zeuge",
+    "SHInitialHere": "Hier anfangen",
+    "SHAccepted": "Akzeptiert",
+    "SBRejected": "Abgelehnt"
+  },
+  "component": {
+    "freehandToolsButton": "Freihand-Werkzeuge",
+    "leftPanel": "Linke Leiste",
+    "searchOverlay": "Suche",
+    "menuOverlay": "Menü",
+    "miscToolsButton": "Verschiedene Werkzeuge",
+    "notesPanel": "Annotationen",
+    "outlinesPanel": "Gliederung",
+    "bookmarksPanel": "Lesezeichen",
+    "newBookmark": "Neues Lesezeichen",
+    "bookmarkPage": "Seite",
+    "layersPanel": "Schichten",
+    "shapeToolsButton": "Formwerkzeuge",
+    "textToolsButton": "Textwerkzeuge",
+    "thumbnailsPanel": "Miniaturansicht",
+    "toolsButton": "Werkzeuge",
+    "redaction": "Schwärzen",
+    "viewControlsOverlay": "Anzeigeoptionen",
+    "measurementToolsButton": "Messwerkzeuge",
+    "calibration": "Kalibrierung",
+    "createStampButton": "Neuen Stempel erstellen"
+  },
+  "message": {
+    "badDocument": "Fehler beim Laden des Dokuments. Das Dokument ist entweder defekt oder ungültig.",
+    "customPrintPlaceholder": "z.B. 3, 4-10",
+    "encryptedAttemptsExceeded": "Fehler beim Laden des verschlüsselten Dokuments. Zu viele Versuche.",
+    "encryptedUserCancelled": "Fehler beim Laden des verschlüsselten Dokuments. Passworteingabe wurde abgebrochen.",
+    "enterPassword": "Dieses Dokument ist durch ein Passwort geschützt. Bitte geben Sie ein Passwort ein",
+    "incorrectPassword": "Falsches Passwort, verbleibende Versuche: {{ remainingAttempts }}",
+    "noAnnotations": "Dieses Dokument hat keine Annotationen.",
+    "noOutlines": "Dieses Dokument enthält keine Gliederung.",
+    "noResults": "Keine Ergebnisse gefunden.",
+    "notSupported": "Dieser Dateityp ist nicht unterstützt.",
+    "passwordRequired": "Passwort erforderlich",
+    "preparingToPrint": "Druckvorbereitung...",
+    "annotationReplyCount": "{{count}} Antwort",
+    "annotationReplyCount_plural": "{{count}} Antworten",
+    "printTotalPageCount": "{{count}} Seite",
+    "printTotalPageCount_plural": "{{count}} Seiten",
+    "processing": "Bearbeite...",
+    "searching": "Suche...",
+    "searchPlaceholder": "Suche Kommentare...",
+    "signHere": "Hier unterschreiben",
+    "insertTextHere": "Hier Text eingeben",
+    "imageSignatureAcceptedFileTypes": "Es werden nur {{allowedFileTypes}} akzeptiert",
+    "enterMeasurement": "Geben Sie das Maß zwischen den beiden Punkten ein",
+    "linkURLorPage": "Link URL oder eine Seite"
+  },
+  "option": {
+    "annotationColor": {
+      "StrokeColor": "Randfarbe",
+      "FillColor": "Füllfarbe",
+      "TextColor": "Textfarbe"
+    },
+    "displayMode": {
+      "layout": "Layout",
+      "pageTransition": "Seitenübergang"
+    },
+    "documentControls": {
+      "placeholder": "Geben Sie die gewünschten Seiten ein, z. B. 2, 5-9"
+    },
+    "layout": {
+      "cover": "Deckblatt",
+      "double": "Zweiseitig",
+      "single": "Einseitig"
+    },
+    "notesPanel": {
+      "orderPosition": "Position",
+      "orderTime": "Zeit",
+      "separator": {
+        "today": "Heute",
+        "yesterday": "Gestern"
+      }
+    },
+    "pageTransition": {
+      "continuous": "Fortlaufend",
+      "default": "Seite für Seite"
+    },
+    "print": {
+      "all": "Alle",
+      "current": "Aktuelle Seite",
+      "pages": "Seiten",
+      "includeAnnotations": "Fügen Sie Anmerkungen hinzu",
+      "includeComments": "Kommentare einfügen",
+      "addWatermarkSettings": "Wasserzeicheneinstellungen hinzufügen"
+    },
+    "redaction": {
+      "markForRedaction": "Zum Schwärzen markieren"
+    },
+    "searchPanel": {
+      "caseSensitive": "Groß-/Kleinschreibung beachten",
+      "wholeWordOnly": "Ganzes Wort",
+      "wildcard": "Platzhalter"
+    },
+    "signatureOverlay": {
+      "addSignature": "Eine Unterschrift hinzufügen"
+    },
+    "signatureModal": {
+      "saveSignature": "Unterschrift speichern",
+      "dragAndDrop": "Ziehen Sie Ihr Bild per Drag & Drop hierher",
+      "or": "Oder",
+      "pickImage": "Wählen Sie das Signaturbild"
+    },
+    "customStampModal": {
+      "stampText": "Stempeltext:",
+      "timestampText": " Zeitstempeltext:",
+      "stampColor": "Stempelfarbe:",
+      "Username": "Nutzername",
+      "Date": "Datum",
+      "Time": "Zeit"
+    },
+    "status": {
+      "status": "Status"
+    },
+    "state": {
+      "accepted": "Angenommen",
+      "rejected": "Abgelehnt",
+      "completed": "Abgeschlossen",
+      "cancelled": "Abgebrochen",
+      "set": "Status setzen:",
+      "setBy": "eingestellt von",
+      "none": "Keiner"
+    },
+    "measurementOverlay": {
+      "scale": "Maßstab",
+      "angle": "Winkel",
+      "distance": "Abstand",
+      "perimeter": "Umfang",
+      "area": "Fläche",
+      "distanceMeasurement": "Abstandsmessung",
+      "perimeterMeasurement": "Umfangsmessung",
+      "areaMeasurement": "Flächenmessung",
+      "radius": "Radius"
+    },
+    "measurementOption": {
+      "scale": "Maßstab"
+    },
+    "styleOption": {
+      "style": "Stil",
+      "solid": "Regulär",
+      "cloudy": "Wolkig"
+    },
+    "slider": {
+      "opacity": "Deckkraft",
+      "thickness": "Dicke",
+      "text": "Textgröße"
+    },
+    "shared": {
+      "page": "Seite",
+      "precision": "Genauigkeit"
+    },
+    "watermark": {
+      "size": "Größe",
+      "location": "Wählen Sie einen Ort zum Bearbeiten von Wasserzeichen",
+      "text": "Text",
+      "style": "Stil",
+      "resetAllSettings": "Alle Einstellungen zurücksetzen",
+      "font": "Schriftart"
+    },
+    "thumbnailPanel": {
+      "delete": "Löschen",
+      "rotateClockwise": "Im Uhrzeigersinn",
+      "rotateCounterClockwise": "Gegen den Uhrzeigersinn",
+      "extractZeroPageError": "Es wurden keine Seiten zum Extrahieren ausgewählt"
+    },
+    "richText": {
+      "bold": "Fett",
+      "italic": "Kursiv",
+      "underline": "Unterstreichen",
+      "strikeout": "Durchgestrichen"
+    }
+  },
+  "warning": {
+    "deletePage": {
+      "deleteTitle": "Seite löschen",
+      "deleteMessage": "Möchten Sie die ausgewählten Seiten wirklich löschen? Dies kann nicht rückgängig gemacht werden",
+      "deleteLastPageMessage": "Dies würde dazu führen, dass keine Seiten verbleiben. Bitte hinterlassen Sie mindestens eine Seite"
+    },
+    "redaction": {
+      "applyTile": "Schwärzung anwenden",
+      "applyMessage": "Durch diese Aktion werden alle zur Bearbeitung ausgewählten Elemente dauerhaft entfernt. Es kann nicht rückgängig gemacht werden."
+    }
+  },
+  "shortcut": {
+    "arrow": "(A)",
+    "callout": "(C)",
+    "copy": "(Strg C)",
+    "delete": "(Del)",
+    "ellipse": "(O)",
+    "eraser": "(E)",
+    "freehand": "(F)",
+    "freetext": "(T)",
+    "highlight": "(H)",
+    "line": "(L)",
+    "pan": "(P)",
+    "rectangle": "(R)",
+    "rotateClockwise": "(Strg Shift +)",
+    "rotateCounterClockwise": "(Strg Shift -)",
+    "select": "(Esc)",
+    "signature": "(S)",
+    "squiggly": "(G)",
+    "stamp": "(I)",
+    "stickyNote": "(N)",
+    "strikeout": "(K)",
+    "underline": "(U)",
+    "zoomIn": "(Strg +)",
+    "zoomOut": "(Strg -)",
+    "rubberStamp": "(Q)",
+    "richText": {
+      "bold": "(Strg B)",
+      "italic": "(Strg I)",
+      "underline": "(Strg L)",
+      "strikeout": "(Strg K)"
+    }
+  },
+  "tool": {
+    "pan": "Hand",
+    "select": "Auswählen",
+    "Marquee": "Auswahl Zoom",
+    "Link": "Link URL oder Seite",
+    "Standard": "Standard",
+    "Custom": "Benutzerdefiniert"
+  },
+  "link": {
+    "url": "URL",
+    "page": "Seite",
+    "enterurl": "Geben Sie die URL ein, zu der Sie einen Link erstellen möchten",
+    "enterpage": "Wählen Sie die Seitennummer aus, zu der Sie einen Link erstellen möchten"
+  },
+  "datePicker": {
+    "previousMonth": "Vorheriger Monat",
+    "nextMonth": "Nächster Monat",
+    "months": {
+      "0": "Januar",
+      "1": "Februar",
+      "2": "März",
+      "3": "April",
+      "4": "Mai",
+      "5": "Juni",
+      "6": "Juli",
+      "7": "August",
+      "8": "September",
+      "9": "Oktober",
+      "10": "November",
+      "11": "Dezember"
+    },
+    "weekdays": {
+      "0": "Sonntag",
+      "1": "Montag",
+      "2": "Dienstag",
+      "3": "Mittwoch",
+      "4": "Donnerstag",
+      "5": "Freitag",
+      "6": "Samstag"
+    },
+    "weekdaysShort": {
+      "0": "So.",
+      "1": "Mo.",
+      "2": "Di.",
+      "3": "Mi.",
+      "4": "Do.",
+      "5": "Fr.",
+      "6": "Sa."
+    }
+  }
+}
