@@ -267,7 +267,7 @@ const PrepareDocument = () => {
     });
     await addDocumentToSign(uid, email, referenceString, emails);
     // commented out so we do not blow past our limit of 200 emails
-    // sendEmailNotification();
+    //sendEmailNotification();
     dispatch(resetSignee());
     navigate('/');
   };
