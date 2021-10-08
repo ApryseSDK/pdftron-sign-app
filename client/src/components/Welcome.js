@@ -21,6 +21,7 @@ import 'gestalt/dist/gestalt.css';
 const ProfilePage = () => {
   const dispatch = useDispatch();
   const [numPendingDocsToSign, /* setNumPendingDocsToSign */] = useState(0);
+  const [numPendingDocsToSignFromOthers, /* setNumPendingDocsToSignFromOthers */] = useState(0);
   const [numOfDocsSigned,  /* setNumOfDocsSigned */] = useState(0);
 
   useEffect(() => {
@@ -68,6 +69,26 @@ const ProfilePage = () => {
             color="blue"
             inline
           />
+        </Box>
+        <Box padding={3}>
+          <Flex alignItems="center" gap={2}>
+            <Heading size="md">Pending Other Signers</Heading>
+            {
+              /**
+               * @todo 2021-10-08
+               * 1. Find a better component compared to `Tag` for displaying the
+               * number?
+               */
+            }
+            <Tag disabled text={`${numPendingDocsToSignFromOthers}`}></Tag>
+          </Flex>
+          {
+            /**
+             * @todo 2021-10-08
+             * Refactor Lists/SignedList component so we can re-use it for this?
+             */
+          }
+          <div>There are no documents pending other signers</div>
         </Box>
         <Box padding={3}>
           <Flex alignItems="center" gap={2}>
