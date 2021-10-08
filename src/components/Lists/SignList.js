@@ -42,6 +42,8 @@ const SignList = () => {
                   <Table.HeaderCell>
                     <Text weight="bold">When</Text>
                   </Table.HeaderCell>
+                  <Table.HeaderCell>
+                  </Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
               <Table.Body>
