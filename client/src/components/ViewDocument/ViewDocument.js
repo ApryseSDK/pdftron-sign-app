@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { navigate } from '@reach/router';
-import { Box, Column, Heading, Row, Stack, Button } from 'gestalt';
+import { Box, Column, Heading, Button } from 'gestalt';
 import { selectDocToView } from './ViewDocumentSlice';
 import { storage } from '../../firebase/firebase';
 import WebViewer from '@pdftron/webviewer';
@@ -57,26 +57,22 @@ const ViewDocument = () => {
             <Heading size="md">View Document</Heading>
           </Box>
           <Box padding={3}>
-            <Row gap={1}>
-              <Stack>
-                <Box padding={2}>
-                  <Button
-                    onClick={download}
-                    accessibilityLabel="download signed document"
-                    text="Download"
-                    iconEnd="download"
-                  />
-                </Box>
-                <Box padding={2}>
-                  <Button
-                    onClick={doneViewing}
-                    accessibilityLabel="complete signing"
-                    text="Done viewing"
-                    iconEnd="check"
-                  />
-                </Box>
-              </Stack>
-            </Row>
+            <Box padding={2}>
+              <Button
+                onClick={download}
+                accessibilityLabel="download signed document"
+                text="Download"
+                iconEnd="download"
+              />
+            </Box>
+            <Box padding={2}>
+              <Button
+                onClick={doneViewing}
+                accessibilityLabel="complete signing"
+                text="Done viewing"
+                iconEnd="check"
+              />
+            </Box>
           </Box>
         </Column>
         <Column span={10}>

@@ -5,8 +5,6 @@ import {
   Box,
   Column,
   Heading,
-  Row,
-  Stack,
   Text,
   Button,
   SelectList,
@@ -320,100 +318,88 @@ const PrepareDocument = () => {
             <Heading size="md">Prepare Document</Heading>
           </Box>
           <Box padding={3}>
-            <Row gap={1}>
-              <Stack>
-                <Box padding={2}>
-                  <Text>{'Step 1'}</Text>
-                </Box>
-                <Box padding={2}>
-                  <Button
-                    onClick={() => {
-                      if (filePicker) {
-                        filePicker.current.click();
-                      }
-                    }}
-                    accessibilityLabel="upload a document"
-                    text="Upload a document"
-                    iconEnd="add-circle"
-                  />
-                </Box>
-              </Stack>
-            </Row>
-            <Row>
-              <Stack>
-                <Box padding={2}>
-                  <Text>{'Step 2'}</Text>
-                </Box>
-                <Box padding={2}>
-                  <SelectList
-                    id="assigningFor"
-                    name="assign"
-                    onChange={({ value }) => setAssignee(value)}
-                    options={assigneesValues}
-                    placeholder="Select recipient"
-                    label="Adding signature for"
-                    value={assignee}
-                  />
-                </Box>
-                <Box padding={2}>
-                  <div
-                    draggable
-                    onDragStart={e => dragStart(e)}
-                    onDragEnd={e => dragEnd(e, 'SIGNATURE')}
-                  >
-                    <Button
-                      onClick={() => addField('SIGNATURE')}
-                      accessibilityLabel="add signature"
-                      text="Add signature"
-                      iconEnd="compose"
-                    />
-                  </div>
-                </Box>
-                <Box padding={2}>
-                  <div
-                    draggable
-                    onDragStart={e => dragStart(e)}
-                    onDragEnd={e => dragEnd(e, 'TEXT')}
-                  >
-                    <Button
-                      onClick={() => addField('TEXT')}
-                      accessibilityLabel="add text"
-                      text="Add text"
-                      iconEnd="text-sentence-case"
-                    />
-                  </div>
-                </Box>
-                <Box padding={2}>
-                  <div
-                    draggable
-                    onDragStart={e => dragStart(e)}
-                    onDragEnd={e => dragEnd(e, 'DATE')}
-                  >
-                    <Button
-                      onClick={() => addField('DATE')}
-                      accessibilityLabel="add date field"
-                      text="Add date"
-                      iconEnd="calendar"
-                    />
-                  </div>
-                </Box>
-              </Stack>
-            </Row>
-            <Row gap={1}>
-              <Stack>
-                <Box padding={2}>
-                  <Text>{'Step 3'}</Text>
-                </Box>
-                <Box padding={2}>
-                  <Button
-                    onClick={applyFields}
-                    accessibilityLabel="Send for signing"
-                    text="Send"
-                    iconEnd="send"
-                  />
-                </Box>
-              </Stack>
-            </Row>
+            <Box padding={2}>
+              <Text>{'Step 1'}</Text>
+            </Box>
+            <Box padding={2}>
+              <Button
+                onClick={() => {
+                  if (filePicker) {
+                    filePicker.current.click();
+                  }
+                }}
+                accessibilityLabel="upload a document"
+                text="Upload a document"
+                iconEnd="add-circle"
+              />
+            </Box>
+            <Box padding={2}>
+              <Text>{'Step 2'}</Text>
+            </Box>
+            <Box padding={2}>
+              <SelectList
+                id="assigningFor"
+                name="assign"
+                onChange={({ value }) => setAssignee(value)}
+                options={assigneesValues}
+                placeholder="Select recipient"
+                label="Adding signature for"
+                value={assignee}
+              />
+            </Box>
+            <Box padding={2}>
+              <div
+                draggable
+                onDragStart={e => dragStart(e)}
+                onDragEnd={e => dragEnd(e, 'SIGNATURE')}
+              >
+                <Button
+                  onClick={() => addField('SIGNATURE')}
+                  accessibilityLabel="add signature"
+                  text="Add signature"
+                  iconEnd="compose"
+                />
+              </div>
+            </Box>
+            <Box padding={2}>
+              <div
+                draggable
+                onDragStart={e => dragStart(e)}
+                onDragEnd={e => dragEnd(e, 'TEXT')}
+              >
+                <Button
+                  onClick={() => addField('TEXT')}
+                  accessibilityLabel="add text"
+                  text="Add text"
+                  iconEnd="text-sentence-case"
+                />
+              </div>
+            </Box>
+            <Box padding={2}>
+              <div
+                draggable
+                onDragStart={e => dragStart(e)}
+                onDragEnd={e => dragEnd(e, 'DATE')}
+              >
+                <Button
+                  onClick={() => addField('DATE')}
+                  accessibilityLabel="add date field"
+                  text="Add date"
+                  iconEnd="calendar"
+                />
+              </div>
+            </Box>
+            <Box padding={2}>
+              <Text>{'Step 3'}</Text>
+            </Box>
+            <Box padding={2}>
+              <Button
+                onClick={applyFields}
+                accessibilityLabel="Send for signing"
+                text="Send"
+                iconEnd="send"
+              />
+            </Box>
           </Box>
         </Column>
         <Column span={10}>

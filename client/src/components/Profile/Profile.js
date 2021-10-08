@@ -4,8 +4,6 @@ import {
   Button,
   Text,
   Avatar,
-  Row,
-  Stack,
   Column,
   Heading,
 } from 'gestalt';
@@ -32,27 +30,23 @@ const ProfilePage = () => {
       </Column>
       <Column span={3}>
         <Box padding={1}>
-          <Row>
-            <Box padding={1}>
-              <Avatar name={displayName} size="md" src={photoURL} />
-            </Box>
-            <Stack>
-              <Text weight="bold">{displayName}</Text>
-              <Text>{email}</Text>
-            </Stack>
-            <Box padding={1}>
-              <Button
-                onClick={() => {
-                  auth.signOut();
-                  dispatch(setUser(null));
-                  dispatch(resetSignee())
-                  navigate('/');
-                }}
-                accessibilityLabel="Sign out of your account"
-                text="Sign out"
-              />
-            </Box>
-          </Row>
+          <Box padding={1}>
+            <Avatar name={displayName} size="md" src={photoURL} />
+          </Box>
+          <Text weight="bold">{displayName}</Text>
+          <Text>{email}</Text>
+          <Box padding={1}>
+            <Button
+              onClick={() => {
+                auth.signOut();
+                dispatch(setUser(null));
+                dispatch(resetSignee())
+                navigate('/');
+              }}
+              accessibilityLabel="Sign out of your account"
+              text="Sign out"
+            />
+          </Box>
         </Box>
       </Column>
     </Box>

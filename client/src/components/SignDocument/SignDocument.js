@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { navigate } from '@reach/router';
-import { Box, Column, Heading, Row, Stack, Button } from 'gestalt';
+import { Box, Column, Heading, Button } from 'gestalt';
 import { selectDocToSign } from './SignDocumentSlice';
 import { storage, updateDocumentToSign } from '../../firebase/firebase';
 import { selectUser } from '../../firebase/firebaseSlice';
@@ -115,34 +115,30 @@ const SignDocument = () => {
             <Heading size="md">Sign Document</Heading>
           </Box>
           <Box padding={3}>
-            <Row gap={1}>
-              <Stack>
-                <Box padding={2}>
-                  <Button
-                    onClick={nextField}
-                    accessibilityLabel="next field"
-                    text="Next field"
-                    iconEnd="arrow-forward"
-                  />
-                </Box>
-                <Box padding={2}>
-                  <Button
-                    onClick={prevField}
-                    accessibilityLabel="Previous field"
-                    text="Previous field"
-                    iconEnd="arrow-back"
-                  />
-                </Box>
-                <Box padding={2}>
-                  <Button
-                    onClick={completeSigning}
-                    accessibilityLabel="complete signing"
-                    text="Complete signing"
-                    iconEnd="compose"
-                  />
-                </Box>
-              </Stack>
-            </Row>
+            <Box padding={2}>
+              <Button
+                onClick={nextField}
+                accessibilityLabel="next field"
+                text="Next field"
+                iconEnd="arrow-forward"
+              />
+            </Box>
+            <Box padding={2}>
+              <Button
+                onClick={prevField}
+                accessibilityLabel="Previous field"
+                text="Previous field"
+                iconEnd="arrow-back"
+              />
+            </Box>
+            <Box padding={2}>
+              <Button
+                onClick={completeSigning}
+                accessibilityLabel="complete signing"
+                text="Complete signing"
+                iconEnd="compose"
+              />
+            </Box>
           </Box>
         </Column>
         <Column span={10}>
