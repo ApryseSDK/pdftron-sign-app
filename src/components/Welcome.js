@@ -124,7 +124,7 @@ const ProfilePage = () => {
                 <Box padding={3} color={GestaltBoxHeaderColor}>
                   <Flex alignItems="center" gap={2}>
                     <Heading size="md">
-                      {`Sign Documents`}
+                      {`Awaiting Your Attention`}
                     </Heading>
                     {
                       /**
