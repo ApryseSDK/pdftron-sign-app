@@ -92,42 +92,44 @@ export const addDocumentToSign = async (uid, email, docRef, emails) => {
 
 export const updateDocumentToSign = async (docId, email, xfdfSigned) => {
   const documentRef = firestore.collection('documentsToSign').doc(docId);
-  documentRef
-    .get()
-    .then(async (doc) => {
-      if (doc.exists) {
-        const { signedBy, emails, xfdf, docRef } = doc.data();
-        if (!signedBy.includes(email)) {
-          const signedByArray = [...signedBy, email];
-          const xfdfArray = [...xfdf, xfdfSigned];
+  let signedByAll = false;
+  try {
+    const doc = await documentRef.get();
+    if (doc.exists) {
+      const { signedBy, emails, xfdf, docRef } = doc.data();
+      if (!signedBy.includes(email)) {
+        const signedByArray = [...signedBy, email];
+        const xfdfArray = [...xfdf, xfdfSigned];
+        await documentRef.update({
+          xfdf: xfdfArray,
+          signedBy: signedByArray,
+        });
+
+        if (signedByArray.length === emails.length) {
+          const time = new Date();
           await documentRef.update({
-            xfdf: xfdfArray,
-            signedBy: signedByArray,
+            signed: true,
+            signedTime: time,
           });
 
-          if (signedByArray.length === emails.length) {
-            const time = new Date();
-            await documentRef.update({
-              signed: true,
-              signedTime: time,
-            });
-
-            mergeAnnotations(docRef, xfdfArray);
-          }
+          signedByAll = true;
+          mergeAnnotations(docRef, xfdfArray);
         }
-      } else {
-        console.log('No such document!');
       }
-    })
-    .catch(function (error) {
-      console.log('Error getting document:', error);
-    });
+    } else {
+      console.log('No such document!');
+    }
+  } catch (error) {
+    console.log('Error getting document:', error);
+  }
+
+  return signedByAll;
 };
 
 /**
  * Requestor: All completed documents they requested
  */
- export const searchForSignedDocumentsRequested = async (email) => {
+export const searchForSignedDocumentsRequested = async (email) => {
   const documentsRef = firestore.collection('documentsToSign');
 
   const docIds = [];
@@ -155,7 +157,7 @@ export const updateDocumentToSign = async (docId, email, xfdfSigned) => {
 /**
  * Requestor: All pending documents
  */
- export const searchForDocumentToSignPending = async (email) => {
+export const searchForDocumentToSignPending = async (email) => {
   const documentsRef = firestore.collection('documentsToSign');
   const query = documentsRef
     .where('email', 'array-contains', email)
@@ -194,7 +196,6 @@ export const updateDocumentToSign = async (docId, email, xfdfSigned) => {
     });
   return docIds;
 };
-
 
 // Signer Role
 
@@ -272,7 +273,7 @@ export const searchForSignedDocumentsSigned = async (email) => {
 /**
  * Signer: All waiting on others documents
  */
- export const searchForWaitingOnOthersDocuments = async (email) => {
+export const searchForWaitingOnOthersDocuments = async (email) => {
   const documentsRef = firestore.collection('documentsToSign');
 
   const docIds = [];
@@ -288,7 +289,9 @@ export const searchForSignedDocumentsSigned = async (email) => {
       querySnapshot.forEach(function (doc) {
         const { docRef, emails, signedTime, signedBy } = doc.data();
         const docId = doc.id;
-        const remainingToSign = emails.filter(email => !signedBy.includes(email));
+        const remainingToSign = emails.filter(
+          (email) => !signedBy.includes(email)
+        );
         docIds.push({ docRef, emails, signedTime, docId, remainingToSign });
       });
     })

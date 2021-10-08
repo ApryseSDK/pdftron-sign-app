@@ -102,7 +102,8 @@ const SignDocument = () => {
 
   const completeSigning = async () => {
     const xfdf = await annotationManager.exportAnnotations({ widgets: false, links: false });
-    await updateDocumentToSign(docId, email, xfdf);
+    const signedByAll = await updateDocumentToSign(docId, email, xfdf);
+    console.log(signedByAll);
     navigate('/');
   }
 
