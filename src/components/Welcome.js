@@ -13,6 +13,7 @@ import {
   Flex,
   Heading,
   Status,
+  Tabs,
   Tag,
 } from 'gestalt';
 import 'gestalt/dist/gestalt.css';
@@ -27,15 +28,53 @@ const ProfilePage = () => {
   const [numPendingDocsToSignFromOthers, /* setNumPendingDocsToSignFromOthers */] = useState(0);
   const [numOfDocsSigned,  /* setNumOfDocsSigned */] = useState(0);
 
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
+
   useEffect(() => {
     dispatch(resetDocToView());
     dispatch(resetDocToSign());
   }, [dispatch]);
 
+  const ModeSwitchingTabs = () => {
+    const handleChange = ({ activeTabIndex, event }) => {
+      event.preventDefault();
+      setActiveTabIndex(activeTabIndex)
+    };
+
+    /**
+     * @todo Add API call to check if there are new, unseen activity
+     * in either Request or Sign tabs
+     */
+    const tabs = [
+      {
+        text: "Request",
+        // indicator: "dot"
+      },
+      {
+        text: "Sign",
+        // indicator: "dot"
+      },
+    ];
+
+    return (
+      <Flex alignItems="center" direction="column" gap={4}>
+        <Box padding={1}>
+          <Tabs
+            activeTabIndex={activeTabIndex}
+            bgColor="transparent"
+            onChange={handleChange}
+            tabs={tabs}
+          />
+        </Box>
+      </Flex>
+    );
+  }
+
   return (
     <div>
       <Profile />
       <Container>
+        <ModeSwitchingTabs/>
         <Box marginTop={MarginBetweenBoxes} marginBottom={MarginBetweenBoxes}>
           <Box padding={3} color={GestaltBoxHeaderColor}>
             <Flex alignItems="center" gap={2}>
