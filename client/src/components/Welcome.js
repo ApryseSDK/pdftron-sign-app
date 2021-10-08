@@ -21,6 +21,7 @@ import 'gestalt/dist/gestalt.css';
 const ProfilePage = () => {
   const dispatch = useDispatch();
   const [numPendingDocsToSign, /* setNumPendingDocsToSign */] = useState(0);
+  const [numOfDocsSigned,  /* setNumOfDocsSigned */] = useState(0);
 
   useEffect(() => {
     dispatch(resetDocToView());
@@ -69,7 +70,17 @@ const ProfilePage = () => {
           />
         </Box>
         <Box padding={3}>
-          <Heading size="md">{`Review Signed Documents`}</Heading>
+          <Flex alignItems="center" gap={2}>
+            <Heading size="md">{`Review Signed Documents`}</Heading>
+            {
+              /**
+               * @todo 2021-10-08
+               * 1. Find a better component compared to `Tag` for displaying the
+               * number?
+               */
+            }
+            <Tag disabled text={`${numOfDocsSigned}`}></Tag>
+          </Flex>
         </Box>
         <Box padding={3}>
           <SignedList />
