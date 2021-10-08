@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Profile from './Profile/Profile';
 import { navigate } from '@reach/router';
 import { useDispatch } from 'react-redux';
@@ -6,12 +6,21 @@ import SignList from './Lists/SignList';
 import SignedList from './Lists/SignedList';
 import { resetDocToView } from './ViewDocument/ViewDocumentSlice';
 import { resetDocToSign } from './SignDocument/SignDocumentSlice';
-import { Box, Button, Container, Heading } from 'gestalt';
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  Heading,
+  Status,
+  Tag,
+} from 'gestalt';
 import 'gestalt/dist/gestalt.css';
 
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
+  const [numPendingDocsToSign, /* setNumPendingDocsToSign */] = useState(0);
 
   useEffect(() => {
     dispatch(resetDocToView());
@@ -23,7 +32,25 @@ const ProfilePage = () => {
       <Profile />
       <Container>
         <Box padding={3}>
-          <Heading size="md">{`Sign Documents`}</Heading>
+          <Flex alignItems="center" gap={2}>
+            <Heading size="md">
+              {`Sign Documents`}
+            </Heading>
+            {
+              /**
+               * @todo 2021-10-08
+               * 1. Find a better component compared to `Tag` for displaying the
+               * number?
+               * 2. @andrey Need API to conditionally render the number in the
+               * `Tag` and the correct Status
+               */
+            }
+            <Tag disabled text={`${numPendingDocsToSign}`}></Tag>
+            {
+              (!numPendingDocsToSign && <Status type="ok" title="No Pending Documents"/>)
+              || (numPendingDocsToSign && <Status type="inProgress" title="Pending Documents"/>)
+            }
+          </Flex>
         </Box>
         <Box padding={3}>
           <SignList />
