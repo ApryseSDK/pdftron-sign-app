@@ -94,6 +94,24 @@ const ProfilePage = () => {
                   />
                 </Box>
               </Box>
+              <Box marginTop={MarginBetweenBoxes} marginBottom={MarginBetweenBoxes}>
+                <Box padding={3} color={GestaltBoxHeaderColor}>
+                  <Flex alignItems="center" gap={2}>
+                    <Heading size="md">{`Review Signed Documents`}</Heading>
+                    {
+                      /**
+                       * @todo 2021-10-08
+                       * 1. Find a better component compared to `Tag` for displaying the
+                       * number?
+                       */
+                    }
+                    <Tag disabled text={`${numOfDocsSigned}`}></Tag>
+                  </Flex>
+                </Box>
+                <Box padding={3} color={GestaltBodyHeaderColor}>
+                  <SignedList />
+                </Box>
+              </Box>
             </Container>
           )
         }
@@ -149,24 +167,6 @@ const ProfilePage = () => {
                 </Box>
                 <Box padding={3} color={GestaltBodyHeaderColor}>
                   There are no documents pending other signers
-                </Box>
-              </Box>
-              <Box marginTop={MarginBetweenBoxes} marginBottom={MarginBetweenBoxes}>
-                <Box padding={3} color={GestaltBoxHeaderColor}>
-                  <Flex alignItems="center" gap={2}>
-                    <Heading size="md">{`Review Signed Documents`}</Heading>
-                    {
-                      /**
-                       * @todo 2021-10-08
-                       * 1. Find a better component compared to `Tag` for displaying the
-                       * number?
-                       */
-                    }
-                    <Tag disabled text={`${numOfDocsSigned}`}></Tag>
-                  </Flex>
-                </Box>
-                <Box padding={3} color={GestaltBodyHeaderColor}>
-                  <SignedList />
                 </Box>
               </Box>
             </Container>
