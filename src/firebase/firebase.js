@@ -280,7 +280,6 @@ export const searchForWaitingOnOthersDocuments = async (email) => {
 
   let queryForSignedDocs = documentsRef
     .where('emails', 'array-contains', email)
-    .where('signedBy', 'array-contains', email)
     .where('signed', '==', false);
 
   await queryForSignedDocs
@@ -288,11 +287,14 @@ export const searchForWaitingOnOthersDocuments = async (email) => {
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
         const { docRef, emails, signedTime, signedBy } = doc.data();
-        const docId = doc.id;
-        const remainingToSign = emails.filter(
-          (email) => !signedBy.includes(email)
-        );
-        docIds.push({ docRef, emails, signedTime, docId, remainingToSign });
+        if (signedBy.includes(email)) {
+          const docId = doc.id;
+          const remainingToSign = emails.filter(
+            (email) => !signedBy.includes(email)
+          );
+          docIds.push({ docRef, emails, signedTime, docId, remainingToSign });
+        }
+        
       });
     })
     .catch(function (error) {

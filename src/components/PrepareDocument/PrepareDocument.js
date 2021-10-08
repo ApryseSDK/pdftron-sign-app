@@ -5,7 +5,7 @@ import { Box, Column, Heading, Text, Button, SelectList } from 'gestalt';
 import { selectAssignees, resetSignee } from '../Assign/AssignSlice';
 import { storage, addDocumentToSign } from '../../firebase/firebase';
 import { selectUser } from '../../firebase/firebaseSlice';
-import emailjs from 'emailjs-com';
+import { sendDocumentReadyToSign } from '../../email/email';
 import WebViewer from '@pdftron/webviewer';
 import 'gestalt/dist/gestalt.css';
 import './PrepareDocument.css';
@@ -267,31 +267,9 @@ const PrepareDocument = () => {
     });
     await addDocumentToSign(uid, email, referenceString, emails);
     // commented out so we do not blow past our limit of 200 emails
-    //sendEmailNotification();
+    //sendDocumentReadyToSign(assignees, email);
     dispatch(resetSignee());
     navigate('/');
-  };
-
-  const sendEmailNotification = async () => {
-    emailjs.init(process.env.REACT_APP_EMAILJS_USER_ID);
-
-    assignees.forEach((assignee) => {
-      const templateParams = {
-        to_name: assignee.name,
-        to_email: assignee.email,
-        from_email: email,
-        message: 'Link coming soon...',
-      };
-
-      emailjs.send(process.env.REACT_APP_EMAILJS_SERVICE_ID, process.env.REACT_APP_EMAILJS_TEMPLATE_ID, templateParams).then(
-        function (response) {
-          console.log('SUCCESS!', response.status, response.text);
-        },
-        function (error) {
-          console.log('FAILED...', error);
-        }
-      );
-    });
   };
 
   const dragOver = (e) => {

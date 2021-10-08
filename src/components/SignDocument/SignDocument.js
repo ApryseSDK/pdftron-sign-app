@@ -5,12 +5,13 @@ import { Box, Column, Heading, Button } from 'gestalt';
 import { selectDocToSign } from './SignDocumentSlice';
 import { storage, updateDocumentToSign } from '../../firebase/firebase';
 import { selectUser } from '../../firebase/firebaseSlice';
+import { sendDocumentSigned } from '../../email/email';
 import WebViewer from '@pdftron/webviewer';
 import 'gestalt/dist/gestalt.css';
 import './SignDocument.css';
 
 const SignDocument = () => {
-  const [annotationManager, setAnnotatManager] = useState(null);
+  const [annotationManager, setAnnotationManager] = useState(null);
   const [annotPosition, setAnnotPosition] = useState(0);
 
   const doc = useSelector(selectDocToSign);
@@ -41,7 +42,7 @@ const SignDocument = () => {
       viewer.current,
     ).then(async instance => {
       const { documentViewer, annotationManager, Annotations } = instance.Core;
-      setAnnotatManager(annotationManager);
+      setAnnotationManager(annotationManager);
 
       // select only the insert group
       instance.UI.setToolbarGroup('toolbarGroup-Insert');
@@ -103,7 +104,9 @@ const SignDocument = () => {
   const completeSigning = async () => {
     const xfdf = await annotationManager.exportAnnotations({ widgets: false, links: false });
     const signedByAll = await updateDocumentToSign(docId, email, xfdf);
-    console.log(signedByAll);
+    if (signedByAll) {
+      //sendDocumentSigned()
+    }
     navigate('/');
   }
 
