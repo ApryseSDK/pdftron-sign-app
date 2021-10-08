@@ -10,6 +10,7 @@ import 'gestalt/dist/gestalt.css';
 import './SignDocument.css';
 
 const SignDocument = () => {
+  const [instance, setInstance] = useState(null);
   const [annotationManager, setAnnotatManager] = useState(null);
   const [annotPosition, setAnnotPosition] = useState(0);
   const [annots, setAnnots] = useState([]);
@@ -41,6 +42,7 @@ const SignDocument = () => {
       },
       viewer.current,
     ).then(async instance => {
+      setInstance(instance);
       const { documentViewer, annotationManager, Annotations } = instance.Core;
       setAnnotatManager(annotationManager);
 
@@ -107,7 +109,10 @@ const SignDocument = () => {
     const fieldManager = annotationManager.getFieldManager()
 
     if(!fieldManager.areRequiredFieldsFilled()) {
-      alert(`Required Fields NOT Filled!`)
+      instance.UI.showErrorMessage('You must sign all signature fields and add dates before submitting.');
+      setTimeout(() => {
+          instance.closeElements(['errorModal'])
+        }, 2000)
       return;
     }
 
