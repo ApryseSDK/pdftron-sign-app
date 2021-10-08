@@ -6,6 +6,7 @@ import {
   Button,
   Table,
   Text,
+  Spinner,
 } from 'gestalt';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../firebase/firebaseSlice';
@@ -17,6 +18,7 @@ const PendingOthers = () => {
   const user = useSelector(selectUser);
   const { email } = user;
   const [docsWaitingOnOthers, setDocsWaitingOnOthers] = useState([]);
+  const [apiCallPending, setApiCallPending] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -24,9 +26,16 @@ const PendingOthers = () => {
     async function getDocs() {
       const waitingOnOthers = await searchForWaitingOnOthersDocuments(email);
       setDocsWaitingOnOthers(waitingOnOthers);
+      setApiCallPending(false);
     }
     setTimeout(getDocs, 1000);
   }, [email]);
+
+  if (apiCallPending) {
+    return (
+      <Spinner show={apiCallPending} accessibilityLabel="spinner" />
+    );
+  }
 
   return (
     <div>
