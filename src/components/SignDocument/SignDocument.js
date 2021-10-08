@@ -104,6 +104,13 @@ const SignDocument = () => {
   }
 
   const completeSigning = async () => {
+    const fieldManager = annotationManager.getFieldManager()
+
+    if(!fieldManager.areRequiredFieldsFilled()) {
+      alert(`Required Fields NOT Filled!`)
+      return;
+    }
+
     const xfdf = await annotationManager.exportAnnotations({ widgets: false, links: false });
     await updateDocumentToSign(docId, email, xfdf);
     navigate('/');
