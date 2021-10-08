@@ -41,7 +41,6 @@ const SignDocument = () => {
       viewer.current,
     ).then(async instance => {
       const { documentViewer, annotationManager, Annotations } = instance.Core;
-      const docViewer = documentViewer;
       setAnnotatManager(annotationManager);
 
       // select only the insert group
@@ -50,7 +49,7 @@ const SignDocument = () => {
       // load document
       const storageRef = storage.ref();
       const URL = await storageRef.child(docRef).getDownloadURL();
-      docViewer.loadDocument(URL);
+      documentViewer.loadDocument(URL);
 
       const normalStyles = (widget) => {
         if (widget instanceof Annotations.TextWidgetAnnotation) {
