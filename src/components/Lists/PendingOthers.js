@@ -102,8 +102,8 @@ const PendingOthers = () => {
                           const dateObj = new Date(lastUpdated.seconds * 1000);
                           return (
                             <>
-                              <Text>{dateObj.toDateString()}</Text>
-                              <Text>{dateObj.toLocaleTimeString()}</Text>
+                              <Text size="md">{dateObj.toDateString()}</Text>
+                              <Text size="sm">{dateObj.toLocaleTimeString()}</Text>
                             </>
                           );
                         })()
