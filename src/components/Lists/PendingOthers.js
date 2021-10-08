@@ -56,7 +56,13 @@ const PendingOthers = () => {
                     <Text weight="bold">Awaiting Signatures</Text>
                   </Table.HeaderCell>
                   <Table.HeaderCell>
-                    <Text weight="bold">Last Activity</Text>
+                    <Text weight="bold">Created By</Text>
+                  </Table.HeaderCell>
+                  <Table.HeaderCell>
+                    <Text weight="bold">Date Created</Text>
+                  </Table.HeaderCell>
+                  <Table.HeaderCell>
+                    <Text weight="bold">Last Signed</Text>
                   </Table.HeaderCell>
                   <Table.HeaderCell>
                   </Table.HeaderCell>
@@ -75,6 +81,32 @@ const PendingOthers = () => {
                         doc.remainingToSign.map(remainingEmail => (
                           <Text>{remainingEmail}</Text>
                         ))
+                      }
+                    </Table.Cell>
+                    {
+                      /**
+                       * @todo @andrey
+                       * Can we get the Requestor and the DateTime of when the
+                       * document was prepared?
+                       */
+                    }
+                    <Table.Cell></Table.Cell>
+                    <Table.Cell></Table.Cell>
+                    <Table.Cell>
+                      {
+                        (() => {
+                          const { lastUpdated } = doc;
+                          if (!lastUpdated) {
+                            return null;
+                          }
+                          const dateObj = new Date(lastUpdated.seconds * 1000);
+                          return (
+                            <>
+                              <Text>{dateObj.toDateString()}</Text>
+                              <Text>{dateObj.toLocaleTimeString()}</Text>
+                            </>
+                          );
+                        })()
                       }
                     </Table.Cell>
                     <Table.Cell>
