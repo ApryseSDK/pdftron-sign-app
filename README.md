@@ -40,18 +40,18 @@ REACT_APP_PROJECT_ID=your_project_id
 REACT_APP_STORAGE_BUCKET=your_storage_bucket
 ```
 The above information can be found under settings of your Firebase app.
-![Screenshot](https://github.com/PDFTron/client/pdftron-sign-app/blob/master/firebase.png)
+![Screenshot](https://github.com/PDFTron/pdftron-sign-app/blob/master/firebase.png)
 
 Make sure you create a storage bucket, and enable authentication for email and Google.
-![Screenshot](https://github.com/PDFTron/client/pdftron-sign-app/blob/master/firebase_authentication.png)
+![Screenshot](https://github.com/PDFTron/pdftron-sign-app/blob/master/firebase_authentication.png)
 
 After you have your storage bucket and Firestore setup give authenticated users read and write permissions.
 
 Rules for storage which will host your PDF documents.
-![Screenshot](https://github.com/PDFTron/client/pdftron-sign-app/blob/master/firebase-storage-rules.png)
+![Screenshot](https://github.com/PDFTron/pdftron-sign-app/blob/master/firebase-storage-rules.png)
 
 Rules for Firestore which will host document signing metadata.
-![Screenshot](https://github.com/PDFTron/client/pdftron-sign-app/blob/master/firebase-firestore-rules.png)
+![Screenshot](https://github.com/PDFTron/pdftron-sign-app/blob/master/firebase-firestore-rules.png)
 
 
 Now you can run the application and start requesting signatures.
