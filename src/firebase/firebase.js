@@ -162,6 +162,9 @@ export const searchForDocumentToSign = async (email) => {
   return docIds;
 };
 
+/**
+ * For requestor to see all signed documents they requested
+ */
 export const searchForSignedDocumentsRequested = async (email) => {
   const documentsRef = firestore.collection('documentsToSign');
 
@@ -187,6 +190,9 @@ export const searchForSignedDocumentsRequested = async (email) => {
   return docIds;
 };
 
+/**
+ * Signee can see all their signed documents
+ */
 export const searchForSignedDocumentsSigned = async (email) => {
   const documentsRef = firestore.collection('documentsToSign');
 
