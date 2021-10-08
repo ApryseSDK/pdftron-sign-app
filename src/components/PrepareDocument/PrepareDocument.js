@@ -273,7 +273,7 @@ const PrepareDocument = () => {
   };
 
   const sendEmailNotification = async () => {
-    emailjs.init('user_yVdgnAetuTzjZvNjFyLh2');
+    emailjs.init(process.env.REACT_APP_EMAILJS_USER_ID);
 
     assignees.forEach((assignee) => {
       const templateParams = {
@@ -283,7 +283,7 @@ const PrepareDocument = () => {
         message: 'Link coming soon...',
       };
 
-      emailjs.send('service_dmb5fg8', 'template_4soqrgc', templateParams).then(
+      emailjs.send(process.env.REACT_APP_EMAILJS_SERVICE_ID, process.env.REACT_APP_EMAILJS_TEMPLATE_ID, templateParams).then(
         function (response) {
           console.log('SUCCESS!', response.status, response.text);
         },
