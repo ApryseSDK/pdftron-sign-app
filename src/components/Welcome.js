@@ -4,6 +4,7 @@ import { navigate } from '@reach/router';
 import { useDispatch } from 'react-redux';
 import SignList from './Lists/SignList';
 import SignedList from './Lists/SignedList';
+import PendingOthers from './Lists/PendingOthers';
 import { resetDocToView } from './ViewDocument/ViewDocumentSlice';
 import { resetDocToSign } from './SignDocument/SignDocumentSlice';
 import {
@@ -166,7 +167,7 @@ const ProfilePage = () => {
                   }
                 </Box>
                 <Box padding={3} color={GestaltBodyHeaderColor}>
-                  There are no documents pending other signers
+                  <PendingOthers/>
                 </Box>
               </Box>
             </Container>
