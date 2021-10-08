@@ -132,6 +132,34 @@ xfdf: ["<?xml version="1.0" encoding="UTF-8" ?><xfdf xmlns="http://ns.adobe.com/
 - uid - string - unique identifier for the requestor of the signature
 - xfdf - an array of strings - signature appearance/form field values for each user
 
+## Email Notifications
+
+To send email notifications to the users when the document is ready to be signed, signed by a single user, and all users have signed, we used [EmailJS](https://www.emailjs.com/) for client-side email sending and [SendGrid](https://sendgrid.com/) for the email server. Both offerings offer a free tier to get started with. 
+
+### SendGrid Setup
+
+Create a free account and [authenticate](https://app.sendgrid.com/guide) your sending domain. You can use any email you have access to. Afterwards, navigate to [integrate](https://app.sendgrid.com/guide/integrate) tab on the dashboard. Choose Web API and generate an API key.
+
+### EmailJS Setup
+
+Create a free account and add a new service from the [dashboard](https://dashboard.emailjs.com/admin). When adding a new service, connect SendGrid with the the service specified. The test will fail, since your from email will not match your sending domain from SendGrid. Proceed to creating a [template](https://dashboard.emailjs.com/admin/templates). 
+
+When creating a new template, ensure that the From Email is the same as SendGrid sending domain. For example, here is a template for an email when we send a notification to the user:
+
+```
+Hello {{to_name}},
+
+You have a new document to sign from {{from_email}}:
+
+{{message}}
+
+Best regards,
+
+Andrey
+
+From PDFTron Sign App
+```
+
 ## API documentation
 
 See [API documentation](https://www.pdftron.com/documentation/web/guides/ui/apis).
