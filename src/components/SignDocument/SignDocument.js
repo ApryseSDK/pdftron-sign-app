@@ -12,6 +12,7 @@ import './SignDocument.css';
 const SignDocument = () => {
   const [annotationManager, setAnnotatManager] = useState(null);
   const [annotPosition, setAnnotPosition] = useState(0);
+  const [annots, setAnnots] = useState([]);
 
   const doc = useSelector(selectDocToSign);
   const user = useSelector(selectUser);
@@ -64,6 +65,10 @@ const SignDocument = () => {
         }
       };
 
+      documentViewer.addEventListener('annotationsLoaded', () => {
+        setAnnots(annotationManager.getAnnotationsList().filter(annot => annot instanceof Annotations.WidgetAnnotation));
+      });
+
       annotationManager.on('annotationChanged', (annotations, action, { imported }) => {
         if (imported && action === 'add') {
           annotations.forEach(function(annot) {
@@ -81,7 +86,6 @@ const SignDocument = () => {
   }, [docRef, email]);
 
   const nextField = () => {
-    let annots = annotationManager.getAnnotationsList();
     if (annots[annotPosition]) {
       annotationManager.jumpToAnnotation(annots[annotPosition]);
       if (annots[annotPosition+1]) {
@@ -91,7 +95,6 @@ const SignDocument = () => {
   }
 
   const prevField = () => {
-    let annots = annotationManager.getAnnotationsList();
     if (annots[annotPosition]) {
       annotationManager.jumpToAnnotation(annots[annotPosition]);
       if (annots[annotPosition-1]) {
