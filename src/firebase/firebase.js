@@ -60,6 +60,8 @@ const getUserDocument = async (uid) => {
   }
 };
 
+// Requestor Role
+
 export const addDocumentToSign = async (uid, email, docRef, emails) => {
   if (!uid) return;
   const signed = false;
@@ -122,6 +124,83 @@ export const updateDocumentToSign = async (docId, email, xfdfSigned) => {
     });
 };
 
+/**
+ * Requestor: All completed documents they requested
+ */
+ export const searchForSignedDocumentsRequested = async (email) => {
+  const documentsRef = firestore.collection('documentsToSign');
+
+  const docIds = [];
+
+  let queryForRequestedDocs = documentsRef
+    .where('email', '==', email)
+    .where('signed', '==', true);
+
+  await queryForRequestedDocs
+    .get()
+    .then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        const { docRef, emails, signedTime } = doc.data();
+        const docId = doc.id;
+        docIds.push({ docRef, emails, signedTime, docId });
+      });
+    })
+    .catch(function (error) {
+      console.log('Error getting documents: ', error);
+    });
+
+  return docIds;
+};
+
+/**
+ * Requestor: All pending documents
+ */
+ export const searchForDocumentToSignPending = async (email) => {
+  const documentsRef = firestore.collection('documentsToSign');
+  const query = documentsRef
+    .where('email', 'array-contains', email)
+    .where('signed', '==', false);
+
+  const querySigned = documentsRef.where('signedBy', 'array-contains', email);
+
+  const docIds = [];
+  const docIdSigned = [];
+
+  await querySigned
+    .get()
+    .then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        const docId = doc.id;
+        docIdSigned.push(docId);
+      });
+    })
+    .catch(function (error) {
+      console.log('Error getting documents: ', error);
+    });
+
+  await query
+    .get()
+    .then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        const { docRef, email, requestedTime } = doc.data();
+        const docId = doc.id;
+        if (!docIdSigned.includes(docId)) {
+          docIds.push({ docRef, email, requestedTime, docId });
+        }
+      });
+    })
+    .catch(function (error) {
+      console.log('Error getting documents: ', error);
+    });
+  return docIds;
+};
+
+
+// Signer Role
+
+/**
+ * Signer: All documents waiting to sign
+ */
 export const searchForDocumentToSign = async (email) => {
   const documentsRef = firestore.collection('documentsToSign');
   const query = documentsRef
@@ -163,35 +242,7 @@ export const searchForDocumentToSign = async (email) => {
 };
 
 /**
- * For requestor to see all signed documents they requested
- */
-export const searchForSignedDocumentsRequested = async (email) => {
-  const documentsRef = firestore.collection('documentsToSign');
-
-  const docIds = [];
-
-  let queryForRequestedDocs = documentsRef
-    .where('email', '==', email)
-    .where('signed', '==', true);
-
-  await queryForRequestedDocs
-    .get()
-    .then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
-        const { docRef, emails, signedTime } = doc.data();
-        const docId = doc.id;
-        docIds.push({ docRef, emails, signedTime, docId });
-      });
-    })
-    .catch(function (error) {
-      console.log('Error getting documents: ', error);
-    });
-
-  return docIds;
-};
-
-/**
- * Signee can see all their signed documents
+ * Signer: All their completed documents
  */
 export const searchForSignedDocumentsSigned = async (email) => {
   const documentsRef = firestore.collection('documentsToSign');
@@ -219,44 +270,30 @@ export const searchForSignedDocumentsSigned = async (email) => {
 };
 
 /**
- * Requestor: All pending documents
+ * Signer: All waiting on others documents
  */
-export const searchForDocumentToSignPending = async (email) => {
+ export const searchForWaitingOnOthersDocuments = async (email) => {
   const documentsRef = firestore.collection('documentsToSign');
-  const query = documentsRef
-    .where('email', 'array-contains', email)
-    .where('signed', '==', false);
-
-  const querySigned = documentsRef.where('signedBy', 'array-contains', email);
 
   const docIds = [];
-  const docIdSigned = [];
 
-  await querySigned
+  let queryForSignedDocs = documentsRef
+    .where('emails', 'array-contains', email)
+    .where('signedBy', 'array-contains', email)
+    .where('signed', '==', false);
+
+  await queryForSignedDocs
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
+        const { docRef, emails, signedTime, signedBy } = doc.data();
         const docId = doc.id;
-        docIdSigned.push(docId);
+        docIds.push({ docRef, emails, signedTime, docId, signedBy });
       });
     })
     .catch(function (error) {
       console.log('Error getting documents: ', error);
     });
 
-  await query
-    .get()
-    .then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
-        const { docRef, email, requestedTime } = doc.data();
-        const docId = doc.id;
-        if (!docIdSigned.includes(docId)) {
-          docIds.push({ docRef, email, requestedTime, docId });
-        }
-      });
-    })
-    .catch(function (error) {
-      console.log('Error getting documents: ', error);
-    });
   return docIds;
 };
