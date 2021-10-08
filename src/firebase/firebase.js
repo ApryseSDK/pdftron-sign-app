@@ -211,3 +211,44 @@ export const searchForSignedDocumentsSigned = async (email) => {
 
   return docIds;
 };
+
+
+export const searchForDocumentToSignPending = async (email) => {
+  const documentsRef = firestore.collection('documentsToSign');
+  const query = documentsRef
+    .where('email', 'array-contains', email)
+    .where('signed', '==', false);
+
+  const querySigned = documentsRef.where('signedBy', 'array-contains', email);
+
+  const docIds = [];
+  const docIdSigned = [];
+
+  await querySigned
+    .get()
+    .then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        const docId = doc.id;
+        docIdSigned.push(docId);
+      });
+    })
+    .catch(function (error) {
+      console.log('Error getting documents: ', error);
+    });
+
+  await query
+    .get()
+    .then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        const { docRef, email, requestedTime } = doc.data();
+        const docId = doc.id;
+        if (!docIdSigned.includes(docId)) {
+          docIds.push({ docRef, email, requestedTime, docId });
+        }
+      });
+    })
+    .catch(function (error) {
+      console.log('Error getting documents: ', error);
+    });
+  return docIds;
+};
