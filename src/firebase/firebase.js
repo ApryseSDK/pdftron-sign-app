@@ -218,7 +218,9 @@ export const searchForSignedDocumentsSigned = async (email) => {
   return docIds;
 };
 
-
+/**
+ * Requestor: All pending documents
+ */
 export const searchForDocumentToSignPending = async (email) => {
   const documentsRef = firestore.collection('documentsToSign');
   const query = documentsRef
