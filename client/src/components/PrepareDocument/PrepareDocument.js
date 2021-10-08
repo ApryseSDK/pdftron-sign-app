@@ -1,17 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { navigate } from '@reach/router';
-import {
-  Box,
-  Column,
-  Heading,
-  Text,
-  Button,
-  SelectList,
-} from 'gestalt';
+import { Box, Column, Heading, Text, Button, SelectList } from 'gestalt';
 import { selectAssignees, resetSignee } from '../Assign/AssignSlice';
 import { storage, addDocumentToSign } from '../../firebase/firebase';
 import { selectUser } from '../../firebase/firebaseSlice';
+import emailjs from 'emailjs-com';
 import WebViewer from '@pdftron/webviewer';
 import 'gestalt/dist/gestalt.css';
 import './PrepareDocument.css';
@@ -23,7 +17,7 @@ const PrepareDocument = () => {
   const dispatch = useDispatch();
 
   const assignees = useSelector(selectAssignees);
-  const assigneesValues = assignees.map(user => {
+  const assigneesValues = assignees.map((user) => {
     return { value: user.email, label: user.name };
   });
   let initialAssignee =
@@ -48,9 +42,10 @@ const PrepareDocument = () => {
           'menuButton',
         ],
       },
-      viewer.current,
-    ).then(instance => {
-      const { iframeWindow, Core, UI } = instance;
+      viewer.current
+    ).then((instance) => {
+      const { iframeWindow } = instance;
+
       // select only the view group
       instance.UI.setToolbarGroup('toolbarGroup-View');
 
@@ -58,11 +53,11 @@ const PrepareDocument = () => {
 
       const iframeDoc = iframeWindow.document.body;
       iframeDoc.addEventListener('dragover', dragOver);
-      iframeDoc.addEventListener('drop', e => {
+      iframeDoc.addEventListener('drop', (e) => {
         drop(e, instance);
       });
 
-      filePicker.current.onchange = e => {
+      filePicker.current.onchange = (e) => {
         const file = e.target.files[0];
         if (file) {
           instance.UI.loadDocument(file);
@@ -93,7 +88,7 @@ const PrepareDocument = () => {
               {
                 type: 'Tx',
                 value: annot.custom.value,
-              },
+              }
             );
             inputAnnot = new Annotations.TextWidgetAnnotation(field);
           } else if (annot.custom.type === 'SIGNATURE') {
@@ -101,15 +96,14 @@ const PrepareDocument = () => {
               annot.getContents() + Date.now() + index,
               {
                 type: 'Sig',
-              },
+              }
             );
             inputAnnot = new Annotations.SignatureWidgetAnnotation(field, {
               appearance: '_DEFAULT',
               appearances: {
                 _DEFAULT: {
                   Normal: {
-                    data:
-                      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjEuMWMqnEsAAAANSURBVBhXY/j//z8DAAj8Av6IXwbgAAAAAElFTkSuQmCC',
+                    data: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjEuMWMqnEsAAAANSURBVBhXY/j//z8DAAj8Av6IXwbgAAAAAElFTkSuQmCC',
                     offset: {
                       x: 100,
                       y: 100,
@@ -143,9 +137,9 @@ const PrepareDocument = () => {
                     },
                   ],
                 },
-              },
+              }
             );
-  
+
             inputAnnot = new Annotations.DatePickerWidgetAnnotation(field);
           } else {
             // exit early for other annotations
@@ -187,7 +181,7 @@ const PrepareDocument = () => {
         annotationManager.addAnnotation(inputAnnot);
         fieldManager.addField(field);
         annotsToDraw.push(inputAnnot);
-      }),
+      })
     );
 
     // delete old annotations
@@ -257,9 +251,22 @@ const PrepareDocument = () => {
     const storageRef = storage.ref();
     const referenceString = `docToSign/${uid}${Date.now()}.pdf`;
     const docRef = storageRef.child(referenceString);
+<<<<<<< HEAD
     const { documentViewer, annotationManager } = instance.Core;
     const doc = documentViewer.getDocument();
     const xfdfString = await annotationManager.exportAnnotations({ widgets: true, fields: true });
+||||||| 78d2e4d
+    const { docViewer, annotManager } = instance;
+    const doc = docViewer.getDocument();
+    const xfdfString = await annotManager.exportAnnotations({ widgets: true, fields: true });
+=======
+    const { docViewer, annotManager } = instance;
+    const doc = docViewer.getDocument();
+    const xfdfString = await annotManager.exportAnnotations({
+      widgets: true,
+      fields: true,
+    });
+>>>>>>> Developer-Days-2021
     const data = await doc.getFileData({ xfdfString });
     const arr = new Uint8Array(data);
     const blob = new Blob([arr], { type: 'application/pdf' });
@@ -268,15 +275,39 @@ const PrepareDocument = () => {
     });
 
     // create an entry in the database
-    const emails = assignees.map(assignee => {
+    const emails = assignees.map((assignee) => {
       return assignee.email;
     });
     await addDocumentToSign(uid, email, referenceString, emails);
+    // commented out so we do not blow past our limit of 200 emails
+    // sendEmailNotification();
     dispatch(resetSignee());
     navigate('/');
   };
 
-  const dragOver = e => {
+  const sendEmailNotification = async () => {
+    emailjs.init('user_yVdgnAetuTzjZvNjFyLh2');
+
+    assignees.forEach((assignee) => {
+      const templateParams = {
+        to_name: assignee.name,
+        to_email: assignee.email,
+        from_email: email,
+        message: 'Link coming soon...',
+      };
+
+      emailjs.send('service_dmb5fg8', 'template_4soqrgc', templateParams).then(
+        function (response) {
+          console.log('SUCCESS!', response.status, response.text);
+        },
+        function (error) {
+          console.log('FAILED...', error);
+        }
+      );
+    });
+  };
+
+  const dragOver = (e) => {
     e.preventDefault();
     return false;
   };
@@ -291,7 +322,7 @@ const PrepareDocument = () => {
     return false;
   };
 
-  const dragStart = e => {
+  const dragStart = (e) => {
     e.target.style.opacity = 0.5;
     const copy = e.target.cloneNode(true);
     copy.id = 'form-build-drag-image-copy';
@@ -305,17 +336,17 @@ const PrepareDocument = () => {
     addField(type, dropPoint);
     e.target.style.opacity = 1;
     document.body.removeChild(
-      document.getElementById('form-build-drag-image-copy'),
+      document.getElementById('form-build-drag-image-copy')
     );
     e.preventDefault();
   };
 
   return (
     <div className={'prepareDocument'}>
-      <Box display="flex" direction="row" flex="grow">
+      <Box display='flex' direction='row' flex='grow'>
         <Column span={2}>
           <Box padding={3}>
-            <Heading size="md">Prepare Document</Heading>
+            <Heading size='md'>Prepare Document</Heading>
           </Box>
           <Box padding={3}>
             <Box padding={2}>
@@ -328,9 +359,9 @@ const PrepareDocument = () => {
                     filePicker.current.click();
                   }
                 }}
-                accessibilityLabel="upload a document"
-                text="Upload a document"
-                iconEnd="add-circle"
+                accessibilityLabel='upload a document'
+                text='Upload a document'
+                iconEnd='add-circle'
               />
             </Box>
             <Box padding={2}>
@@ -338,54 +369,54 @@ const PrepareDocument = () => {
             </Box>
             <Box padding={2}>
               <SelectList
-                id="assigningFor"
-                name="assign"
+                id='assigningFor'
+                name='assign'
                 onChange={({ value }) => setAssignee(value)}
                 options={assigneesValues}
-                placeholder="Select recipient"
-                label="Adding signature for"
+                placeholder='Select recipient'
+                label='Adding signature for'
                 value={assignee}
               />
             </Box>
             <Box padding={2}>
               <div
                 draggable
-                onDragStart={e => dragStart(e)}
-                onDragEnd={e => dragEnd(e, 'SIGNATURE')}
+                onDragStart={(e) => dragStart(e)}
+                onDragEnd={(e) => dragEnd(e, 'SIGNATURE')}
               >
                 <Button
                   onClick={() => addField('SIGNATURE')}
-                  accessibilityLabel="add signature"
-                  text="Add signature"
-                  iconEnd="compose"
+                  accessibilityLabel='add signature'
+                  text='Add signature'
+                  iconEnd='compose'
                 />
               </div>
             </Box>
             <Box padding={2}>
               <div
                 draggable
-                onDragStart={e => dragStart(e)}
-                onDragEnd={e => dragEnd(e, 'TEXT')}
+                onDragStart={(e) => dragStart(e)}
+                onDragEnd={(e) => dragEnd(e, 'TEXT')}
               >
                 <Button
                   onClick={() => addField('TEXT')}
-                  accessibilityLabel="add text"
-                  text="Add text"
-                  iconEnd="text-sentence-case"
+                  accessibilityLabel='add text'
+                  text='Add text'
+                  iconEnd='text-sentence-case'
                 />
               </div>
             </Box>
             <Box padding={2}>
               <div
                 draggable
-                onDragStart={e => dragStart(e)}
-                onDragEnd={e => dragEnd(e, 'DATE')}
+                onDragStart={(e) => dragStart(e)}
+                onDragEnd={(e) => dragEnd(e, 'DATE')}
               >
                 <Button
                   onClick={() => addField('DATE')}
-                  accessibilityLabel="add date field"
-                  text="Add date"
-                  iconEnd="calendar"
+                  accessibilityLabel='add date field'
+                  text='Add date'
+                  iconEnd='calendar'
                 />
               </div>
             </Box>
@@ -395,18 +426,18 @@ const PrepareDocument = () => {
             <Box padding={2}>
               <Button
                 onClick={applyFields}
-                accessibilityLabel="Send for signing"
-                text="Send"
-                iconEnd="send"
+                accessibilityLabel='Send for signing'
+                text='Send'
+                iconEnd='send'
               />
             </Box>
           </Box>
         </Column>
         <Column span={10}>
-          <div className="webviewer" ref={viewer}></div>
+          <div className='webviewer' ref={viewer}></div>
         </Column>
       </Box>
-      <input type="file" ref={filePicker} style={{ display: 'none' }} />
+      <input type='file' ref={filePicker} style={{ display: 'none' }} />
     </div>
   );
 };
