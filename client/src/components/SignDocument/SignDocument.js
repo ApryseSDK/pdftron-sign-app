@@ -10,7 +10,7 @@ import 'gestalt/dist/gestalt.css';
 import './SignDocument.css';
 
 const SignDocument = () => {
-  const [annotManager, setAnnotatManager] = useState(null);
+  const [annotationManager, setAnnotatManager] = useState(null);
   const [annotPosition, setAnnotPosition] = useState(0);
 
   const doc = useSelector(selectDocToSign);
@@ -40,11 +40,12 @@ const SignDocument = () => {
       },
       viewer.current,
     ).then(async instance => {
-      const { docViewer, annotManager, Annotations } = instance;
-      setAnnotatManager(annotManager);
+      const { documentViewer, annotationManager, Annotations } = instance.Core;
+      const docViewer = documentViewer;
+      setAnnotatManager(annotationManager);
 
       // select only the insert group
-      instance.setToolbarGroup('toolbarGroup-Insert');
+      instance.UI.setToolbarGroup('toolbarGroup-Insert');
 
       // load document
       const storageRef = storage.ref();
@@ -64,7 +65,7 @@ const SignDocument = () => {
         }
       };
 
-      annotManager.on('annotationChanged', (annotations, action, { imported }) => {
+      annotationManager.on('annotationChanged', (annotations, action, { imported }) => {
         if (imported && action === 'add') {
           annotations.forEach(function(annot) {
             if (annot instanceof Annotations.WidgetAnnotation) {
@@ -81,9 +82,9 @@ const SignDocument = () => {
   }, [docRef, email]);
 
   const nextField = () => {
-    let annots = annotManager.getAnnotationsList();
+    let annots = annotationManager.getAnnotationsList();
     if (annots[annotPosition]) {
-      annotManager.jumpToAnnotation(annots[annotPosition]);
+      annotationManager.jumpToAnnotation(annots[annotPosition]);
       if (annots[annotPosition+1]) {
         setAnnotPosition(annotPosition+1);
       }
@@ -91,9 +92,9 @@ const SignDocument = () => {
   }
 
   const prevField = () => {
-    let annots = annotManager.getAnnotationsList();
+    let annots = annotationManager.getAnnotationsList();
     if (annots[annotPosition]) {
-      annotManager.jumpToAnnotation(annots[annotPosition]);
+      annotationManager.jumpToAnnotation(annots[annotPosition]);
       if (annots[annotPosition-1]) {
         setAnnotPosition(annotPosition-1);
       }
@@ -101,7 +102,7 @@ const SignDocument = () => {
   }
 
   const completeSigning = async () => {
-    const xfdf = await annotManager.exportAnnotations({ widgets: false, links: false });
+    const xfdf = await annotationManager.exportAnnotations({ widgets: false, links: false });
     await updateDocumentToSign(docId, email, xfdf);
     navigate('/');
   }

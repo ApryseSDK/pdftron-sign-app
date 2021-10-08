@@ -29,7 +29,7 @@ const ViewDocument = () => {
       viewer.current,
     ).then(async instance => {
       // select only the view group
-      instance.setToolbarGroup('toolbarGroup-View');
+      instance.UI.setToolbarGroup('toolbarGroup-View');
 
       setInstance(instance);
 
@@ -37,12 +37,12 @@ const ViewDocument = () => {
       const storageRef = storage.ref();
       const URL = await storageRef.child(docRef).getDownloadURL();
       console.log(URL);
-      instance.docViewer.loadDocument(URL);
+      instance.UI.docViewer.loadDocument(URL);
     });
   }, [docRef]);
 
   const download = () => {
-    instance.downloadPdf(true);
+    instance.UI.downloadPdf(true);
   };
 
   const doneViewing = async () => {

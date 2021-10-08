@@ -52,10 +52,9 @@ const PrepareDocument = () => {
       },
       viewer.current,
     ).then(instance => {
-      const { iframeWindow } = instance;
-
+      const { iframeWindow, Core, UI } = instance;
       // select only the view group
-      instance.setToolbarGroup('toolbarGroup-View');
+      instance.UI.setToolbarGroup('toolbarGroup-View');
 
       setInstance(instance);
 
@@ -68,17 +67,18 @@ const PrepareDocument = () => {
       filePicker.current.onchange = e => {
         const file = e.target.files[0];
         if (file) {
-          instance.loadDocument(file);
+          instance.UI.loadDocument(file);
         }
       };
     });
   }, []);
 
   const applyFields = async () => {
-    const { Annotations, docViewer } = instance;
-    const annotManager = docViewer.getAnnotationManager();
-    const fieldManager = annotManager.getFieldManager();
-    const annotationsList = annotManager.getAnnotationsList();
+    const { Annotations, documentViewer } = instance.Core;
+
+    const annotationManager = documentViewer.getAnnotationManager();
+    const fieldManager = annotationManager.getFieldManager();
+    const annotationsList = annotationManager.getAnnotationsList();
     const annotsToDelete = [];
     const annotsToDraw = [];
 
@@ -151,7 +151,7 @@ const PrepareDocument = () => {
             inputAnnot = new Annotations.DatePickerWidgetAnnotation(field);
           } else {
             // exit early for other annotations
-            annotManager.deleteAnnotation(annot, false, true); // prevent duplicates when importing xfdf
+            annotationManager.deleteAnnotation(annot, false, true); // prevent duplicates when importing xfdf
             return;
           }
         } else {
@@ -186,38 +186,38 @@ const PrepareDocument = () => {
         Annotations.WidgetAnnotation.getCustomStyles(inputAnnot);
 
         // draw the annotation the viewer
-        annotManager.addAnnotation(inputAnnot);
+        annotationManager.addAnnotation(inputAnnot);
         fieldManager.addField(field);
         annotsToDraw.push(inputAnnot);
       }),
     );
 
     // delete old annotations
-    annotManager.deleteAnnotations(annotsToDelete, null, true);
+    annotationManager.deleteAnnotations(annotsToDelete, null, true);
 
     // refresh viewer
-    await annotManager.drawAnnotationsFromList(annotsToDraw);
+    await annotationManager.drawAnnotationsFromList(annotsToDraw);
     await uploadForSigning();
   };
 
   const addField = (type, point = {}, name = '', value = '', flag = {}) => {
-    const { docViewer, Annotations } = instance;
-    const annotManager = docViewer.getAnnotationManager();
-    const doc = docViewer.getDocument();
-    const displayMode = docViewer.getDisplayModeManager().getDisplayMode();
+    const { documentViewer, Annotations } = instance.Core;
+    const annotationManager = documentViewer.getAnnotationManager();
+    const doc = documentViewer.getDocument();
+    const displayMode = documentViewer.getDisplayModeManager().getDisplayMode();
     const page = displayMode.getSelectedPages(point, point);
     if (!!point.x && page.first == null) {
       return; //don't add field to an invalid page location
     }
     const page_idx =
-      page.first !== null ? page.first : docViewer.getCurrentPage();
+      page.first !== null ? page.first : documentViewer.getCurrentPage();
     const page_info = doc.getPageInfo(page_idx);
     const page_point = displayMode.windowToPage(point, page_idx);
-    const zoom = docViewer.getZoom();
+    const zoom = documentViewer.getZoom();
 
     var textAnnot = new Annotations.FreeTextAnnotation();
     textAnnot.PageNumber = page_idx;
-    const rotation = docViewer.getCompleteRotation(page_idx) * 90;
+    const rotation = documentViewer.getCompleteRotation(page_idx) * 90;
     textAnnot.Rotation = rotation;
     if (rotation === 270 || rotation === 90) {
       textAnnot.Width = 50.0 / zoom;
@@ -246,12 +246,12 @@ const PrepareDocument = () => {
     textAnnot.StrokeColor = new Annotations.Color(0, 165, 228);
     textAnnot.TextAlign = 'center';
 
-    textAnnot.Author = annotManager.getCurrentUser();
+    textAnnot.Author = annotationManager.getCurrentUser();
 
-    annotManager.deselectAllAnnotations();
-    annotManager.addAnnotation(textAnnot, true);
-    annotManager.redrawAnnotation(textAnnot);
-    annotManager.selectAnnotation(textAnnot);
+    annotationManager.deselectAllAnnotations();
+    annotationManager.addAnnotation(textAnnot, true);
+    annotationManager.redrawAnnotation(textAnnot);
+    annotationManager.selectAnnotation(textAnnot);
   };
 
   const uploadForSigning = async () => {
@@ -259,9 +259,9 @@ const PrepareDocument = () => {
     const storageRef = storage.ref();
     const referenceString = `docToSign/${uid}${Date.now()}.pdf`;
     const docRef = storageRef.child(referenceString);
-    const { docViewer, annotManager } = instance;
-    const doc = docViewer.getDocument();
-    const xfdfString = await annotManager.exportAnnotations({ widgets: true, fields: true });
+    const { documentViewer, annotationManager } = instance.Core;
+    const doc = documentViewer.getDocument();
+    const xfdfString = await annotationManager.exportAnnotations({ widgets: true, fields: true });
     const data = await doc.getFileData({ xfdfString });
     const arr = new Uint8Array(data);
     const blob = new Blob([arr], { type: 'application/pdf' });
@@ -284,8 +284,8 @@ const PrepareDocument = () => {
   };
 
   const drop = (e, instance) => {
-    const { docViewer } = instance;
-    const scrollElement = docViewer.getScrollViewElement();
+    const { documentViewer } = instance.Core;
+    const scrollElement = documentViewer.getScrollViewElement();
     const scrollLeft = scrollElement.scrollLeft || 0;
     const scrollTop = scrollElement.scrollTop || 0;
     setDropPoint({ x: e.pageX + scrollLeft, y: e.pageY + scrollTop });
