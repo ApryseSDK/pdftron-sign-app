@@ -251,22 +251,9 @@ const PrepareDocument = () => {
     const storageRef = storage.ref();
     const referenceString = `docToSign/${uid}${Date.now()}.pdf`;
     const docRef = storageRef.child(referenceString);
-<<<<<<< HEAD
     const { documentViewer, annotationManager } = instance.Core;
     const doc = documentViewer.getDocument();
     const xfdfString = await annotationManager.exportAnnotations({ widgets: true, fields: true });
-||||||| 78d2e4d
-    const { docViewer, annotManager } = instance;
-    const doc = docViewer.getDocument();
-    const xfdfString = await annotManager.exportAnnotations({ widgets: true, fields: true });
-=======
-    const { docViewer, annotManager } = instance;
-    const doc = docViewer.getDocument();
-    const xfdfString = await annotManager.exportAnnotations({
-      widgets: true,
-      fields: true,
-    });
->>>>>>> Developer-Days-2021
     const data = await doc.getFileData({ xfdfString });
     const arr = new Uint8Array(data);
     const blob = new Blob([arr], { type: 'application/pdf' });
