@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Table, Text, Spinner } from 'gestalt';
 import 'gestalt/dist/gestalt.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { searchForDocumentsSigned } from '../../firebase/firebase';
+import { searchForSignedDocumentsRequested } from '../../firebase/firebase';
 import { selectUser } from '../../firebase/firebaseSlice';
 import { setDocToView } from '../ViewDocument/ViewDocumentSlice';
 import { navigate } from '@reach/router';
@@ -17,7 +17,7 @@ const SignedList = () => {
 
   useEffect(() => {
     async function getDocs() {
-      const docsToView = await searchForDocumentsSigned(email);
+      const docsToView = await searchForSignedDocumentsRequested(email);
       const docsToViewSorted = docsToView.map(doc => {
         const { emails, signedTime } = doc;
         if (!signedTime) {
