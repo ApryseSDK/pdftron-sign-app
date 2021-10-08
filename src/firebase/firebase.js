@@ -288,7 +288,8 @@ export const searchForSignedDocumentsSigned = async (email) => {
       querySnapshot.forEach(function (doc) {
         const { docRef, emails, signedTime, signedBy } = doc.data();
         const docId = doc.id;
-        docIds.push({ docRef, emails, signedTime, docId, signedBy });
+        const remainingToSign = emails.filter(email => !signedBy.includes(email));
+        docIds.push({ docRef, emails, signedTime, docId, remainingToSign });
       });
     })
     .catch(function (error) {
