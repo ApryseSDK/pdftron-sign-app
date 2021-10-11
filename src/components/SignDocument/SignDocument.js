@@ -130,6 +130,11 @@ const SignDocument = () => {
           </Box>
           <Box padding={3}>
             <Box padding={2}>
+              <div>
+                Completed: {completedAnnots.length} / {annots.length + completedAnnots.length} <br/>
+              </div>
+            </Box>
+            <Box padding={2}>
               <Button
                 onClick={nextField}
                 accessibilityLabel="next field"
