@@ -14,6 +14,7 @@ const SignDocument = () => {
   const [annotationManager, setAnnotatManager] = useState(null);
   const [annotPosition, setAnnotPosition] = useState(0);
   const [annots, setAnnots] = useState([]);
+  const [completedAnnots, setCompletedAnnots] = useState([]);
 
   const doc = useSelector(selectDocToSign);
   const user = useSelector(selectUser);
@@ -68,7 +69,8 @@ const SignDocument = () => {
       };
 
       documentViewer.addEventListener('annotationsLoaded', () => {
-        setAnnots(annotationManager.getAnnotationsList().filter(annot => annot instanceof Annotations.WidgetAnnotation));
+        let widgetAnnots = annotationManager.getAnnotationsList().filter(annot => annot instanceof Annotations.WidgetAnnotation);
+        setAnnots(widgetAnnots);
       });
 
       annotationManager.on('annotationChanged', (annotations, action, { imported }) => {
@@ -77,11 +79,46 @@ const SignDocument = () => {
             if (annot instanceof Annotations.WidgetAnnotation) {
               Annotations.WidgetAnnotation.getCustomStyles = normalStyles;
               if (!annot.fieldName.startsWith(email)) {
+                //hide other user's annotations
                 annot.Hidden = true;
                 annot.Listable = false;
               }
             }
           });
+        } else if (action === 'add') {
+          annotations.forEach(function(annot) {
+            //move completed signature widgets to completed array
+            setAnnots(annots => annots.filter(item => item.getX() !== annot.getX() && item.getY() !== annot.getY()));
+            setCompletedAnnots(completedAnnots => [...completedAnnots, annot]);
+          });
+        } else if (action === 'delete') {
+          annotations.forEach(function(annot) {
+            //remove signature widgets from completed array
+            setAnnots(annots => [...annots, annot]);
+            setCompletedAnnots(completedAnnots => completedAnnots.filter(item => item.Id !== annot.Id));
+          });
+        }
+      });
+
+      annotationManager.addEventListener('fieldChanged', (field, value) => {
+        console.log('field.widgets[0].X', field.widgets[0].getX());
+        console.log('field.widgets[0].Y', field.widgets[0].getY());
+        console.log('field.widgets[0].Page', field.widgets[0].getPageNumber());
+        
+        const fieldAnnot = field.widgets[0];
+        if(value && value !== 'm-d-yyyy') {
+          //move text/date field to completed array
+          setAnnots(annots => annots.filter(item => item.getPageNumber() !== fieldAnnot.getPageNumber()
+                                                    && item.getX() !== fieldAnnot.getX() 
+                                                    && item.getY() !== fieldAnnot.getY() ));
+          setCompletedAnnots(completedAnnots => [...completedAnnots, fieldAnnot]);
+        } else {
+          //remove text/date field from completed array
+          setAnnots(annots => [...annots, fieldAnnot])
+          setCompletedAnnots(completedAnnots => completedAnnots.filter(
+            item => item.getX() !== fieldAnnot.getX() 
+                    && item.getY() !== fieldAnnot.getY() 
+                    && item.getPageNumber() !== fieldAnnot.getPageNumber()));
         }
       });
     });
@@ -106,21 +143,39 @@ const SignDocument = () => {
   }
 
   const completeSigning = async () => {
-    const fieldManager = annotationManager.getFieldManager()
-
-    if(!fieldManager.areRequiredFieldsFilled()) {
-      instance.UI.showErrorMessage('You must sign all signature fields and add dates before submitting.');
-      setTimeout(() => {
-          instance.closeElements(['errorModal'])
-        }, 2000)
+    const isValid = annotationManager.getFieldManager().areRequiredFieldsFilled();
+    alert(`${annots.length} < annots, ${completedAnnots.length} < completed`)
+    console.log('annots', annots);
+    if(annots.length > 0 || !isValid) {
+      jumpToMissingField();
       return;
     }
+
+    //@TODO remove alert and uncomment below lines for doc submission
+    alert('Success')
+
+    //const xfdf = await annotationManager.exportAnnotations({ widgets: false, links: false });
+    //await updateDocumentToSign(docId, email, xfdf);
+    //navigate('/');
+  }
+
+  const jumpToMissingField = () => {
+    if(!annots[0]) {
+      return;
+    }
+    instance.UI.showErrorMessage('You must fill all required fields before submitting.');
+    annotationManager.jumpToAnnotation(annots[0]);
+    setTimeout(() => {
+        instance.closeElements(['errorModal'])
+      }, 2000)
+      return;
+  }
 
     const xfdf = await annotationManager.exportAnnotations({ widgets: false, links: false });
     await updateDocumentToSign(docId, email, xfdf);
     navigate('/');
   }
-
+  
   return (
     <div className={'prepareDocument'}>
       <Box display="flex" direction="row" flex="grow">
