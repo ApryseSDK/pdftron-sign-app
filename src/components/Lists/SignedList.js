@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Table, Text, Spinner } from 'gestalt';
 import 'gestalt/dist/gestalt.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { searchForDocumentsSigned } from '../../firebase/firebase';
+import { searchForSignedDocumentsRequested } from '../../firebase/firebase';
 import { selectUser } from '../../firebase/firebaseSlice';
 import { setDocToView } from '../ViewDocument/ViewDocumentSlice';
 import { navigate } from '@reach/router';
@@ -17,8 +17,40 @@ const SignedList = () => {
 
   useEffect(() => {
     async function getDocs() {
-      const docsToView = await searchForDocumentsSigned(email);
-      setDocs(docsToView);
+      const docsToView = await searchForSignedDocumentsRequested(email);
+      const docsToViewSorted = docsToView.map(doc => {
+        const { emails, signedTime } = doc;
+        if (!signedTime) {
+          return {
+            emails,
+            date: '',
+            time: '',
+          }
+        }
+        const dateObj = new Date(signedTime.seconds * 1000);
+        return {
+          emails,
+          date: dateObj.toDateString(),
+          time: dateObj.toLocaleTimeString(),
+        };
+      }).sort((a, b) => {
+        // Sort in descending order
+        // If dates match, sort by time
+        if (a.date === b.date) {
+          if (a.time === b.time) {
+            return 0;
+          } else if (a.time < b.time) {
+            return 1;
+          } else {
+            return -1;
+          }
+        } else if (a.date < b.date) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+      setDocs(docsToViewSorted);
       setShow(false);
     }
     setTimeout(getDocs, 1000);
@@ -40,6 +72,8 @@ const SignedList = () => {
                   <Table.HeaderCell>
                     <Text weight="bold">When</Text>
                   </Table.HeaderCell>
+                  <Table.HeaderCell>
+                  </Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
               <Table.Body>
@@ -51,7 +85,8 @@ const SignedList = () => {
                       ))}
                     </Table.Cell>
                     <Table.Cell>
-                      <Text>{doc.signedTime ? new Date(doc.signedTime.seconds*1000).toDateString() : ''}</Text>
+                      <Text>{doc.date}</Text>
+                      <Text>{doc.time}</Text>
                     </Table.Cell>
                     <Table.Cell>
                       <Button

@@ -5,6 +5,7 @@ import { Box, Column, Heading, Button } from 'gestalt';
 import { selectDocToSign } from './SignDocumentSlice';
 import { storage, updateDocumentToSign } from '../../firebase/firebase';
 import { selectUser } from '../../firebase/firebaseSlice';
+import { sendDocumentSigned } from '../../email/email';
 import WebViewer from '@pdftron/webviewer';
 import 'gestalt/dist/gestalt.css';
 import './SignDocument.css';
@@ -45,7 +46,7 @@ const SignDocument = () => {
     ).then(async instance => {
       setInstance(instance);
       const { documentViewer, annotationManager, Annotations } = instance.Core;
-      setAnnotatManager(annotationManager);
+      setAnnotationManager(annotationManager);
 
       // select only the insert group
       instance.UI.setToolbarGroup('toolbarGroup-Insert');
@@ -141,7 +142,10 @@ const SignDocument = () => {
     }
 
     const xfdf = await annotationManager.exportAnnotations({ widgets: false, links: false });
-    await updateDocumentToSign(docId, email, xfdf);
+    const signedByAll = await updateDocumentToSign(docId, email, xfdf);
+    if (signedByAll) {
+      //sendDocumentSigned()
+    }
     navigate('/');
   };
 
