@@ -69,9 +69,9 @@ const SignDocument = () => {
       };
 
       documentViewer.addEventListener('annotationsLoaded', () => {
-        let widgetAnnots = annotationManager.getAnnotationsList().filter(annot => annot instanceof Annotations.WidgetAnnotation);
-        setAnnots(widgetAnnots);
-      });
+        let userAnnots = annotationManager.getAnnotationsList().filter(annot => annot.fieldName.startsWith(email));
+        setAnnots(userAnnots)
+      })
 
       annotationManager.on('annotationChanged', (annotations, action, { imported }) => {
         if (imported && action === 'add') {
