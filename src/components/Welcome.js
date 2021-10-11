@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import SignList from './Lists/SignList';
 import SignedList from './Lists/SignedList';
 import PendingOthers from './Lists/PendingOthers';
+import SignerPastSigned from './Lists/SignerPastSigned';
 import { resetDocToView } from './ViewDocument/ViewDocumentSlice';
 import { resetDocToSign } from './SignDocument/SignDocumentSlice';
 import {
@@ -168,6 +169,30 @@ const ProfilePage = () => {
                 </Box>
                 <Box padding={3} color={GestaltBodyHeaderColor}>
                   <PendingOthers/>
+                </Box>
+              </Box>
+              <Box marginTop={MarginBetweenBoxes} marginBottom={MarginBetweenBoxes}>
+                <Box padding={3} color={GestaltBoxHeaderColor}>
+                  <Flex alignItems="center" gap={2}>
+                    <Heading size="md">Previously Signed Documents</Heading>
+                    {
+                      /**
+                       * @todo 2021-10-08
+                       * 1. Find a better component compared to `Tag` for displaying the
+                       * number?
+                       */
+                    }
+                    <Tag disabled text={`${numPendingDocsToSignFromOthers}`}></Tag>
+                  </Flex>
+                  {
+                    /**
+                     * @todo 2021-10-08
+                     * Refactor Lists/SignedList component so we can re-use it for this?
+                     */
+                  }
+                </Box>
+                <Box padding={3} color={GestaltBodyHeaderColor}>
+                  <SignerPastSigned/>
                 </Box>
               </Box>
             </Container>
