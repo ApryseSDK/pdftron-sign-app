@@ -78,8 +78,10 @@ const PendingOthers = () => {
                     </Table.Cell>
                     <Table.Cell>
                       {
-                        doc.remainingToSign.map(remainingEmail => (
-                          <Text>{remainingEmail}</Text>
+                        doc.remainingToSign.map((remainingEmail, idx) => (
+                          <Text key={`${doc.docId}_remaining_emails_${idx}`}>
+                            {remainingEmail}
+                          </Text>
                         ))
                       }
                     </Table.Cell>
