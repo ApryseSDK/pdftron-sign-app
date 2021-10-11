@@ -91,6 +91,7 @@ const PrepareDocument = () => {
               {
                 type: 'Tx',
                 value: annot.custom.value,
+                flags
               }
             );
             inputAnnot = new Annotations.TextWidgetAnnotation(field);
