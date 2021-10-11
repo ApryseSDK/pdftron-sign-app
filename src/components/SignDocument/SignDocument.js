@@ -92,7 +92,7 @@ const SignDocument = () => {
             setAnnots(annots => annots.filter(item => item.getX() !== annot.getX() && item.getY() !== annot.getY()));
             setCompletedAnnots(completedAnnots => [...completedAnnots, annot]);
           });
-        } else if (action === "delete") {
+        } else if (action === 'delete') {
           annotations.forEach(function (annot) {
             //remove signature widgets from completed array
             setAnnots((annots) => [...annots, annot]);
