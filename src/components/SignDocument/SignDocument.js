@@ -69,7 +69,7 @@ const SignDocument = () => {
         }
       };
 
-      documentViewer.addEventListener("annotationsLoaded", () => {
+      documentViewer.addEventListener('annotationsLoaded', () => {
         let widgetAnnots = annotationManager.getAnnotationsList().filter((annot) => annot instanceof Annotations.WidgetAnnotation);
         setAnnots(widgetAnnots.filter((annot) => annot.fieldName.startsWith(email)));
       });
