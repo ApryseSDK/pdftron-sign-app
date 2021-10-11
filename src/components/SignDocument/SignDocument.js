@@ -140,12 +140,9 @@ const SignDocument = () => {
       return;
     }
 
-    //@TODO remove alert and uncomment below lines for doc submission
-    alert("Success");
-
-    //const xfdf = await annotationManager.exportAnnotations({ widgets: false, links: false });
-    //await updateDocumentToSign(docId, email, xfdf);
-    //navigate('/');
+    const xfdf = await annotationManager.exportAnnotations({ widgets: false, links: false });
+    await updateDocumentToSign(docId, email, xfdf);
+    navigate('/');
   };
 
   const jumpToMissingField = () => {
