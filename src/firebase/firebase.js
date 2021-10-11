@@ -290,13 +290,13 @@ export const searchForWaitingOnOthersDocuments = async (email) => {
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
-        const { docRef, emails, signedTime, signedBy } = doc.data();
+        const { docRef, emails, signedTime, signedBy, lastUpdated } = doc.data();
         if (signedBy.includes(email)) {
           const docId = doc.id;
           const remainingToSign = emails.filter(
             (email) => !signedBy.includes(email)
           );
-          docIds.push({ docRef, emails, signedTime, docId, remainingToSign });
+          docIds.push({ docRef, emails, signedTime, docId, remainingToSign, lastUpdated });
         }
       });
     })
