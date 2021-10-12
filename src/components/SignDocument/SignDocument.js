@@ -138,7 +138,9 @@ const SignDocument = () => {
 
   const completeSigning = async () => {
     const isValid = annotationManager.getFieldManager().areRequiredFieldsFilled();
-    if (annots.length > 0 || !isValid) {
+
+    // @ ToDo - make other signer's fields not required for current user
+    if (annots.length > 0 /*|| @ToDo !isValid */ ) {
       jumpToMissingField();
       return;
     }
