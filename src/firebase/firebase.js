@@ -27,6 +27,31 @@ export const signInWithGoogle = () => {
   auth.signInWithPopup(provider);
 };
 
+export const sendEmailAuthLink = (docRef, docId, email) => {
+  // const actionCodeSettings = {
+  //   // URL you want to redirect back to. The domain (www.example.com) for this
+  //   // URL must be in the authorized domains list in the Firebase Console.
+  //   url: `https://pdftron-sign-app.web.app/?docRef=${docRef}&docId=${docId}`,
+  // };
+
+  const actionCodeSettings = {
+    // URL you want to redirect back to. The domain (www.example.com) for this
+    // URL must be in the authorized domains list in the Firebase Console.
+    url: `http://localhost:3000/?docRef=${docRef}&docId=${docId}`,
+    handleCodeInApp: true,
+  };
+  
+  firebase.auth().sendSignInLinkToEmail(email, actionCodeSettings)
+  .then(() => {
+    console.log(`Auth link is now sent: ${email}`);
+  })
+  .catch((error) => {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log(`Sending auth link failed: ${error.message}`);
+  });
+}
+
 export const generateUserDocument = async (user, additionalData) => {
   if (!user) return;
   const userRef = firestore.doc(`users/${user.uid}`);
@@ -70,7 +95,7 @@ export const addDocumentToSign = async (uid, email, docRef, emails) => {
   const requestedTime = new Date();
   const lastUpdated = new Date();
   const signedTime = '';
-  firestore
+  const docId = await firestore
     .collection('documentsToSign')
     .add({
       uid,
@@ -83,13 +108,9 @@ export const addDocumentToSign = async (uid, email, docRef, emails) => {
       requestedTime,
       signedTime,
       lastUpdated,
-    })
-    .then(function (docRef) {
-      console.log('Document written with ID: ', docRef.id);
-    })
-    .catch(function (error) {
-      console.error('Error adding document: ', error);
     });
+
+  return docId;
 };
 
 export const updateDocumentToSign = async (docId, email, xfdfSigned) => {
