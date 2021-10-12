@@ -80,6 +80,9 @@ const PrepareDocument = () => {
         let inputAnnot;
         let field;
 
+        const flags = new Annotations.WidgetFlags();
+        flags.set('Required', true);
+
         if (typeof annot.custom !== 'undefined') {
           // create a form field based on the type of annotation
           if (annot.custom.type === 'TEXT') {
@@ -88,6 +91,7 @@ const PrepareDocument = () => {
               {
                 type: 'Tx',
                 value: annot.custom.value,
+                flags
               }
             );
             inputAnnot = new Annotations.TextWidgetAnnotation(field);
@@ -96,6 +100,7 @@ const PrepareDocument = () => {
               annot.getContents() + Date.now() + index,
               {
                 type: 'Sig',
+                flags
               }
             );
             inputAnnot = new Annotations.SignatureWidgetAnnotation(field, {
@@ -118,6 +123,7 @@ const PrepareDocument = () => {
               {
                 type: 'Tx',
                 value: 'm-d-yyyy',
+                flags,
                 // Actions need to be added for DatePickerWidgetAnnotation to recognize this field.
                 actions: {
                   F: [

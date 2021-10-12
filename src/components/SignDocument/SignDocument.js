@@ -11,8 +11,11 @@ import 'gestalt/dist/gestalt.css';
 import './SignDocument.css';
 
 const SignDocument = () => {
-  const [annotationManager, setAnnotationManager] = useState(null);
+  const [instance, setInstance] = useState(null);
+  const [annotationManager, setAnnotatManager] = useState(null);
   const [annotPosition, setAnnotPosition] = useState(0);
+  const [annots, setAnnots] = useState([]);
+  const [completedAnnots, setCompletedAnnots] = useState([]);
 
   const doc = useSelector(selectDocToSign);
   const user = useSelector(selectUser);
@@ -41,6 +44,7 @@ const SignDocument = () => {
       },
       viewer.current,
     ).then(async instance => {
+      setInstance(instance);
       const { documentViewer, annotationManager, Annotations } = instance.Core;
       setAnnotationManager(annotationManager);
 
@@ -65,50 +69,98 @@ const SignDocument = () => {
         }
       };
 
+      documentViewer.addEventListener('annotationsLoaded', () => {
+        let widgetAnnots = annotationManager.getAnnotationsList().filter((annot) => annot instanceof Annotations.WidgetAnnotation);
+        setAnnots(widgetAnnots.filter((annot) => annot.fieldName.startsWith(email)));
+      });
+
       annotationManager.on('annotationChanged', (annotations, action, { imported }) => {
         if (imported && action === 'add') {
           annotations.forEach(function(annot) {
             if (annot instanceof Annotations.WidgetAnnotation) {
               Annotations.WidgetAnnotation.getCustomStyles = normalStyles;
               if (!annot.fieldName.startsWith(email)) {
+                //hide other user's annotations
                 annot.Hidden = true;
                 annot.Listable = false;
               }
             }
           });
+        } else if (action === 'add') {
+          annotations.forEach(function (annot) {
+            //move completed signature widgets to completed array
+            setAnnots(annots => annots.filter(item => item.getX() !== annot.getX() && item.getY() !== annot.getY()));
+            setCompletedAnnots(completedAnnots => [...completedAnnots, annot]);
+          });
+        } else if (action === 'delete') {
+          annotations.forEach(function (annot) {
+            //remove signature widgets from completed array
+            setAnnots((annots) => [...annots, annot]);
+            setCompletedAnnots((completedAnnots) => completedAnnots.filter(item => item.getX() !== annot.getX() && item.getY() !== annot.getY()));
+          });
+        }
+      });
+
+      annotationManager.addEventListener('fieldChanged', (field, value) => {
+        const fieldAnnot = field.widgets[0];
+        if (value && value !== 'm-d-yyyy') {
+          //move text/date field to completed array
+          setAnnots(annots =>annots.filter(item => item.Id !== fieldAnnot.Id ));
+          setCompletedAnnots((completedAnnots) => [...completedAnnots,fieldAnnot]);
+        } else {
+          //remove text/date field from completed array
+          setAnnots(annots => [...annots, fieldAnnot]);
+          setCompletedAnnots((completedAnnots) => completedAnnots.filter(item => item.Id !== fieldAnnot.Id()));
         }
       });
     });
   }, [docRef, email]);
 
   const nextField = () => {
-    let annots = annotationManager.getAnnotationsList();
     if (annots[annotPosition]) {
       annotationManager.jumpToAnnotation(annots[annotPosition]);
-      if (annots[annotPosition+1]) {
-        setAnnotPosition(annotPosition+1);
+      if (annots[annotPosition + 1]) {
+        setAnnotPosition(annotPosition + 1);
       }
     }
-  }
+  };
 
   const prevField = () => {
-    let annots = annotationManager.getAnnotationsList();
     if (annots[annotPosition]) {
       annotationManager.jumpToAnnotation(annots[annotPosition]);
-      if (annots[annotPosition-1]) {
-        setAnnotPosition(annotPosition-1);
+      if (annots[annotPosition - 1]) {
+        setAnnotPosition(annotPosition - 1);
       }
     }
-  }
+  };
 
   const completeSigning = async () => {
+    const isValid = annotationManager.getFieldManager().areRequiredFieldsFilled();
+    if (annots.length > 0 || !isValid) {
+      jumpToMissingField();
+      return;
+    }
+
     const xfdf = await annotationManager.exportAnnotations({ widgets: false, links: false });
     const signedByAll = await updateDocumentToSign(docId, email, xfdf);
     if (signedByAll) {
       //sendDocumentSigned()
     }
     navigate('/');
-  }
+  };
+
+  const jumpToMissingField = () => {
+    if(!annots[0]) {
+      return;
+    }
+    instance.UI.showErrorMessage(
+      'You must fill all required fields before submitting.'
+    );
+    annotationManager.jumpToAnnotation(annots[0]);
+    setTimeout(() => {
+      instance.closeElements(['errorModal']);
+    }, 2000);
+  };
 
   return (
     <div className={'prepareDocument'}>
@@ -118,6 +170,11 @@ const SignDocument = () => {
             <Heading size="md">Sign Document</Heading>
           </Box>
           <Box padding={3}>
+            <Box padding={2}>
+              <div>
+                Completed: {completedAnnots.length} / {annots.length + completedAnnots.length} <br/>
+              </div>
+            </Box>
             <Box padding={2}>
               <Button
                 onClick={nextField}
