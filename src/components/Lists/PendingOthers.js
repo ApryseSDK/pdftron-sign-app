@@ -85,15 +85,28 @@ const PendingOthers = () => {
                         ))
                       }
                     </Table.Cell>
-                    {
-                      /**
-                       * @todo @andrey
-                       * Can we get the Requestor and the DateTime of when the
-                       * document was prepared?
-                       */
-                    }
-                    <Table.Cell></Table.Cell>
-                    <Table.Cell></Table.Cell>
+                    <Table.Cell>
+                      {
+                        doc.email
+                      }
+                    </Table.Cell>
+                    <Table.Cell>
+                      {
+                        (() => {
+                          const { requestedTime } = doc;
+                          if (!requestedTime) {
+                            return null;
+                          }
+                          const dateObj = new Date(requestedTime.seconds * 1000);
+                          return (
+                            <>
+                              <Text size="md">{dateObj.toDateString()}</Text>
+                              <Text size="sm">{dateObj.toLocaleTimeString()}</Text>
+                            </>
+                          );
+                        })()
+                      }
+                    </Table.Cell>
                     <Table.Cell>
                       {
                         (() => {

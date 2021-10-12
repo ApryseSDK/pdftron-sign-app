@@ -262,9 +262,9 @@ export const searchForSignedDocumentsSigned = async (email) => {
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
-        const { docRef, emails, signedTime } = doc.data();
+        const { docRef, emails, email, signedTime, requestedTime } = doc.data();
         const docId = doc.id;
-        docIds.push({ docRef, emails, signedTime, docId });
+        docIds.push({ docRef, emails, email, requestedTime, signedTime, docId });
       });
     })
     .catch(function (error) {
@@ -290,7 +290,7 @@ export const searchForWaitingOnOthersDocuments = async (email) => {
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
-        const { docRef, emails, signedTime, signedBy, lastUpdated } = doc.data();
+        const { docRef, emails, email, signedTime, requestedTime, signedBy, lastUpdated } = doc.data();
         if (signedBy.includes(email)) {
           const docId = doc.id;
           const remainingToSign = emails.filter(
