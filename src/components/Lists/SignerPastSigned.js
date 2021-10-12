@@ -25,7 +25,6 @@ const SignerPastSigned = () => {
   useEffect(() => {
     async function getPastSignedDocs() {
       const pastSignedDocs = await searchForSignedDocumentsSigned(email);
-      console.log(pastSignedDocs);
       setApiCallPending(false); 
       setPastSignedDocs(pastSignedDocs);
     }
@@ -80,19 +79,24 @@ const SignerPastSigned = () => {
                     </Table.Cell>
                     <Table.Cell>
                       {
-                        /**
-                         * @todo @andrey Can we add the email address of the
-                         * person who requested the document to be signed?
-                         */
+                        doc.email
                       }
                     </Table.Cell>
                     <Table.Cell>
                       {
-                        /**
-                         * @todo @andrey Can we add a Date for when the document
-                         * was initially created? (i.e. the Requestor sent out
-                         * the document for signing)
-                         */
+                        (() => {
+                          const { requestedTime } = doc;
+                          if (!requestedTime) {
+                            return null;
+                          }
+                          const dateObj = new Date(requestedTime.seconds * 1000);
+                          return (
+                            <>
+                              <Text size="md">{dateObj.toDateString()}</Text>
+                              <Text size="sm">{dateObj.toLocaleTimeString()}</Text>
+                            </>
+                          );
+                        })()
                       }
                     </Table.Cell>
                     <Table.Cell>
