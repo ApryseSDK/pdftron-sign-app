@@ -12,7 +12,7 @@ import './SignDocument.css';
 
 const SignDocument = () => {
   const [instance, setInstance] = useState(null);
-  const [annotationManager, setAnnotatManager] = useState(null);
+  const [annotationManager, setAnnotationManager] = useState(null);
   const [annotPosition, setAnnotPosition] = useState(0);
   const [annots, setAnnots] = useState([]);
   const [completedAnnots, setCompletedAnnots] = useState([]);
