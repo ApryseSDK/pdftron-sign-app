@@ -20,6 +20,8 @@ const SignDocument = () => {
   const doc = useSelector(selectDocToSign);
   const user = useSelector(selectUser);
   const { docRef, docId } = doc;
+  console.log(docRef);
+  console.log(docId);
   const { email } = user;
 
   const viewer = useRef(null);

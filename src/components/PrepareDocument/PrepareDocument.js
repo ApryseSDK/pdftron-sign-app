@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Box, Column, Heading, Text, Button, SelectList } from 'gestalt';
 import { selectAssignees, resetSignee } from '../Assign/AssignSlice';
-import { storage, addDocumentToSign } from '../../firebase/firebase';
+import { storage, addDocumentToSign, sendEmailAuthLink } from '../../firebase/firebase';
 import { selectUser } from '../../firebase/firebaseSlice';
 import { sendDocumentReadyToSign } from '../../email/email';
 import WebViewer from '@pdftron/webviewer';
@@ -271,9 +271,13 @@ const PrepareDocument = () => {
     const emails = assignees.map((assignee) => {
       return assignee.email;
     });
-    await addDocumentToSign(uid, email, referenceString, emails);
+    const docId = await addDocumentToSign(uid, email, referenceString, emails);
     // commented out so we do not blow past our limit of 200 emails
     //sendDocumentReadyToSign(assignees, email);
+    emails.forEach(emailToNotify => {
+      sendEmailAuthLink(docRef, docId.id, emailToNotify);
+    })
+    
     dispatch(resetSignee());
     navigate('/');
   };
