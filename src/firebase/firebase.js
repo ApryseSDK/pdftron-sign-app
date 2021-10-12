@@ -28,18 +28,19 @@ export const signInWithGoogle = () => {
 };
 
 export const sendEmailAuthLink = (docRef, docId, email) => {
-  // const actionCodeSettings = {
-  //   // URL you want to redirect back to. The domain (www.example.com) for this
-  //   // URL must be in the authorized domains list in the Firebase Console.
-  //   url: `https://pdftron-sign-app.web.app/?docRef=${docRef}&docId=${docId}`,
-  // };
-
   const actionCodeSettings = {
     // URL you want to redirect back to. The domain (www.example.com) for this
     // URL must be in the authorized domains list in the Firebase Console.
-    url: `http://localhost:3000/?docRef=${docRef}&docId=${docId}`,
+    url: `https://pdftron-sign-app.web.app/?docRef=${docRef}&docId=${docId}`,
     handleCodeInApp: true,
   };
+
+  // const actionCodeSettings = {
+  //   // URL you want to redirect back to. The domain (www.example.com) for this
+  //   // URL must be in the authorized domains list in the Firebase Console.
+  //   url: `http://localhost:3000/?docRef=${docRef}&docId=${docId}`,
+  //   handleCodeInApp: true,
+  // };
   
   firebase.auth().sendSignInLinkToEmail(email, actionCodeSettings)
   .then(() => {
