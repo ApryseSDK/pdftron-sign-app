@@ -1,9 +1,9 @@
 import { storage } from '../../firebase/firebase';
 
 export const mergeAnnotations = async (docRef, xfdf) => {
+  const Core = window.Core;
   const PDFNet = window.PDFNet;
-  const CoreControls = window.CoreControls;
-  CoreControls.setWorkerPath('webviewer/core');
+  Core.setWorkerPath('./webviewer/core');
 
   const storageRef = storage.ref();
   const URL = await storageRef.child(docRef).getDownloadURL();
