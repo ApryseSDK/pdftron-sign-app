@@ -13,7 +13,7 @@ This repo is designed to help to get started in creating your own signing workfl
 
 - Ability to add date fields
 - Ability to see when the document was requested and signed
-- Update WebViewer to 7.2
+- Update WebViewer to 10.0
 
 ## Install
 
