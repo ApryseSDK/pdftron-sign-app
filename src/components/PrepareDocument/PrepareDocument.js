@@ -52,7 +52,7 @@ const PrepareDocument = () => {
       },
       viewer.current,
     ).then(instance => {
-      const { iframeWindow } = instance;
+      const { iframeWindow } = instance.UI;
 
       // select only the view group
       instance.UI.setToolbarGroup('toolbarGroup-View');
@@ -213,7 +213,7 @@ const PrepareDocument = () => {
       page.first !== null ? page.first : documentViewer.getCurrentPage();
     const page_info = doc.getPageInfo(page_idx);
     const page_point = displayMode.windowToPage(point, page_idx);
-    const zoom = documentViewer.getZoom();
+    const zoom = documentViewer.getZoomLevel();
 
     var textAnnot = new Annotations.FreeTextAnnotation();
     textAnnot.PageNumber = page_idx;
@@ -259,9 +259,9 @@ const PrepareDocument = () => {
     const storageRef = storage.ref();
     const referenceString = `docToSign/${uid}${Date.now()}.pdf`;
     const docRef = storageRef.child(referenceString);
-    const { docViewer, annotManager } = instance;
-    const doc = docViewer.getDocument();
-    const xfdfString = await annotManager.exportAnnotations({ widgets: true, fields: true });
+    const { documentViewer, annotationManager } = instance.Core;
+    const doc = documentViewer.getDocument();
+    const xfdfString = await annotationManager.exportAnnotations({ widgets: true, fields: true });
     const data = await doc.getFileData({ xfdfString });
     const arr = new Uint8Array(data);
     const blob = new Blob([arr], { type: 'application/pdf' });
