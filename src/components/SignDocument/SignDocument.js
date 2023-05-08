@@ -64,7 +64,7 @@ const SignDocument = () => {
         }
       };
 
-      annotationManager.on('annotationChanged', (annotations, action, { imported }) => {
+      annotationManager.addEventListener('annotationChanged', (annotations, action, { imported }) => {
         if (imported && action === 'add') {
           annotations.forEach(function(annot) {
             if (annot instanceof Annotations.WidgetAnnotation) {
