@@ -2,7 +2,7 @@ import { storage } from '../../firebase/firebase';
 
 export const mergeAnnotations = async (docRef, xfdf) => {
   const Core = window.Core;
-  const PDFNet = window.PDFNet;
+  const PDFNet = window.Core.PDFNet;
   Core.setWorkerPath('./webviewer/core');
 
   const storageRef = storage.ref();
