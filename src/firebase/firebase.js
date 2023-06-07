@@ -312,7 +312,7 @@ export const searchForWaitingOnOthersDocuments = async (email) => {
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
-        const { docRef, emails, email, signedTime, requestedTime, signedBy, lastUpdated } = doc.data();
+        const { docRef, emails, email: preparedBy, signedTime, requestedTime, signedBy, lastUpdated } = doc.data();
         if (signedBy.includes(email)) {
           const docId = doc.id;
           const remainingToSign = emails.filter(
