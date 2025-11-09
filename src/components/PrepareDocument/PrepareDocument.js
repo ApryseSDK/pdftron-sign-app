@@ -49,19 +49,17 @@ const PrepareDocument = () => {
           'searchButton',
           'menuButton',
         ],
+        fullAPI: true,
       },
       viewer.current,
     ).then(instance => {
-      const { iframeWindow } = instance.UI;
-
       // select only the view group
       instance.UI.setToolbarGroup('toolbarGroup-View');
 
       setInstance(instance);
 
-      const iframeDoc = iframeWindow.document.body;
-      iframeDoc.addEventListener('dragover', dragOver);
-      iframeDoc.addEventListener('drop', e => {
+      viewer.current.addEventListener('dragover', dragOver);
+      viewer.current.addEventListener('drop', e => {
         drop(e, instance);
       });
 
@@ -284,11 +282,10 @@ const PrepareDocument = () => {
   };
 
   const drop = (e, instance) => {
-    const { docViewer } = instance;
-    const scrollElement = docViewer.getScrollViewElement();
+    const scrollElement = instance.Core.documentViewer.getScrollViewElement();
     const scrollLeft = scrollElement.scrollLeft || 0;
     const scrollTop = scrollElement.scrollTop || 0;
-    setDropPoint({ x: e.pageX + scrollLeft, y: e.pageY + scrollTop });
+    setDropPoint({ x: e.offsetX + scrollLeft, y: e.offsetY + scrollTop });
     e.preventDefault();
     return false;
   };
