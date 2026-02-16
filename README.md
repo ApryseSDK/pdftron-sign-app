@@ -21,6 +21,8 @@ This repo is designed to help to get started in creating your own signing workfl
 
 ```
 npm install
+// then run
+npm run postinstall
 ```
 
 ## Firebase Configuration
